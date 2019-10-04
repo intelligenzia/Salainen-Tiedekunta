@@ -1,2 +1,2 @@
-# salainen-tiedekunta
-Salaisen tiedekunnan opinto-opas
+# Salainen Tiedekunta
+Salaisen tiedekunnan päivitetty opinto-opas. 
