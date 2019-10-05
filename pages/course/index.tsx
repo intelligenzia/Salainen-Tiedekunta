@@ -14,7 +14,6 @@ type Props = {
 	course: Course;
 };
 const CoursePage: NextPage = (props: Props) => {
-	console.log(props);
 	return (
 		<Layout>
 			<div className='post-container' id='post-container'>

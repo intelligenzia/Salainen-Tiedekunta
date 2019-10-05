@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-
+import styled from 'styled-components';
 import { ContentfulService } from '../core/contentful';
 
 import { Course } from '../interfaces/course';
@@ -53,7 +53,7 @@ const IndexPage: NextPage = (props: Props) => {
 			<div className='container'>
 				<div className='blogposts'>
 					<h1 className='blogposts__header'>Latest posts</h1>
-					<div className='cards-deck'>{cards(entries)}</div>
+					<CardDeck>{cards(entries)}</CardDeck>
 				</div>
 				<div className='sidenav'>
 					{/* <TagFilters tags={tags} updatePage={handleTagChosen} selectedTagId={tag}/> */}
@@ -96,3 +96,9 @@ IndexPage.getInitialProps = async ({ query }) => {
 };
 
 export default IndexPage;
+
+const CardDeck = styled.div`
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+`;

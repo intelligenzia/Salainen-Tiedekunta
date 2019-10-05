@@ -8,25 +8,19 @@ type Props = {
 		courseId: string;
 		name: string;
 		description: string;
-		publishedAt: Date;
-		slug: string;
+		ects: string;
 	};
 };
 
 const Card: FunctionComponent<Props> = ({ info }) => {
 	// To properly display the hero image on the card, along with some simple styling to give it a share
-	const cardBGStyles = {
-		backgroundColor: 'red'
-		// backgroundImage: `url(${info.heroImage})`,
-		// background: `linear-gradient(45deg, rgba(18, 40, 76, 0.56), rgba(39, 173, 213, 0.56), rgba(79, 192, 176, 0.56)), url(${info.heroImage}) no-repeat`,
-	};
 
 	return (
 		<CardContainer>
-			<div className='card__header' style={cardBGStyles} />
 			<div className='card__body'>
-				<h3 className='card__title'>{info.name}</h3>
-				<p className='card__text'>{info.description}</p>
+				<H3>{info.name}</H3>
+				<P>Opintopisteet: {info.ects}</P>
+				<P>{info.description}</P>
 			</div>
 
 			<div className='card__footer'>
@@ -41,7 +35,24 @@ const Card: FunctionComponent<Props> = ({ info }) => {
 };
 
 const CardContainer = styled.div`
+	padding: 1rem;
+	max-width: 20%;
+	flex: 1;
+	border-radius: 7px;
+	margin: 0.5rem;
 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+`;
+
+const H3 = styled.h3`
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+		'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+		sans-serif;
+	margin: 0.8rem 0 2rem 0;
+	color: #111;
+`;
+
+const P = styled.p`
+	color: #111;
 `;
 
 export default Card;
