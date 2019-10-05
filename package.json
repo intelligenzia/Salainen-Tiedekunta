@@ -15,7 +15,8 @@
     "next": "9.0.7",
     "react": "16.10.2",
     "react-dom": "16.10.2",
-    "react-markdown": "^4.2.2"
+    "react-markdown": "^4.2.2",
+    "styled-components": "^4.4.0"
   },
   "devDependencies": {
     "@types/node": "^12.7.11",

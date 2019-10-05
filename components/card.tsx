@@ -1,6 +1,6 @@
 import React, { FunctionComponent, Fragment } from 'react';
 import Link from 'next/link';
-
+import styled from 'styled-components';
 import { getHref, getNavigationLink } from '../core/helper';
 
 type Props = {
@@ -22,7 +22,7 @@ const Card: FunctionComponent<Props> = ({ info }) => {
 	};
 
 	return (
-		<div className='card'>
+		<CardContainer>
 			<div className='card__header' style={cardBGStyles} />
 			<div className='card__body'>
 				<h3 className='card__title'>{info.name}</h3>
@@ -36,8 +36,12 @@ const Card: FunctionComponent<Props> = ({ info }) => {
 					<a className='card__action'>Explore</a>
 				</Link>
 			</div>
-		</div>
+		</CardContainer>
 	);
 };
+
+const CardContainer = styled.div`
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+`;
 
 export default Card;

@@ -4,6 +4,6 @@ export type Course = {
 	courseId: string;
 	ects: number;
 	name: string;
-	description: string;
+	description: any;
 	teacher: Teacher;
 };
