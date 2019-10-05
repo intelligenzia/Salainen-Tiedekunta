@@ -7,9 +7,6 @@ export const CONTENT_TYPE_TEACHER = 'teacher';
 const Space = process.env.CONTENTFUL_SPACE;
 const Token = process.env.CONTENTFUL_TOKEN;
 
-console.log('Space', Space);
-console.log('Token', Token);
-
 export class ContentfulService {
 	private client = createClient({
 		space: Space,
