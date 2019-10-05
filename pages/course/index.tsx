@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
+// @ts-ignore
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
 import { ContentfulService } from '../../core/contentful';
