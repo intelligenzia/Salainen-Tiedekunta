@@ -2,5 +2,11 @@
 	"env": {
 		"CONTENTFUL_SPACE": "@contentful-space",
 		"CONTENTFUL_TOKEN": "@contentful-token"
+	},
+	"build": {
+		"env": {
+			"CONTENTFUL_SPACE": "@contentful-space",
+			"CONTENTFUL_TOKEN": "@contentful-token"
+		}
 	}
 }
