@@ -1,0 +1,27 @@
+{
+  "name": "salainen-tiedekunta",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@contentful/rich-text-html-renderer": "^13.4.0",
+    "contentful": "^7.10.0",
+    "dompurify": "^2.0.3",
+    "dotenv-webpack": "^1.7.0",
+    "next": "9.0.7",
+    "react": "16.10.2",
+    "react-dom": "16.10.2",
+    "react-markdown": "^4.2.2"
+  },
+  "devDependencies": {
+    "@types/node": "^12.7.11",
+    "@types/react": "^16.9.5",
+    "contentful-cli": "^1.1.1",
+    "contentful-migration": "^1.0.2",
+    "typescript": "^3.6.3"
+  }
+}
