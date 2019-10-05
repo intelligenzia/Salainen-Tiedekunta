@@ -9,6 +9,7 @@ import { Course } from '../interfaces/course';
 import Layout from '../components/layout';
 import Card from '../components/card';
 import Paginator from '../components/paginator';
+import Footer from '../components/footer';
 // import TagFilters from "../shared/components/tag-filters";
 
 const calculateRange = (length) => Array.from({ length }, (v, k) => k + 1);
@@ -51,10 +52,10 @@ const IndexPage: NextPage = (props: Props) => {
 	return (
 		<Layout>
 			<div className='container'>
-				<div className='blogposts'>
-					<h1 className='blogposts__header'>Latest posts</h1>
+				<>
+					<H1>Salainen tiedekunta</H1>
 					<CardDeck>{cards(entries)}</CardDeck>
-				</div>
+				</>
 				<div className='sidenav'>
 					{/* <TagFilters tags={tags} updatePage={handleTagChosen} selectedTagId={tag}/> */}
 				</div>
@@ -66,6 +67,7 @@ const IndexPage: NextPage = (props: Props) => {
 					/>
 				</div>
 			</div>
+			<Footer />
 		</Layout>
 	);
 };
@@ -101,4 +103,8 @@ const CardDeck = styled.div`
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
+`;
+
+const H1 = styled.h1`
+	color: #222;
 `;
