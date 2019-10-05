@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
 
-import { GA_TRACKING_ID } from '../core/gtag';
+import { GA_TRACKING_ID } from '../core/analytics';
 
 type Props = {
 	isProduction: boolean;
