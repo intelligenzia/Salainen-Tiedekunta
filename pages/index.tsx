@@ -10,6 +10,7 @@ import Layout from '../components/layout';
 import Card from '../components/card';
 import Paginator from '../components/paginator';
 import Footer from '../components/footer';
+import Header from '../components/header';
 // import TagFilters from "../shared/components/tag-filters";
 
 const calculateRange = (length) => Array.from({ length }, (v, k) => k + 1);
@@ -40,9 +41,9 @@ const IndexPage: NextPage = (props: Props) => {
 	const [page, updatePage] = useState(!!props.page ? props.page : 1);
 	const [tag, updateTag] = useState('');
 
-	useEffect(() => {
-		void router.push({ pathname: '/', query: { page: page, tag: tag } });
-	}, [page, tag]);
+	// useEffect(() => {
+	// 	void router.push({ pathname: '/', query: { page: page, tag: tag } });
+	// }, [page, tag]);
 
 	const handleTagChosen = (tag) => {
 		updatePage(1);
@@ -51,11 +52,11 @@ const IndexPage: NextPage = (props: Props) => {
 
 	return (
 		<Layout>
+			<Header />
 			<div className='container'>
-				<>
-					<H1>Salainen tiedekunta</H1>
-					<CardDeck>{cards(entries)}</CardDeck>
-				</>
+				<H1>Salainen tiedekunta</H1>
+				<CardDeck>{cards(entries)}</CardDeck>
+
 				<div className='sidenav'>
 					{/* <TagFilters tags={tags} updatePage={handleTagChosen} selectedTagId={tag}/> */}
 				</div>

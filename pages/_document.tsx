@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
-
+import styled from 'styled-components';
 import { GA_TRACKING_ID } from '../core/analytics';
 
 type Props = {
@@ -16,22 +16,25 @@ export default class extends Document<Props> {
 	setGoogleTags(GA_TRACKING_ID) {
 		return {
 			__html: `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '${GA_TRACKING_ID}');
+							window.dataLayer = window.dataLayer || [];
+							function gtag(){dataLayer.push(arguments);}
+							gtag('js', new Date());
+							gtag('config', '${GA_TRACKING_ID}');
             `
 		};
 	}
 
 	render() {
-		const language = 'en';
+		const language = 'fi';
 		const { isProduction } = this.props;
 
 		return (
 			<html lang={language}>
 				<Head>
 					{/*Global meta tags*/}
+					<link
+						href='https://fonts.googleapis.com/css?family=Bree+Serif|Overpass&display=swap'
+						rel='stylesheet'></link>
 					<meta httpEquiv='x-ua-compatible' content='ie=edge' />
 					<base href='/' />
 					<meta name='viewport' content='width=device-width, initial-scale=1' />
@@ -51,11 +54,16 @@ export default class extends Document<Props> {
 						</Fragment>
 					)}
 				</Head>
-				<body>
+				<Body>
 					<Main />
 					<NextScript />
-				</body>
+				</Body>
 			</html>
 		);
 	}
 }
+
+const Body = styled.body`
+	margin: 0;
+	padding: 0;
+`;
