@@ -2,6 +2,7 @@ import React, { FunctionComponent, Fragment } from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { getHref, getNavigationLink } from '../core/helper';
+import { H3 } from './styled-components';
 
 type Props = {
 	info: {
@@ -27,7 +28,7 @@ const Card: FunctionComponent<Props> = ({ info }) => {
 				<Link
 					href={getHref(info.courseId)}
 					as={getNavigationLink(info.courseId)}>
-					<a className='card__action'>Explore</a>
+					<Button>Tutustu</Button>
 				</Link>
 			</div>
 		</CardContainer>
@@ -36,23 +37,57 @@ const Card: FunctionComponent<Props> = ({ info }) => {
 
 const CardContainer = styled.div`
 	padding: 1rem;
-	max-width: 20%;
+	max-width: 100%;
+	min-width: calc(33% - 1rem);
 	flex: 1;
 	border-radius: 7px;
 	margin: 0.5rem;
 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
-`;
+	transition: transform 300ms ease-in-out, box-shadow 400ms ease,
+		background-color 100ms ease;
+	position: relative;
 
-const H3 = styled.h3`
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-		'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-		sans-serif;
-	margin: 0.8rem 0 2rem 0;
-	color: #111;
+	&:hover,
+	&:focus-within {
+		background: #111111;
+		box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.3);
+		transform: translateY(-0.5rem);
+	}
 `;
 
 const P = styled.p`
 	color: #111;
+`;
+
+const Button = styled.a`
+	font-family: inherit;
+	font-weight: 600;
+	padding: 0.6rem 2rem;
+	background: transparent;
+	color: currentcolor;
+	border: 1px solid;
+	transition: background-color 100ms ease;
+	position: static;
+
+	&,
+	&::before {
+		cursor: pointer;
+	}
+
+	&::before {
+		content: '';
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	&:focus::before {
+		outline: 1px solid #ffffff;
+		outline-offset: -0.8rem;
+	}
 `;
 
 export default Card;

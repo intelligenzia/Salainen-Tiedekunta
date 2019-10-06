@@ -4,9 +4,11 @@ import styled from 'styled-components';
 
 const Footer = () => (
 	<FooterContainer>
-		<Row>
-			<FooterTitle>Tiedekunta</FooterTitle>
-		</Row>
+		<InnerContainer>
+			<Row>
+				<FooterTitle>Tiedekunta</FooterTitle>
+			</Row>
+		</InnerContainer>
 	</FooterContainer>
 );
 
@@ -32,4 +34,12 @@ const Row = styled.div`
 const FooterTitle = styled.div`
 	font-size: 1rem;
 	color: white;
+`;
+
+const InnerContainer = styled.div`
+	max-width: 1140px;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 `;

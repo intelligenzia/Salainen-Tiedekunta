@@ -4,25 +4,30 @@ import styled from 'styled-components';
 
 const Header = () => (
 	<HeaderContainer>
-		<Logo>Salainen tiedekunta</Logo>
+		<InnerContainer>
+			<Logo>
+				<SvgLogo src='/static/logo.svg' alt='my image' />
+				Salainen tiedekunta
+			</Logo>
 
-		<Search>
-			<SearchInput></SearchInput>
-		</Search>
+			<Search>
+				<SearchInput></SearchInput>
+			</Search>
 
-		<SideLinks>
-			<Link href='/teachers'>
-				<StyledLink>Opettajat</StyledLink>
-			</Link>
+			<SideLinks>
+				<Link href='/teachers'>
+					<StyledLink>Opettajat</StyledLink>
+				</Link>
 
-			<Link href='/majors'>
-				<StyledLink>Opetusohjelmat</StyledLink>
-			</Link>
+				<Link href='/majors'>
+					<StyledLink>Opetusohjelmat</StyledLink>
+				</Link>
 
-			<Link href='/courses'>
-				<StyledLink>Kurssit</StyledLink>
-			</Link>
-		</SideLinks>
+				<Link href='/courses'>
+					<StyledLink>Kurssit</StyledLink>
+				</Link>
+			</SideLinks>
+		</InnerContainer>
 	</HeaderContainer>
 );
 
@@ -31,7 +36,16 @@ export default Header;
 const HeaderContainer = styled.header`
 	box-sizing: border-box;
 	width: 100%;
-	padding: 0rem 1rem;
+	padding: 1rem 1rem;
+	box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.06);
+	position: fixed;
+	background-color: white;
+	top: 0;
+`;
+
+const InnerContainer = styled.div`
+	max-width: 1140px;
+	margin: 0 auto;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -39,6 +53,9 @@ const HeaderContainer = styled.header`
 
 const Logo = styled.div`
 	flex: 1;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 	font-family: 'Bree Serif', serif;
 `;
 
@@ -60,6 +77,7 @@ const StyledLink = styled.a`
 	margin: 0 12px 0 12px;
 	border-bottom: 2px solid transparent;
 	-webkit-transition: 200ms ease color;
+	cursor: pointer;
 `;
 
 const Search = styled.div`
@@ -87,4 +105,9 @@ const SearchInput = styled.input`
 	width: 100%;
 	background: transparent;
 	color: rgba(0, 0, 32, 0.8);
+`;
+
+const SvgLogo = styled.img`
+	height: 30px;
+	margin-right: 1rem;
 `;

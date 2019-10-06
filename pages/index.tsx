@@ -11,6 +11,7 @@ import Card from '../components/card';
 import Paginator from '../components/paginator';
 import Footer from '../components/footer';
 import Header from '../components/header';
+import { H1, Intro } from '../components/styled-components';
 // import TagFilters from "../shared/components/tag-filters";
 
 const calculateRange = (length) => Array.from({ length }, (v, k) => k + 1);
@@ -53,8 +54,15 @@ const IndexPage: NextPage = (props: Props) => {
 	return (
 		<Layout>
 			<Header />
-			<div className='container'>
+			<Container>
 				<H1>Salainen tiedekunta</H1>
+				<Intro>
+					Salainen tiedekunta on Helsingin yliopistoon vuonna 1998 perustettu
+					kognitiotieteen monipuolista opetusta ja tutkimusta kehittävä
+					organisaatio. Muutaman aktiivisen opiskelijan alullepanema hanke on
+					muutamassa vuodessa kasvanut useita laitoksia sisältäväksi
+					täysimittaiseksi tiedekunnaksi
+				</Intro>
 				<CardDeck>{cards(entries)}</CardDeck>
 
 				<div className='sidenav'>
@@ -67,7 +75,7 @@ const IndexPage: NextPage = (props: Props) => {
 						skip={page}
 					/>
 				</div>
-			</div>
+			</Container>
 			<Footer />
 		</Layout>
 	);
@@ -106,6 +114,8 @@ const CardDeck = styled.div`
 	flex-wrap: wrap;
 `;
 
-const H1 = styled.h1`
-	color: #222;
+const Container = styled.div`
+	padding: 5rem 1rem;
+	max-width: 1140px;
+	margin: 0 auto;
 `;

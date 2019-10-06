@@ -5,11 +5,12 @@ import ReactMarkdown from 'react-markdown';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
 import Layout from '../components/layout';
+import { H1 } from '../components/styled-components';
 
 const CoursesPage: NextPage = (props: any) => {
 	return (
 		<Layout>
-			<h1>Kurssit</h1>
+			<H1>Kurssit</H1>
 		</Layout>
 	);
 };
