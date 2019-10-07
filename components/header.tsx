@@ -5,11 +5,12 @@ import styled from 'styled-components';
 const Header = () => (
 	<HeaderContainer>
 		<InnerContainer>
-			<Logo>
-				<SvgLogo src='/static/logo.svg' alt='my image' />
-				Salainen tiedekunta
-			</Logo>
-
+			<Link href='/'>
+				<Logo>
+					<SvgLogo src='/static/logo.svg' alt='my image' />
+					Salainen tiedekunta
+				</Logo>
+			</Link>
 			<Search>
 				<SearchInput></SearchInput>
 			</Search>
@@ -57,6 +58,7 @@ const Logo = styled.div`
 	flex-direction: row;
 	align-items: center;
 	font-family: 'Bree Serif', serif;
+	cursor: pointer;
 `;
 
 const SideLinks = styled.div`

@@ -2,7 +2,7 @@ import { createClient } from 'contentful';
 
 export const CONTENT_TYPE_COURSE = 'course';
 export const CONTENT_TYPE_TEACHER = 'teacher';
-// export const CONTENT_TYPE_TAGS = 'tag';
+export const CONTENT_TYPE_MAJOR = 'major';
 
 const Space = process.env.CONTENTFUL_SPACE;
 const Token = process.env.CONTENTFUL_TOKEN;
@@ -20,20 +20,20 @@ export class ContentfulService {
 		});
 	}
 
-	// async getAllTags() {
-	//   const content = await this.client.getEntries({
-	//     content_type: CONTENT_TYPE_TAGS
-	//   });
+	async getAllTeachers() {
+	  const content = await this.client.getEntries({
+	    content_type: CONTENT_TYPE_TEACHER
+	  });
 
-	//   const tags = content.items.map(
-	//     ({ sys, fields }: { sys: any; fields: any }) => ({
-	//       id: sys.id,
-	//       name: fields.name
-	//     })
-	//   );
+	  const teachers = content.items.map(
+	    ({ sys, fields }: { sys: any; fields: any }) => ({
+	      id: sys.id,
+	      name: fields.name
+	    })
+	  );
 
-	//   return { tags };
-	// }
+	  return { teachers };
+	}
 
 	public async getCourseEntries(
 		{ limit, skip, tag }: { limit?: number; skip?: number; tag?: string } = {

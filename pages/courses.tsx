@@ -6,11 +6,16 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
 import Layout from '../components/layout';
 import { H1 } from '../components/styled-components';
+import Header from '../components/header';
+import { Container } from 'next/app';
 
 const CoursesPage: NextPage = (props: any) => {
 	return (
 		<Layout>
-			<H1>Kurssit</H1>
+			<Header></Header>
+			<Container>
+				<H1>Kurssit</H1>
+			</Container>
 		</Layout>
 	);
 };
