@@ -71,6 +71,7 @@ const SideLinks = styled.div`
 
 const StyledLink = styled.a`
 	font-family: 'Overpass', sans-serif;
+	text-align: right;
 	color: rgba(0, 0, 32, 0.6);
 	text-decoration: none;
 	transition: 200ms ease color;

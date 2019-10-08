@@ -9,7 +9,7 @@ type Props = {
 		courseId: string;
 		name: string;
 		description: string;
-		ects: string;
+		ects: number;
 	};
 };
 
@@ -21,7 +21,7 @@ const Card: FunctionComponent<Props> = ({ info }) => {
 			<div className='card__body'>
 				<H3>{info.name}</H3>
 				<P>Opintopisteet: {info.ects}</P>
-				<P>{info.description}</P>
+				{/* <P>{info.description}</P> */}
 			</div>
 
 			<div className='card__footer'>
@@ -37,11 +37,9 @@ const Card: FunctionComponent<Props> = ({ info }) => {
 
 const CardContainer = styled.div`
 	padding: 1rem;
-	max-width: 100%;
-	min-width: calc(33% - 1rem);
-	flex: 1;
+	flex: 1 1 25%;
 	border-radius: 7px;
-	margin: 0.5rem;
+	margin: 0.5rem 1rem 0.5rem 0;
 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
 	transition: transform 300ms ease-in-out, box-shadow 400ms ease,
 		background-color 100ms ease;

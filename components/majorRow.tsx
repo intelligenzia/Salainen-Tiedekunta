@@ -6,6 +6,7 @@ import { H3, H2 } from './styled-components';
 import { Course } from '../interfaces/course';
 import { Major } from '../interfaces/major';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
+import Card from './card';
 
 type Props = {
 	info: Major;
@@ -14,13 +15,31 @@ type Props = {
 const MajorRow: FunctionComponent<Props> = ({ info }) => {
 	// To properly display the hero image on the card, along with some simple styling to give it a share
 
+	console.log(info.courses);
+	const mappedCourses = info.courses.map((item: any, index) => {
+		return <Card key={index} info={item.fields} />;
+	});
 	return (
 		<>
 			<H2>{info.name}</H2>
-			<P
+			<div
 				dangerouslySetInnerHTML={{
 					__html: documentToHtmlString(info.introduction)
-				}}></P>
+				}}
+			/>
+			{mappedCourses.length !== 0 ? (
+				<>
+					<H3>Esimerkkejä kursseista</H3>
+					<div
+						style={{
+							display: 'flex',
+							flexDirection: 'row',
+							justifyContent: 'space-between'
+						}}>
+						{mappedCourses}
+					</div>
+				</>
+			) : null}
 			{/* <CardContainer>
 			<div className='card__body'>
 				<H3>{info.name}</H3>

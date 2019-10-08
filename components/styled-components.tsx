@@ -21,3 +21,9 @@ export const Intro = styled.p`
 	font-size: 18px;
 	font-family: 'Overpass', sans-serif;
 `;
+
+export const Container = styled.div`
+	padding: 5rem 1rem;
+	max-width: 1140px;
+	margin: 0 auto;
+`;
