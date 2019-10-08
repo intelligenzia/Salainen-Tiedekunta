@@ -2,22 +2,26 @@ import React, { FunctionComponent, Fragment } from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { getHref, getNavigationLink } from '../core/helper';
-import { H3 } from './styled-components';
+import { H3, H2 } from './styled-components';
+import { Course } from '../interfaces/course';
+import { Major } from '../interfaces/major';
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
 type Props = {
-	info: {
-		courseId: string;
-		name: string;
-		description: string;
-		ects: string;
-	};
+	info: Major;
 };
 
-const Card: FunctionComponent<Props> = ({ info }) => {
+const MajorRow: FunctionComponent<Props> = ({ info }) => {
 	// To properly display the hero image on the card, along with some simple styling to give it a share
 
 	return (
-		<CardContainer>
+		<>
+			<H2>{info.name}</H2>
+			<P
+				dangerouslySetInnerHTML={{
+					__html: documentToHtmlString(info.introduction)
+				}}></P>
+			{/* <CardContainer>
 			<div className='card__body'>
 				<H3>{info.name}</H3>
 				<P>Opintopisteet: {info.ects}</P>
@@ -31,7 +35,8 @@ const Card: FunctionComponent<Props> = ({ info }) => {
 					<Button>Tutustu</Button>
 				</Link>
 			</div>
-		</CardContainer>
+		</CardContainer> */}
+		</>
 	);
 };
 
@@ -90,4 +95,4 @@ const Button = styled.a`
 	}
 `;
 
-export default Card;
+export default MajorRow;

@@ -74,7 +74,11 @@ export default class extends Document<Props> {
 						</Fragment>
 					)}
 				</Head>
-				<Body>
+				<Body
+					style={{
+						margin: 0,
+						padding: 0
+					}}>
 					<Main />
 					<NextScript />
 				</Body>

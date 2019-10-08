@@ -21,18 +21,35 @@ export class ContentfulService {
 	}
 
 	async getAllTeachers() {
-	  const content = await this.client.getEntries({
-	    content_type: CONTENT_TYPE_TEACHER
-	  });
+		const content = await this.client.getEntries({
+			content_type: CONTENT_TYPE_TEACHER
+		});
 
-	  const teachers = content.items.map(
-	    ({ sys, fields }: { sys: any; fields: any }) => ({
-	      id: sys.id,
-	      name: fields.name
-	    })
-	  );
+		const teachers = content.items.map(
+			({ sys, fields }: { sys: any; fields: any }) => ({
+				id: sys.id,
+				name: fields.name
+			})
+		);
 
-	  return { teachers };
+		return { teachers };
+	}
+
+	async getAllMajors() {
+		const content = await this.client.getEntries({
+			content_type: CONTENT_TYPE_MAJOR
+		});
+
+		const majors = content.items.map(
+			({ sys, fields }: { sys: any; fields: any }) => ({
+				id: sys.id,
+				name: fields.name,
+				introduction: fields.introduction,
+				courses: fields.courses
+			})
+		);
+
+		return { majors };
 	}
 
 	public async getCourseEntries(

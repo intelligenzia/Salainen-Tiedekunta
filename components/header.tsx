@@ -42,6 +42,7 @@ const HeaderContainer = styled.header`
 	position: fixed;
 	background-color: white;
 	top: 0;
+	z-index: 2;
 `;
 
 const InnerContainer = styled.div`

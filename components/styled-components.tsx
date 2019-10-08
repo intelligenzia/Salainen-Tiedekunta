@@ -5,6 +5,12 @@ export const H1 = styled.h1`
 	font-size: 3rem;
 	font-family: 'Bree Serif', serif;
 `;
+export const H2 = styled.h2`
+	color: #222;
+	font-size: 2rem;
+	font-family: 'Bree Serif', serif;
+`;
+
 export const H3 = styled.h3`
 	color: #222;
 	font-size: 1.5rem;
