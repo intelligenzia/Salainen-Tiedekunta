@@ -5,9 +5,10 @@ import ReactMarkdown from 'react-markdown';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
 import Layout from '../components/layout';
-import { H1 } from '../components/styled-components';
+import { H1, Container } from '../components/styled-components';
 import Header from '../components/header';
-import { Container } from 'next/app';
+
+import { ContentfulService } from '../core/contentful';
 
 const CoursesPage: NextPage = (props: any) => {
 	return (
@@ -20,14 +21,29 @@ const CoursesPage: NextPage = (props: any) => {
 	);
 };
 
-// CoursePage.getInitialProps = async ({ query }) => {
-// 	// define contentful service instance
-// 	const contentfulService = new ContentfulService();
+CoursesPage.getInitialProps = async ({ query }) => {
+	const contentfulService = new ContentfulService();
 
-// 	const id = query.course as string;
-// 	const course = await contentfulService.getCourseById(id);
-// 	console.log('course', course);
-// 	return { course };
-// };
+	let page: number = 1;
+
+	if (query.page) {
+		page = parseInt(query.page + '');
+	}
+
+	const courseLimit = 3;
+	const {
+		entries,
+		total,
+		skip,
+		limit
+	} = await contentfulService.getCourseEntries({
+		tag: query.tag ? query.tag.toString() : ''
+		// skip: (page - 1) * courseLimit,
+		// limit: courseLimit
+	});
+	// const {tags} = await contentfulService.();
+
+	return { page, entries, total, skip };
+};
 
 export default CoursesPage;

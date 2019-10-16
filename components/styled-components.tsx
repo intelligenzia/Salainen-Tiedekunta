@@ -5,6 +5,12 @@ export const H1 = styled.h1`
 	font-size: 3rem;
 	font-family: 'Bree Serif', serif;
 `;
+export const H2 = styled.h2`
+	color: #222;
+	font-size: 2rem;
+	font-family: 'Bree Serif', serif;
+`;
+
 export const H3 = styled.h3`
 	color: #222;
 	font-size: 1.5rem;
@@ -14,4 +20,10 @@ export const H3 = styled.h3`
 export const Intro = styled.p`
 	font-size: 18px;
 	font-family: 'Overpass', sans-serif;
+`;
+
+export const Container = styled.div`
+	padding: 5rem 1rem;
+	max-width: 1140px;
+	margin: 0 auto;
 `;

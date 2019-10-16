@@ -21,18 +21,36 @@ export class ContentfulService {
 	}
 
 	async getAllTeachers() {
-	  const content = await this.client.getEntries({
-	    content_type: CONTENT_TYPE_TEACHER
-	  });
+		const content = await this.client.getEntries({
+			content_type: CONTENT_TYPE_TEACHER
+		});
 
-	  const teachers = content.items.map(
-	    ({ sys, fields }: { sys: any; fields: any }) => ({
-	      id: sys.id,
-	      name: fields.name
-	    })
-	  );
+		const teachers = content.items.map(
+			({ sys, fields }: { sys: any; fields: any }) => ({
+				id: sys.id,
+				name: fields.name
+			})
+		);
 
-	  return { teachers };
+		return { teachers };
+	}
+
+	async getAllMajors() {
+		const content = await this.client.getEntries({
+			content_type: CONTENT_TYPE_MAJOR
+		});
+
+		console.log(content.items);
+		const majors = content.items.map(
+			({ sys, fields }: { sys: any; fields: any }) => ({
+				id: sys.id,
+				name: fields.name,
+				introduction: fields.introduction,
+				courses: fields.courses ? fields.courses.slice(0, 3) : []
+			})
+		);
+
+		return { majors };
 	}
 
 	public async getCourseEntries(
@@ -60,9 +78,6 @@ export class ContentfulService {
 					ects: fields.ects,
 					description: fields.slug,
 					teacher: fields.teacher
-					// publishedAt: fields.publishDate
-					// 	? new Date(fields.publishDate)
-					// 	: new Date(sys.createdAt)
 				})
 			);
 
@@ -78,14 +93,12 @@ export class ContentfulService {
 	async getCourseById(courseId: string) {
 		try {
 			const content: any = await this.fetchCourseByID(courseId);
-			console.log('content', content);
 			const entry: { sys: any; fields: any } = content.items[0];
 
 			// const teacher = {
 			// 	name: entry.fields.teacher.fields.name
 			// };
 
-			const teachers = [];
 			const course = {
 				id: entry.sys.id,
 				courseId: entry.fields.courseId,
@@ -94,8 +107,6 @@ export class ContentfulService {
 				description: entry.fields.description
 				// teacher: { ...teacher, id: entry.fields.teacher.sys.id }
 			};
-
-			console.log('aa', course);
 
 			return course;
 		} catch (error) {

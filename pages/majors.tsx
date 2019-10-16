@@ -12,8 +12,10 @@ import { Course } from '../interfaces/course';
 import { Teacher } from '../interfaces/teacher';
 import TeacherCard from '../components/teacher';
 import { Container } from '../components/shared/styled-components';
+import { Major } from '../interfaces/major';
+import MajorRow from '../components/majorRow';
 type Props = {
-	teachers: Teacher[];
+	majors: Major[];
 	url: any;
 	total: number;
 	skip: number;
@@ -21,32 +23,30 @@ type Props = {
 	page?: number;
 };
 
-const teacherCards = (teachers) =>
-	teachers.map((entry, index) => (
-		<TeacherCard info={entry} key={index}></TeacherCard>
-	));
+const majorCards = (majors) =>
+	majors.map((entry, index) => <MajorRow info={entry} key={index}></MajorRow>);
 
-const TeachersPage: NextPage = (props: Props) => {
-	const teachers = props.teachers.length ? props.teachers : [];
+const MajorsPage: NextPage = (props: Props) => {
+	const majors = props.majors.length ? props.majors : [];
 
 	return (
 		<Layout>
 			<Header></Header>
 
 			<Container>
-				<H1>Opettajat</H1>
-				{teacherCards(teachers)}
+				<H1>Opintosuuntaukset</H1>
+				{majorCards(majors)}
 			</Container>
 		</Layout>
 	);
 };
 
-TeachersPage.getInitialProps = async ({ query }) => {
+MajorsPage.getInitialProps = async ({ query }) => {
 	// define contentful service instance
 	const contentfulService = new ContentfulService();
 
-	const { teachers } = await contentfulService.getAllTeachers();
-	return { teachers };
+	const { majors } = await contentfulService.getAllMajors();
+	return { majors };
 };
 
-export default TeachersPage;
+export default MajorsPage;
