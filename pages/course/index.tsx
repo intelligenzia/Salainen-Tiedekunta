@@ -7,6 +7,7 @@ import { ContentfulService } from '../../core/contentful';
 import Layout from '../../components/layout';
 
 import { Course } from '../../interfaces/course';
+import Header from '../../components/header';
 
 type Props = {
 	course: Course;
@@ -14,6 +15,7 @@ type Props = {
 const CoursePage: NextPage = (props: Props) => {
 	return (
 		<Layout>
+			<Header />
 			<div className='post-container' id='post-container'>
 				<div className='post-header'>
 					<h1>{props.course.name}</h1>
@@ -23,8 +25,9 @@ const CoursePage: NextPage = (props: Props) => {
 				</div>
 				<div
 					dangerouslySetInnerHTML={{
-						__html: documentToHtmlString(props.course.description)
-					}}></div>
+						__html: documentToHtmlString(props.course.description),
+					}}
+				></div>
 			</div>
 		</Layout>
 	);
@@ -36,7 +39,6 @@ CoursePage.getInitialProps = async ({ query }) => {
 
 	const id = query.course as string;
 	const course = await contentfulService.getCourseById(id);
-	console.log('course', course);
 	return { course };
 };
 

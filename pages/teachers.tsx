@@ -21,7 +21,7 @@ type Props = {
 	page?: number;
 };
 
-const teacherCards = (teachers) =>
+const teacherCards = teachers =>
 	teachers.map((entry, index) => (
 		<TeacherCard info={entry} key={index}></TeacherCard>
 	));
@@ -31,7 +31,7 @@ const TeachersPage: NextPage = (props: Props) => {
 
 	return (
 		<Layout>
-			<Header></Header>
+			<Header />
 
 			<Container>
 				<H1>Opettajat</H1>
