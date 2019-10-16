@@ -32,6 +32,6 @@ exports.generateAllAuthors = async () => {
 };
 
 exports.generateAllArticles = async () => {
-	const courses = await gettAllCourses();
+	const courses = await getAllCourses();
 	return courses.items.map((item) => ({ ...item.fields }));
 };
