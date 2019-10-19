@@ -3,6 +3,7 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 // @ts-ignore
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
+import { NextSeo } from 'next-seo';
 
 import Layout from '../components/layout';
 import { H1, Container } from '../components/styled-components';
@@ -12,12 +13,30 @@ import { ContentfulService } from '../core/contentful';
 
 const CoursesPage: NextPage = (props: any) => {
 	return (
-		<Layout>
-			<Header></Header>
-			<Container>
-				<H1>Kurssit</H1>
-			</Container>
-		</Layout>
+		<>
+			<NextSeo
+				openGraph={{
+					type: 'website',
+					url: 'https://tiedekunta.com/courses',
+					title: 'Salaisen Tiedekunnan kurssivalikoima',
+					description: 'Salaisen Tiedekunnan kurssivalikoima',
+					images: [
+						{
+							url: 'https://tiedekunta.com/earth.jpeg',
+							width: 800,
+							height: 600,
+							alt: 'Salainen Tiedekunta - Faculty of Arcane Arts'
+						}
+					]
+				}}
+			/>
+			<Layout>
+				<Header />
+				<Container>
+					<H1>Kurssit</H1>
+				</Container>
+			</Layout>
+		</>
 	);
 };
 

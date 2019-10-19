@@ -3,6 +3,7 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { ContentfulService } from '../core/contentful';
+import { NextSeo } from 'next-seo';
 
 import { Course } from '../interfaces/course';
 
@@ -61,7 +62,7 @@ const IndexPage: NextPage = (props: Props) => {
 					kognitiotieteen monipuolista opetusta ja tutkimusta kehittävä
 					organisaatio. Muutaman aktiivisen opiskelijan alullepanema hanke on
 					muutamassa vuodessa kasvanut useita laitoksia sisältäväksi
-					täysimittaiseksi tiedekunnaksi
+					täysimittaiseksi tiedekunnaksi.
 				</Intro>
 				<CardDeck>{cards(entries)}</CardDeck>
 
