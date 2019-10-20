@@ -19,6 +19,7 @@ import {
 	Cover,
 	InnerContainer
 } from '../components/styled-components';
+
 // import TagFilters from "../shared/components/tag-filters";
 
 const calculateRange = (length) => Array.from({ length }, (v, k) => k + 1);
@@ -59,38 +60,63 @@ const IndexPage: NextPage = (props: Props) => {
 	};
 
 	return (
-		<Layout>
-			<Header />
-			<Cover>
-				<InnerContainer>
-					<H1>Salainen tiedekunta</H1>
-					<Intro>
-						Salainen tiedekunta on Helsingin yliopistoon vuonna 1998 perustettu
-						kognitiotieteen monipuolista opetusta ja tutkimusta kehittävä
-						organisaatio. Muutaman aktiivisen opiskelijan alullepanema hanke on
-						muutamassa vuodessa kasvanut useita laitoksia sisältäväksi
-						täysimittaiseksi tiedekunnaksi.
-					</Intro>
-				</InnerContainer>
-				<CoverPhoto src='/static/earth.jpeg' />
-			</Cover>
+		<>
+			<NextSeo
+				openGraph={{
+					type: 'website',
+					locale: 'fi',
+					url: 'https://tiedekunta.com/',
+					site_name: 'Salainen Tiedekunta – Faculty of Arcane Arts',
+					description:
+						'Salainen tiedekunta on Helsingin yliopistoon vuonna 1998 perustettu kognitiotieteen monipuolista opetusta ja tutkimusta kehittävä organisaatio. Muutaman aktiivisen opiskelijan alullepanema hanke on muutamassa vuodessa kasvanut useita laitoksia sisältäväksi täysimittaiseksi tiedekunnaksi.',
+					images: [
+						{
+							url: 'https://tiedekunta.com/static/earth.jpeg',
+							width: 800,
+							height: 600,
+							alt: 'Salainen Tiedekunta - Faculty of Arcane Arts'
+						}
+					]
+				}}
+				twitter={{
+					handle: '@tiedekunta',
+					site: '@tiedekunta',
+					cardType: 'summary_large_image'
+				}}
+			/>
+			<Layout>
+				<Header />
+				<Cover>
+					<InnerContainer>
+						<H1>Salainen tiedekunta</H1>
+						<Intro>
+							Salainen tiedekunta on Helsingin yliopistoon vuonna 1998
+							perustettu kognitiotieteen monipuolista opetusta ja tutkimusta
+							kehittävä organisaatio. Muutaman aktiivisen opiskelijan
+							alullepanema hanke on muutamassa vuodessa kasvanut useita
+							laitoksia sisältäväksi täysimittaiseksi tiedekunnaksi.
+						</Intro>
+					</InnerContainer>
+					<CoverPhoto src='/static/earth.jpeg' />
+				</Cover>
 
-			<Container>
-				<CardDeck>{cards(entries)}</CardDeck>
+				<Container>
+					<CardDeck>{cards(entries)}</CardDeck>
 
-				<div className='sidenav'>
-					{/* <TagFilters tags={tags} updatePage={handleTagChosen} selectedTagId={tag}/> */}
-				</div>
-				<div className='pagination'>
-					<Paginator
-						handlePaginationChange={(event) => updatePage(event)}
-						range={range}
-						skip={page}
-					/>
-				</div>
-			</Container>
-			<Footer />
-		</Layout>
+					<div className='sidenav'>
+						{/* <TagFilters tags={tags} updatePage={handleTagChosen} selectedTagId={tag}/> */}
+					</div>
+					<div className='pagination'>
+						<Paginator
+							handlePaginationChange={(event) => updatePage(event)}
+							range={range}
+							skip={page}
+						/>
+					</div>
+				</Container>
+				<Footer />
+			</Layout>
+		</>
 	);
 };
 
