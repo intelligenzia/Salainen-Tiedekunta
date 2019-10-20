@@ -1,6 +1,7 @@
-import App from 'next/app';
+import App, { Container } from 'next/app';
 import React from 'react';
 import Router from 'next/router';
+import { DefaultSeo } from 'next-seo';
 
 import { trackPageView } from '../core/analytics';
 
@@ -12,7 +13,32 @@ class MyApp extends App {
 
 		return (
 			<React.Fragment>
-				<Component {...pageProps} />
+				<Container>
+					<DefaultSeo
+						openGraph={{
+							type: 'website',
+							locale: 'fi',
+							url: 'https://tiedekunta.com/',
+							site_name: 'Salainen Tiedekunta – Faculty of Arcane Arts',
+							description:
+								'Salainen tiedekunta on Helsingin yliopistoon vuonna 1998 perustettu kognitiotieteen monipuolista opetusta ja tutkimusta kehittävä organisaatio. Muutaman aktiivisen opiskelijan alullepanema hanke on muutamassa vuodessa kasvanut useita laitoksia sisältäväksi täysimittaiseksi tiedekunnaksi.',
+							images: [
+								{
+									url: 'https://tiedekunta.com/static/earth.jpeg',
+									width: 800,
+									height: 600,
+									alt: 'Salainen Tiedekunta - Faculty of Arcane Arts'
+								}
+							]
+						}}
+						twitter={{
+							handle: '@tiedekunta',
+							site: '@tiedekunta',
+							cardType: 'summary_large_image'
+						}}
+					/>
+					<Component {...pageProps} />
+				</Container>
 			</React.Fragment>
 		);
 	}

@@ -3,6 +3,7 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { ContentfulService } from '../core/contentful';
+import { NextSeo } from 'next-seo';
 
 import { Course } from '../interfaces/course';
 
@@ -11,7 +12,16 @@ import Card from '../components/card';
 import Paginator from '../components/paginator';
 import Footer from '../components/footer';
 import Header from '../components/header';
-import { H1, Intro } from '../components/styled-components';
+import {
+	H1,
+	Intro,
+	CoverPhoto,
+	Cover,
+	Container,
+	CardDeck,
+	InnerContainer
+} from '../components/styled-components';
+
 // import TagFilters from "../shared/components/tag-filters";
 
 const calculateRange = (length) => Array.from({ length }, (v, k) => k + 1);
@@ -52,32 +62,63 @@ const IndexPage: NextPage = (props: Props) => {
 	};
 
 	return (
-		<Layout>
-			<Header />
-			<Container>
-				<H1>Salainen tiedekunta</H1>
-				<Intro>
-					Salainen tiedekunta on Helsingin yliopistoon vuonna 1998 perustettu
-					kognitiotieteen monipuolista opetusta ja tutkimusta kehittävä
-					organisaatio. Muutaman aktiivisen opiskelijan alullepanema hanke on
-					muutamassa vuodessa kasvanut useita laitoksia sisältäväksi
-					täysimittaiseksi tiedekunnaksi
-				</Intro>
-				<CardDeck>{cards(entries)}</CardDeck>
+		<>
+			<NextSeo
+				openGraph={{
+					type: 'website',
+					locale: 'fi',
+					url: 'https://tiedekunta.com/',
+					site_name: 'Salainen Tiedekunta – Faculty of Arcane Arts',
+					description:
+						'Salainen tiedekunta on Helsingin yliopistoon vuonna 1998 perustettu kognitiotieteen monipuolista opetusta ja tutkimusta kehittävä organisaatio. Muutaman aktiivisen opiskelijan alullepanema hanke on muutamassa vuodessa kasvanut useita laitoksia sisältäväksi täysimittaiseksi tiedekunnaksi.',
+					images: [
+						{
+							url: 'https://tiedekunta.com/static/earth.jpeg',
+							width: 800,
+							height: 600,
+							alt: 'Salainen Tiedekunta - Faculty of Arcane Arts'
+						}
+					]
+				}}
+				twitter={{
+					handle: '@tiedekunta',
+					site: '@tiedekunta',
+					cardType: 'summary_large_image'
+				}}
+			/>
+			<Layout>
+				<Header />
+				<Cover>
+					<InnerContainer>
+						<H1>Salainen tiedekunta</H1>
+						<Intro>
+							Salainen tiedekunta on Helsingin yliopistoon vuonna 1998
+							perustettu kognitiotieteen monipuolista opetusta ja tutkimusta
+							kehittävä organisaatio. Muutaman aktiivisen opiskelijan
+							alullepanema hanke on muutamassa vuodessa kasvanut useita
+							laitoksia sisältäväksi täysimittaiseksi tiedekunnaksi.
+						</Intro>
+					</InnerContainer>
+					<CoverPhoto src='/static/earth.jpeg' />
+				</Cover>
 
-				<div className='sidenav'>
-					{/* <TagFilters tags={tags} updatePage={handleTagChosen} selectedTagId={tag}/> */}
-				</div>
-				<div className='pagination'>
-					<Paginator
-						handlePaginationChange={(event) => updatePage(event)}
-						range={range}
-						skip={page}
-					/>
-				</div>
-			</Container>
-			<Footer />
-		</Layout>
+				<Container>
+					<CardDeck>{cards(entries)}</CardDeck>
+
+					<div className='sidenav'>
+						{/* <TagFilters tags={tags} updatePage={handleTagChosen} selectedTagId={tag}/> */}
+					</div>
+					<div className='pagination'>
+						<Paginator
+							handlePaginationChange={(event) => updatePage(event)}
+							range={range}
+							skip={page}
+						/>
+					</div>
+				</Container>
+				<Footer />
+			</Layout>
+		</>
 	);
 };
 
@@ -107,15 +148,3 @@ IndexPage.getInitialProps = async ({ query }) => {
 };
 
 export default IndexPage;
-
-const CardDeck = styled.div`
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-`;
-
-const Container = styled.div`
-	padding: 5rem 1rem;
-	max-width: 1140px;
-	margin: 0 auto;
-`;
