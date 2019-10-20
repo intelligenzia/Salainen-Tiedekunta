@@ -27,3 +27,40 @@ export const Container = styled.div`
 	max-width: 1140px;
 	margin: 0 auto;
 `;
+
+export const CoverPhoto = styled.img`
+	position: absolute;
+
+	width: 100vw;
+	height: 100%;
+	height: 50vh;
+`;
+
+export const Cover = styled.div`
+	position: relative;
+	width: 100%;
+	height: 50vh;
+	max-height: 40rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+`;
+export const InnerContainer = styled.div`
+	position: relative;
+	padding: 5rem 1rem;
+	max-width: 1140px;
+	margin: 0 auto;
+	max-height: 40rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	z-index: 2;
+	color: white;
+
+	h1 {
+		color: white;
+	}
+	p {
+		color: white;
+	}
+`;
