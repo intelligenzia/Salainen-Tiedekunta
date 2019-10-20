@@ -12,7 +12,13 @@ import Card from '../components/card';
 import Paginator from '../components/paginator';
 import Footer from '../components/footer';
 import Header from '../components/header';
-import { H1, Intro } from '../components/styled-components';
+import {
+	H1,
+	Intro,
+	CoverPhoto,
+	Cover,
+	InnerContainer
+} from '../components/styled-components';
 // import TagFilters from "../shared/components/tag-filters";
 
 const calculateRange = (length) => Array.from({ length }, (v, k) => k + 1);
@@ -55,15 +61,21 @@ const IndexPage: NextPage = (props: Props) => {
 	return (
 		<Layout>
 			<Header />
+			<Cover>
+				<InnerContainer>
+					<H1>Salainen tiedekunta</H1>
+					<Intro>
+						Salainen tiedekunta on Helsingin yliopistoon vuonna 1998 perustettu
+						kognitiotieteen monipuolista opetusta ja tutkimusta kehittävä
+						organisaatio. Muutaman aktiivisen opiskelijan alullepanema hanke on
+						muutamassa vuodessa kasvanut useita laitoksia sisältäväksi
+						täysimittaiseksi tiedekunnaksi.
+					</Intro>
+				</InnerContainer>
+				<CoverPhoto src='/static/earth.jpeg' />
+			</Cover>
+
 			<Container>
-				<H1>Salainen tiedekunta</H1>
-				<Intro>
-					Salainen tiedekunta on Helsingin yliopistoon vuonna 1998 perustettu
-					kognitiotieteen monipuolista opetusta ja tutkimusta kehittävä
-					organisaatio. Muutaman aktiivisen opiskelijan alullepanema hanke on
-					muutamassa vuodessa kasvanut useita laitoksia sisältäväksi
-					täysimittaiseksi tiedekunnaksi.
-				</Intro>
 				<CardDeck>{cards(entries)}</CardDeck>
 
 				<div className='sidenav'>
