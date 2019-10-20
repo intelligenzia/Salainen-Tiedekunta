@@ -17,6 +17,8 @@ import {
 	Intro,
 	CoverPhoto,
 	Cover,
+	Container,
+	CardDeck,
 	InnerContainer
 } from '../components/styled-components';
 
@@ -146,15 +148,3 @@ IndexPage.getInitialProps = async ({ query }) => {
 };
 
 export default IndexPage;
-
-const CardDeck = styled.div`
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-`;
-
-const Container = styled.div`
-	padding: 5rem 1rem;
-	max-width: 1140px;
-	margin: 0 auto;
-`;

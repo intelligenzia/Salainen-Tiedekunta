@@ -64,3 +64,9 @@ export const InnerContainer = styled.div`
 		color: white;
 	}
 `;
+
+export const CardDeck = styled.div`
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+`;
