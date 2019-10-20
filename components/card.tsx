@@ -26,8 +26,11 @@ const Card: FunctionComponent<Props> = ({ info }) => {
 
 			<div className='card__footer'>
 				<Link
-					href={getHref(info.courseId)}
-					as={getNavigationLink(info.courseId)}>
+					href={`/course/?slug=${info.courseId}`}
+					as={`/course/${info.courseId}`}
+					// href={getHref(info.courseId)}
+					// as={getNavigationLink(info.courseId)}>
+				>
 					<Button>Tutustu</Button>
 				</Link>
 			</div>
