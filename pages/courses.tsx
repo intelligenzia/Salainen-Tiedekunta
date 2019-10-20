@@ -22,7 +22,7 @@ const CoursesPage: NextPage = (props: any) => {
 					description: 'Salaisen Tiedekunnan kurssivalikoima',
 					images: [
 						{
-							url: 'https://tiedekunta.com/earth.jpeg',
+							url: 'https://tiedekunta.com/static/earth.jpeg',
 							width: 800,
 							height: 600,
 							alt: 'Salainen Tiedekunta - Faculty of Arcane Arts'
