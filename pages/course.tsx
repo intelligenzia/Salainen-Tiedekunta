@@ -2,12 +2,12 @@ import { NextPage } from 'next';
 import React from 'react';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
-import { ContentfulService } from '../../core/contentful';
+import { ContentfulService } from '../core/contentful';
 
-import Layout from '../../components/layout';
+import Layout from '../components/layout';
 
-import { Course } from '../../interfaces/course';
-import Header from '../../components/header';
+import { Course } from '../interfaces/course';
+import Header from '../components/header';
 import { NextSeo } from 'next-seo';
 
 type Props = {
