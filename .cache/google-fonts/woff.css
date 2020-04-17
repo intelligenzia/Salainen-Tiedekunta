@@ -1,0 +1,12 @@
+@font-face {
+  font-family: 'Alfa Slab One';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Alfa Slab One Regular'), local('AlfaSlabOne-Regular'), url(https://fonts.gstatic.com/s/alfaslabone/v9/6NUQ8FmMKwSEKjnm5-4v-4Jh2dJhfQ.woff) format('woff');
+}
+@font-face {
+  font-family: 'Domine';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Domine'), local('Domine-Regular'), url(https://fonts.gstatic.com/s/domine/v7/L0x8DFMnlVwD4h3hu_qh.woff) format('woff');
+}

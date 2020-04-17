@@ -31,7 +31,6 @@ module.exports = {
               title: 'Salainen Tiedekunta', // website title
               separator: '|', // default
               author: 'Salainen Tiedekunta',
-              background: require.resolve('./static/base.png'), // path to 1200x630px file or hex code, defaults to black (#000000)
               fontColor: '#white', // defaults to white (#ffffff)
               titleFontSize: 96, // default
               subtitleFontSize: 60, // default
