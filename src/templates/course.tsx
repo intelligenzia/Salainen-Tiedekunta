@@ -12,6 +12,8 @@ interface Props {
   data: {
     contentfulCourse: ContentfulCourse;
   };
+  locacation: any;
+  pageContext: any;
 }
 
 const Course: FC<Props> = (props: Props) => {
@@ -27,12 +29,13 @@ const Course: FC<Props> = (props: Props) => {
         },
       },
     },
+    location,
     pageContext: { next, previous },
   } = props;
 
   return (
     <Layout>
-      <SEO title={name} description={excerpt} />
+      <SEO title={name} description={excerpt} pathname={location.pathname} />
       <H1>{name}</H1>
       <time></time>
 

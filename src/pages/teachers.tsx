@@ -8,7 +8,7 @@ import Image from '../components/image';
 import SEO from '../components/seo';
 import { H1 } from '../components/primitives';
 
-const IndexPage: React.FC = () => {
+const IndexPage: React.FC = ({ location }) => {
   const data: AllTeachersQueryQuery = useStaticQuery(graphql`
     query allTeachersQuery {
       allContentfulTeacher {
@@ -29,6 +29,7 @@ const IndexPage: React.FC = () => {
       <SEO
         title="Opettajat"
         description="Kaikki Salaisen Tiedekunnan palveluksessa olevat opettajat"
+        pathname={location.pathname}
       />
       <H1>Opettajat</H1>
 

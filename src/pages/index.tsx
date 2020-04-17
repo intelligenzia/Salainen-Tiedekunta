@@ -2,9 +2,9 @@ import * as React from 'react';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 
-const IndexPage: React.FC = () => (
+const IndexPage: React.FC = ({ location }: any) => (
   <Layout>
-    <SEO title="Home" />
+    <SEO title="Home" pathname={location.pathname} />
     <h1>Salainen Tiedekunta</h1>
 
     <p>

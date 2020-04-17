@@ -19,9 +19,16 @@ type Props = {
   lang?: string;
   meta?: metaType;
   title: string;
+  pathname: string;
 };
 
-const SEO: React.FC<Props> = ({ description, lang, meta, title }: Props) => {
+const SEO: React.FC<Props> = ({
+  description,
+  lang,
+  meta,
+  title,
+  pathname,
+}: Props) => {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -30,6 +37,7 @@ const SEO: React.FC<Props> = ({ description, lang, meta, title }: Props) => {
             title
             description
             author
+            siteUrl
           }
         }
       }
@@ -56,7 +64,7 @@ const SEO: React.FC<Props> = ({ description, lang, meta, title }: Props) => {
     },
     {
       name: `twitter:card`,
-      content: `summary`,
+      content: `summary_large_image`,
     },
     {
       name: `twitter:creator`,
@@ -65,6 +73,10 @@ const SEO: React.FC<Props> = ({ description, lang, meta, title }: Props) => {
     {
       name: `twitter:title`,
       content: title,
+    },
+    {
+      name: `twitter:image`,
+      content: `${site.siteMetadata.siteUrl}${pathname}twitter-card.jpg`,
     },
     {
       name: `twitter:description`,

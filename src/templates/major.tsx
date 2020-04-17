@@ -18,6 +18,7 @@ interface TemplateProps {
       slug: string;
     };
   };
+  location: any;
 }
 
 const Major = (props: TemplateProps) => {
@@ -35,13 +36,14 @@ const Major = (props: TemplateProps) => {
         },
       },
     },
+    location,
     pageContext: { next, previous },
   } = props;
 
   console.log(courses);
   return (
     <Layout>
-      <SEO title={name} description={excerpt} />
+      <SEO title={name} description={excerpt} pathname={location.pathname} />
 
       <h1>{name}</h1>
       <TinyInfo>Voimassaolo {createdAt} – </TinyInfo>

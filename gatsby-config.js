@@ -21,6 +21,27 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        plugins: [
+          {
+            resolve: `gatsby-remark-twitter-cards`,
+            options: {
+              title: 'Salainen Tiedekunta', // website title
+              separator: '|', // default
+              author: 'Salainen Tiedekunta',
+              background: require.resolve('./static/base.png'), // path to 1200x630px file or hex code, defaults to black (#000000)
+              fontColor: '#white', // defaults to white (#ffffff)
+              titleFontSize: 96, // default
+              subtitleFontSize: 60, // default
+              fontStyle: 'monospace', // default
+              fontFile: require.resolve('./static/Domine-Regular.ttf'), // will override fontStyle - path to custom TTF font
+            },
+          },
+        ],
+      },
+    },
     `gatsby-plugin-sitemap`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,

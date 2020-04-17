@@ -6,7 +6,7 @@ import Layout from '../components/layout';
 import Image from '../components/image';
 import SEO from '../components/seo';
 
-const Teachers: React.FC = () => {
+const Teachers: React.FC = ({ location }) => {
   const data: any = useStaticQuery(graphql`
     query AllCoursesQuery {
       allContentfulCourse {
@@ -24,7 +24,10 @@ const Teachers: React.FC = () => {
 
   return (
     <Layout>
-      <SEO title="Kaikki Salaisen Tiedekunnan Kurssit" />
+      <SEO
+        title="Kaikki Salaisen Tiedekunnan Kurssit"
+        pathname={location.pathname}
+      />
       {courses.map(({ node }) => (
         <div key={node.id}>
           <p>{node.name}</p>

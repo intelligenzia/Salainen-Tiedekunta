@@ -9,9 +9,13 @@ interface Props {
   data: {
     contentfulTeacher: ContentfulTeacher;
   };
+  location: any;
 }
 
-const Teacher: FC<Props> = ({ data: { contentfulTeacher } }: Props) => {
+const Teacher: FC<Props> = ({
+  data: { contentfulTeacher },
+  location,
+}: Props) => {
   const {
     name = 'Perttu Lähteenlahti',
     createdAt,
@@ -21,7 +25,7 @@ const Teacher: FC<Props> = ({ data: { contentfulTeacher } }: Props) => {
 
   return (
     <Layout>
-      <SEO title={name} />
+      <SEO title={name} pathname={location.pathname} />
       <H1>{name}</H1>
       <time dateTime={createdAt}>{createdAt}</time>
       <time dateTime={updatedAt}>{updatedAt}</time>
