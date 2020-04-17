@@ -47,18 +47,23 @@ const Course: FC<Props> = (props: Props) => {
       <h3>Muita samanlaisia kursseja</h3>
 
       <div>
-        <CourseCard
-          name={next.name}
-          courseId={next.courseId}
-          teachers={[]}
-          ects={3}
-        />
-        <CourseCard
-          name={previous.name}
-          courseId={previous.courseId}
-          teachers={[]}
-          ects={3}
-        />
+        {next && (
+          <CourseCard
+            name={next.name}
+            courseId={next.courseId}
+            teachers={[]}
+            ects={3}
+          />
+        )}
+
+        {previous && (
+          <CourseCard
+            name={previous.name}
+            courseId={previous.courseId}
+            teachers={[]}
+            ects={3}
+          />
+        )}
       </div>
     </Layout>
   );
