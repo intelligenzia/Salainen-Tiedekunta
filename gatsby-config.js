@@ -3,7 +3,11 @@ require('dotenv').config();
 module.exports = {
   siteMetadata: {
     title: `Salainen Tiedekunta`,
-    description: `asdasd`,
+    description: `Salainen tiedekunta on Helsingin yliopistoon vuonna 1998 perustettu
+    kognitiotieteen monipuolista opetusta ja tutkimusta kehittävä
+    organisaatio. Muutaman aktiivisen opiskelijan alullepanema hanke on
+    muutamassa vuodessa kasvanut useita laitoksia sisältäväksi
+    täysimittaiseksi tiedekunnaksi.`,
     siteUrl: `https://www.tiedekunta.com`,
     author: `@tiedekunta`,
   },
@@ -25,7 +29,7 @@ module.exports = {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: `Salainen Tiedekunta`,
-        short_name: `starter`,
+        short_name: `Salainen Tiedekunta`,
         start_url: `/`,
         background_color: `#fff`,
         theme_color: `#373737`,
