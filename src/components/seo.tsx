@@ -76,7 +76,7 @@ const SEO: React.FC<Props> = ({
     },
     {
       name: `twitter:image`,
-      content: `${site.siteMetadata.siteUrl}${pathname}twitter-card.jpg`,
+      content: `${site.siteMetadata.siteUrl}${pathname}/twitter-card.jpg`,
     },
     {
       name: `twitter:description`,
