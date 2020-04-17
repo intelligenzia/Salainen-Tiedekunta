@@ -29,7 +29,6 @@ exports.onCreateNode = async ({ node, loadNodeContent, actions }) => {
   const doc = JSON.parse(await loadNodeContent(node));
   const text = contentful.documentToPlainTextString(doc);
   const result = text.slice(0, 160);
-  console.log('result', result);
   actions.createNodeField({ node, name: 'excerpt', value: result });
 };
 
