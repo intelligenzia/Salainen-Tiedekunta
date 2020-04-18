@@ -3,6 +3,7 @@ import { Link } from 'gatsby';
 import styled from 'styled-components';
 import { maxWidth } from './primitives';
 import { Icon } from './Icons/Icons';
+import devices from '../helpers/devices';
 
 type Props = {
   siteTitle: string;
@@ -62,6 +63,7 @@ export default Header;
 const HeaderContainer = styled.header`
   width: 100%;
   margin-top: 1rem;
+  padding: 1rem;
 `;
 
 const Inner = styled.div`
@@ -73,12 +75,17 @@ const Inner = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  border-radius: 10px;
+  background-color: var(--secondary-bg);
 `;
 
 const Title = styled.div`
   flex: 1;
   text-decoration: none;
   font-weight: bold;
+  a {
+    color: var(--primary-text);
+  }
 `;
 
 const Links = styled.ul`
@@ -98,6 +105,22 @@ const Route = styled(Link)`
   text-decoration: none;
   font-weight: bold;
 
+  @media ${devices.mobileM} {
+    font-size: 0.9rem;
+  }
+
+  @media ${devices.tablet} {
+    font-size: 1rem;
+  }
+
+  svg {
+    @media ${devices.mobileM} {
+      display: none;
+    }
+    @media ${devices.tablet} {
+      display: inline-block;
+    }
+  }
   :hover {
     color: var(--primary-text);
   }

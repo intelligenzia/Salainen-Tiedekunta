@@ -13,6 +13,7 @@ exports.components = {
   "component---src-pages-404-tsx": hot(preferDefault(require("/Users/perttu/Projects/Salainen-Tiedekunta/src/pages/404.tsx"))),
   "component---src-pages-courses-tsx": hot(preferDefault(require("/Users/perttu/Projects/Salainen-Tiedekunta/src/pages/courses.tsx"))),
   "component---src-pages-majors-tsx": hot(preferDefault(require("/Users/perttu/Projects/Salainen-Tiedekunta/src/pages/majors.tsx"))),
-  "component---src-pages-teachers-tsx": hot(preferDefault(require("/Users/perttu/Projects/Salainen-Tiedekunta/src/pages/teachers.tsx")))
+  "component---src-pages-teachers-tsx": hot(preferDefault(require("/Users/perttu/Projects/Salainen-Tiedekunta/src/pages/teachers.tsx"))),
+  "component---src-pages-suloinen-tiedekunta-tsx": hot(preferDefault(require("/Users/perttu/Projects/Salainen-Tiedekunta/src/pages/suloinen-tiedekunta.tsx")))
 }
 

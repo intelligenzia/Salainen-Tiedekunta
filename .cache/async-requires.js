@@ -10,6 +10,7 @@ exports.components = {
   "component---src-pages-404-tsx": () => import("./../src/pages/404.tsx" /* webpackChunkName: "component---src-pages-404-tsx" */),
   "component---src-pages-courses-tsx": () => import("./../src/pages/courses.tsx" /* webpackChunkName: "component---src-pages-courses-tsx" */),
   "component---src-pages-majors-tsx": () => import("./../src/pages/majors.tsx" /* webpackChunkName: "component---src-pages-majors-tsx" */),
-  "component---src-pages-teachers-tsx": () => import("./../src/pages/teachers.tsx" /* webpackChunkName: "component---src-pages-teachers-tsx" */)
+  "component---src-pages-teachers-tsx": () => import("./../src/pages/teachers.tsx" /* webpackChunkName: "component---src-pages-teachers-tsx" */),
+  "component---src-pages-suloinen-tiedekunta-tsx": () => import("./../src/pages/suloinen-tiedekunta.tsx" /* webpackChunkName: "component---src-pages-suloinen-tiedekunta-tsx" */)
 }
 
