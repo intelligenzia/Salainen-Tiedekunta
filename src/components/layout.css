@@ -7,8 +7,11 @@ html {
 }
 
 :root {
-  --primary-text: #373737;
-  --secondary-text: #676767;
+  --primary-text: #000;
+  --secondary-text: #929fb5;
+  --gray: #c1cbd8;
+  --primary-bg: #f1f3f6;
+  --secondary-bg: #fff;
 }
 
 body {
@@ -24,7 +27,7 @@ body {
   -ms-font-feature-settings: 'kern', 'liga', 'clig', 'calt';
   -webkit-font-feature-settings: 'kern', 'liga', 'clig', 'calt';
   font-feature-settings: 'kern', 'liga', 'clig', 'calt';
-  background: #fff;
+  background: var(--primary-bg);
 }
 
 article,
@@ -66,6 +69,8 @@ template {
 a {
   background-color: transparent;
   font-family: 'Domine', serif;
+  color: var(--secondary-text);
+  text-decoration: none;
   -webkit-text-decoration-skip: objects;
 }
 

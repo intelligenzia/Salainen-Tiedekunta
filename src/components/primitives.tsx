@@ -9,3 +9,10 @@ export const Container = styled.div`
 `;
 
 export const H1 = styled.h1``;
+
+export const CourseContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 0 -1rem;
+`;

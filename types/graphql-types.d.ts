@@ -5764,7 +5764,10 @@ export type Unnamed_2_Query = { site?: Maybe<{ siteMetadata?: Maybe<Pick<SiteSit
 export type AllCoursesQueryQueryVariables = {};
 
 
-export type AllCoursesQueryQuery = { allContentfulCourse: { edges: Array<{ node: Pick<ContentfulCourse, 'name' | 'id'> }> } };
+export type AllCoursesQueryQuery = { allContentfulCourse: { edges: Array<{ node: (
+        Pick<ContentfulCourse, 'name' | 'courseId' | 'ects'>
+        & { teacher?: Maybe<Array<Maybe<{ avatar?: Maybe<{ fluid?: Maybe<Pick<ContentfulFluid, 'srcSet'>> }> }>>> }
+      ) }> } };
 
 export type AllMajorsQueryQueryVariables = {};
 
@@ -5792,7 +5795,10 @@ export type Unnamed_3_Query = { contentfulCourse?: Maybe<(
     & { description?: Maybe<(
       Pick<ContentfulCourseDescriptionRichTextNode, 'json'>
       & { fields?: Maybe<Pick<ContentfulCourseDescriptionRichTextNodeFields, 'excerpt'>> }
-    )>, teacher?: Maybe<Array<Maybe<Pick<ContentfulTeacher, 'slug' | 'name'>>>>, major?: Maybe<Array<Maybe<Pick<ContentfulMajor, 'slug' | 'name'>>>> }
+    )>, teacher?: Maybe<Array<Maybe<(
+      Pick<ContentfulTeacher, 'slug' | 'name'>
+      & { avatar?: Maybe<{ fluid?: Maybe<Pick<ContentfulFluid, 'src'>> }> }
+    )>>>, major?: Maybe<Array<Maybe<Pick<ContentfulMajor, 'slug' | 'name'>>>> }
   )> };
 
 export type MajorBySlugQueryVariables = {

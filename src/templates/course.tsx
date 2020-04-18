@@ -4,9 +4,10 @@ import { ContentfulCourse } from '../../types/graphql-types';
 import ContentfulRichText from '../components/contentfulRichText';
 import CourseCard from '../components/CourseCard/CourseCard';
 import Layout from '../components/layout';
-import { H1 } from '../components/primitives';
+import { H1, CourseContainer } from '../components/primitives';
 import SEO from '../components/seo';
 import TeacherCard from '../components/TeacherCard/TeacherCard';
+import { Icon } from '../components/Icons/Icons';
 
 interface Props {
   data: {
@@ -22,7 +23,7 @@ const Course: FC<Props> = (props: Props) => {
     data: {
       contentfulCourse: {
         name = '',
-        teacher,
+        teacher: teachers,
         description: {
           json,
           fields: { excerpt },
@@ -40,16 +41,29 @@ const Course: FC<Props> = (props: Props) => {
       <time></time>
 
       <h3>Luennoitsijat</h3>
-      {teacher?.map(t => (
-        <TeacherCard name={t.name} slug={t.slug} />
+      {teachers?.map(teacher => (
+        <TeacherCard
+          name={teacher.name}
+          slug={teacher.slug}
+          avatar={teacher.avatar}
+        />
       ))}
 
-      <h3>Kurssin esittely</h3>
+      <h3>
+        <Icon
+          height="30px"
+          width="30px"
+          stroke="none"
+          fill="currentColor"
+          name="teacher"
+        />
+        Kurssin esittely
+      </h3>
       <ContentfulRichText document={json} />
 
       <h3>Muita samanlaisia kursseja</h3>
 
-      <div>
+      <CourseContainer>
         {next && (
           <CourseCard
             name={next.name}
@@ -67,7 +81,7 @@ const Course: FC<Props> = (props: Props) => {
             ects={3}
           />
         )}
-      </div>
+      </CourseContainer>
     </Layout>
   );
 };
@@ -92,6 +106,11 @@ export const pageQuery = graphql`
       teacher {
         slug
         name
+        avatar {
+          fluid(maxWidth: 30) {
+            src
+          }
+        }
       }
       major {
         slug

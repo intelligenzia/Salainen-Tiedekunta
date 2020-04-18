@@ -37,11 +37,11 @@ const CourseCard = (props: Props) => {
 export default CourseCard;
 
 const Container = styled.div`
-  padding: 1rem;
+  padding: 1.5rem;
   box-sizing: border-box;
-  border: 1px solid black;
   margin: 5px;
-  border-radius: 5px;
+  border-radius: 20px;
+  background-color: var(--secondary-bg);
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -49,7 +49,10 @@ const Container = styled.div`
   width: 100%;
 `;
 
-const Name = styled.h4``;
+const Name = styled.h4`
+  color: var(--primary-text);
+  text-decoration: none;
+`;
 
 const Teacher = styled(Image)`
   height: 30px;
@@ -58,6 +61,7 @@ const Teacher = styled(Image)`
   border: 2px solid black;
   box-sizing: border-box;
   transition: 0.7s ease-in-out transform;
+  filter: grayscale(100%);
   &:hover {
     transform: rotate(1080deg);
   }

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Link } from 'gatsby';
 import styled from 'styled-components';
 import { maxWidth } from './primitives';
+import { Icon } from './Icons/Icons';
 
 type Props = {
   siteTitle: string;
@@ -11,14 +12,17 @@ const routes = [
   {
     name: 'Suuntaukset',
     to: 'majors',
+    icon: 'book',
   },
   {
     name: 'Kurssit',
     to: 'courses',
+    icon: 'teacher',
   },
   {
     name: 'Opettajat',
     to: 'teachers',
+    icon: 'teacher',
   },
 ];
 
@@ -32,7 +36,16 @@ const Header: React.FC<Props> = ({ siteTitle }: Props) => (
       <Links>
         {routes.map(route => (
           <LinkItem key={route.name}>
-            <Route to={route.to}>{route.name}</Route>
+            <Route to={route.to}>
+              <Icon
+                stroke="none"
+                fill="currentColor"
+                height="20px"
+                width="20px"
+                name={route.icon}
+              />
+              {route.name}
+            </Route>
           </LinkItem>
         ))}
       </Links>
@@ -62,9 +75,10 @@ const Inner = styled.div`
   align-items: center;
 `;
 
-const Title = styled.h3`
+const Title = styled.div`
   flex: 1;
-  margin: 0;
+  text-decoration: none;
+  font-weight: bold;
 `;
 
 const Links = styled.ul`
@@ -82,4 +96,9 @@ const LinkItem = styled.li`
 
 const Route = styled(Link)`
   text-decoration: none;
+  font-weight: bold;
+
+  :hover {
+    color: var(--primary-text);
+  }
 `;
