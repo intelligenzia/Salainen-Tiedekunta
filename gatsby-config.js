@@ -31,7 +31,7 @@ module.exports = {
               title: 'Salainen Tiedekunta', // website title
               separator: '|', // default
               author: 'Salainen Tiedekunta',
-              fontColor: '#white', // defaults to white (#ffffff)
+              fontColor: 'white', // defaults to white (#ffffff)
               titleFontSize: 96, // default
               subtitleFontSize: 60, // default
               fontStyle: 'monospace', // default
@@ -58,6 +58,12 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-source-github-api`,
+      options: {
+        token: process.env.GITHUB,
+      },
+    },
+    {
       resolve: `gatsby-source-contentful`,
       options: {
         spaceId: process.env.CONTENTFUL_SPACE_ID,
@@ -65,6 +71,7 @@ module.exports = {
         accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
       },
     },
+    'gatsby-og-images',
     {
       resolve: `gatsby-plugin-prefetch-google-fonts`,
       options: {

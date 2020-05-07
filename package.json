@@ -26,6 +26,7 @@
     "gatsby-remark-twitter-cards": "^0.2.0",
     "gatsby-source-contentful": "^2.1.50",
     "gatsby-source-filesystem": "^2.1.31",
+    "gatsby-source-github-api": "^0.2.1",
     "gatsby-transformer-remark": "^2.7.3",
     "gatsby-transformer-sharp": "^2.2.21",
     "prop-types": "^15.7.2",

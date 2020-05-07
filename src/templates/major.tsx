@@ -40,7 +40,6 @@ const Major = (props: TemplateProps) => {
     pageContext: { next, previous },
   } = props;
 
-  console.log(courses);
   return (
     <Layout>
       <SEO title={name} description={excerpt} pathname={location.pathname} />

@@ -18,7 +18,6 @@ interface Props {
 }
 
 const Course: FC<Props> = (props: Props) => {
-  console.log(props);
   const {
     data: {
       contentfulCourse: {

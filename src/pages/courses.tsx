@@ -30,7 +30,6 @@ const Teachers: React.FC = ({ location }: any) => {
 
   const courses = data.allContentfulCourse.edges;
 
-  console.log(courses);
   return (
     <Layout>
       <SEO
