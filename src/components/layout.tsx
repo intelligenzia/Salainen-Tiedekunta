@@ -32,7 +32,11 @@ const Layout: React.FC<Props> = ({ children }: Props) => {
       <Header siteTitle={data.site.siteMetadata.title} />
       <Container>
         <main>{children}</main>
-        <footer>© {new Date().getFullYear()}</footer>
+        <footer>
+          © {new Date().getFullYear()} Intelligenzia. Tämän surullisen sivuston
+          taas on tehtyt{' '}
+          <a href="https://www.lahteenlahti.com">Perttu Lähteenlahti</a>
+        </footer>
       </Container>
     </>
   );
