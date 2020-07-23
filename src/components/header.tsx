@@ -65,6 +65,10 @@ const Inner = styled.div`
 const Title = styled.h3`
   flex: 1;
   margin: 0;
+  a {
+    text-decoration: none;
+    color: #444;
+  }
 `;
 
 const Links = styled.ul`
@@ -78,6 +82,18 @@ const Links = styled.ul`
 
 const LinkItem = styled.li`
   margin: 0rem 0rem 0rem 1rem;
+  box-sizing: border-box;
+  padding: 0.2rem;
+  transition: 0.14s ease-in-out;
+  a {
+    text-decoration: none;
+    color: #333;
+  }
+
+  &:hover  {
+    transform: translateY(-0.2rem) scale(1.02);
+    font-weight: bold;
+  }
 `;
 
 const Route = styled(Link)`

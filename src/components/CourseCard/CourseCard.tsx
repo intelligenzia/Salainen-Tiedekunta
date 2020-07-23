@@ -1,22 +1,21 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import Image, { FluidObject } from 'gatsby-image';
 import { ContentfulTeacher } from '../../../types/graphql-types';
 import { Link } from 'gatsby';
+import { device } from '../primitives';
 
-interface Props {
+type Props = {
   name: string;
   courseId: string;
   ects: string;
   teachers: ContentfulTeacher[];
-}
+};
 
-const CourseCard = (props: Props) => {
-  const { name, courseId, ects, teachers } = props;
-
+const CourseCard: FC<Props> = ({ name, courseId, ects, teachers }) => {
   return (
     <Container>
-      <Link to={`course/${courseId}`}>
+      <Link to={`/course/${courseId}`}>
         <Name>
           {courseId} : {name}
         </Name>
@@ -38,15 +37,61 @@ export default CourseCard;
 
 const Container = styled.div`
   padding: 1rem;
-  box-sizing: border-box;
-  border: 1px solid black;
-  margin: 5px;
+  margin: 1rem 0.5rem;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-  flex: 1;
-  flex-basis: 33%;
-  width: 100%;
+  box-sizing: border-box;
+  box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff;
+
+  @media ${device.desktopL} {
+    max-width: calc(25% - 2 * 0.5rem);
+    flex: 1 1 calc(25% - 2 * 0.5rem);
+  }
+
+  @media ${device.desktop} {
+    max-width: calc(50% - 2 * 0.5rem);
+    flex: 1 1 calc(50% - 2 * 0.5rem);
+  }
+
+  @media ${device.laptopL} {
+    max-width: calc(50% - 2 * 0.5rem);
+    flex: 1 1 calc(50% - 2 * 0.5rem);
+  }
+
+  @media ${device.laptop} {
+    max-width: calc(50% - 2 * 0.5rem);
+    flex: 1 1 calc(50% - 2 * 0.5rem);
+  }
+
+  @media ${device.tabletL} {
+    max-width: calc(100% - 2 * 0.5rem);
+    flex: 1 1 calc(100% - 2 * 0.5rem);
+  }
+
+  @media ${device.tablet} {
+    max-width: calc(100% - 2 * 0.5rem);
+    flex: 1 1 calc(100% - 2 * 0.5rem);
+  }
+
+  @media ${device.mobileL} {
+    max-width: 100%;
+    flex: 1 1 100%;
+  }
+
+  @media ${device.mobileM} {
+    max-width: 100%;
+    flex: 1 1 100%;
+  }
+
+  @media ${device.mobileS} {
+    max-width: 100%;
+    flex: 1 1 100%;
+  }
+
+  a {
+    text-decoration: none;
+  }
 `;
 
 const Name = styled.h4``;

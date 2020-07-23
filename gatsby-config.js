@@ -42,9 +42,9 @@ module.exports = {
     {
       resolve: `gatsby-source-contentful`,
       options: {
-        spaceId: process.env.CONTENTFUL_SPACE_ID,
+        spaceId: `yqczjjam9tzu`,
         localeFilter: locale => locale.code === 'fi-FI',
-        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+        accessToken: `9_YI73LxFa8UUYcjY0LnvBjAD8wbZEJjpO55KVubQFw`,
       },
     },
     {

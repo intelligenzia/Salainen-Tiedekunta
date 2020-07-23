@@ -1,12 +1,12 @@
+import { graphql, useStaticQuery } from 'gatsby';
+import Image from 'gatsby-image';
 import * as React from 'react';
-import { Link, useStaticQuery, graphql } from 'gatsby';
 import styled from 'styled-components';
-import { AllTeachersQueryQuery } from '../../types/graphql-types'; // eslint-disable-line import/no-unresolved
-
 import Layout from '../components/layout';
-import Image from '../components/image';
+import { device, H1, Section } from '../components/primitives';
 import SEO from '../components/seo';
-import { H1 } from '../components/primitives';
+import { AllTeachersQueryQuery } from '../../types/graphql-types';
+import TeacherCard from '../components/TeacherCard/TeacherCard';
 
 const IndexPage: React.FC = () => {
   const data: AllTeachersQueryQuery = useStaticQuery(graphql`
@@ -16,6 +16,12 @@ const IndexPage: React.FC = () => {
           node {
             id
             name
+            slug
+            avatar {
+              fluid(maxWidth: 30) {
+                srcSet
+              }
+            }
           }
         }
       }
@@ -23,6 +29,8 @@ const IndexPage: React.FC = () => {
   `);
 
   const teachers = data.allContentfulTeacher.edges;
+
+  console.log(teachers);
 
   return (
     <Layout>
@@ -32,34 +40,24 @@ const IndexPage: React.FC = () => {
       />
       <H1>Opettajat</H1>
 
-      <TeacherCards>
-        {teachers.map(({ node }) => (
-          <TeacherCard key={node.id}>
-            <Name>{node.name}</Name>
-          </TeacherCard>
+      <p>
+        Tällä hetkellä seuraavat henkilöt vastaavat kaikesta Salaisen Tiedekunna
+        opetuksesta. Opettajien kohdalla käytetään salanimiä ellei asiasta ole
+        erikseen mainittu. Opettajia ja sekä vierailevia luennoitsijoita
+        koskevat samat käytännöt. Luennoitsijoita ei saa ruokkia.
+      </p>
+
+      <Section>
+        {teachers.map(({ node: teacher }) => (
+          <TeacherCard
+            slug={teacher.slug}
+            avatar={teacher.avatar?.fluid}
+            name={teacher.name}
+          />
         ))}
-      </TeacherCards>
+      </Section>
     </Layout>
   );
 };
 
 export default IndexPage;
-
-const TeacherCards = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 2rem;
-  grid-auto-rows: minmax(300px, auto);
-`;
-
-const TeacherCard = styled.div`
-  flex: 1;
-  padding: 1rem;
-  border-radius: 5px;
-  background: #ffffff;
-  box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff;
-`;
-
-const Name = styled.h3`
-  text-align: center;
-`;

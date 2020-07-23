@@ -3,7 +3,9 @@ import { graphql, Link } from 'gatsby';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 import { ContentfulTeacher } from '../../types/graphql-types';
-import { H1 } from '../components/primitives';
+import { H1, Section } from '../components/primitives';
+import CourseCard from '../components/CourseCard/CourseCard';
+import styled from 'styled-components';
 
 interface Props {
   data: {
@@ -23,18 +25,28 @@ const Teacher: FC<Props> = ({ data: { contentfulTeacher } }: Props) => {
     <Layout>
       <SEO title={name} />
       <H1>{name}</H1>
-      <time dateTime={createdAt}>{createdAt}</time>
-      <time dateTime={updatedAt}>{updatedAt}</time>
+      <Created>
+        Saavuitte tietoisuuden: <time dateTime={createdAt}>{createdAt}</time>
+      </Created>
+      <Updated>
+        Viimeksi kyseenalaistanut todellisuuden:
+        <time dateTime={updatedAt}>{updatedAt}</time>
+      </Updated>
 
-      <h3>Opettajan järjestämä opetus</h3>
-      {course &&
-        course.map(c => (
-          <Link to={`course/${c?.courseId}`} key={c?.id}>
-            <h4>
-              {c?.courseId} - {c?.name}
-            </h4>
-          </Link>
-        ))}
+      <Section>
+        <h3>Opettajan järjestämä opetus</h3>
+        <Courses>
+          {course &&
+            course.map(c => (
+              <CourseCard
+                courseId={c?.courseId}
+                name={c?.name}
+                ects={c?.ects}
+                teachers={c?.teacher}
+              />
+            ))}
+        </Courses>
+      </Section>
     </Layout>
   );
 };
@@ -49,6 +61,7 @@ export const pageQuery = graphql`
       name
       course {
         id
+        ects
         name
         courseId
       }
@@ -57,3 +70,14 @@ export const pageQuery = graphql`
     }
   }
 `;
+
+const Courses = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 0 -0.5rem 2rem;
+`;
+
+const Created = styled.span``;
+
+const Updated = styled.span``;

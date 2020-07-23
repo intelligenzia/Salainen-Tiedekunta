@@ -8,9 +8,12 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { useStaticQuery, graphql } from 'gatsby';
+import { useTransition, animated } from 'react-spring';
+
 import { Container } from './primitives';
 import Header from './header';
 import './layout.css';
+import styled from 'styled-components';
 
 type Props = {
   children: React.ReactNode;
@@ -27,13 +30,26 @@ const Layout: React.FC<Props> = ({ children }: Props) => {
     }
   `);
 
+  const transitions = useTransition(true, null, {
+    from: { opacity: 0, transform: `translate3d(0,2rem,0)` },
+    enter: { opacity: 1, transform: 'translate3d(0,0%,0)' },
+    leave: { opacity: 0, transform: 'translate3d(0,-2rem,0)' },
+  });
+
   return (
     <>
       <Header siteTitle={data.site.siteMetadata.title} />
       <Container>
-        <main>{children}</main>
-        <footer>© {new Date().getFullYear()}</footer>
+        {transitions.map(
+          ({ item, key, props }) =>
+            item && (
+              <animated.div key={key} style={props}>
+                <main>{children}</main>
+              </animated.div>
+            )
+        )}
       </Container>
+      <Footer>© {new Date().getFullYear()}</Footer>
     </>
   );
 };
@@ -43,3 +59,5 @@ Layout.propTypes = {
 };
 
 export default Layout;
+
+const Footer = styled.footer``;

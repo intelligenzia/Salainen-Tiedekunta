@@ -26,6 +26,7 @@ exports.onCreateNode = async ({ node, loadNodeContent, actions }) => {
   if (mediaType !== 'text/richtext' || owner !== 'gatsby-source-contentful') {
     return;
   }
+
   const doc = JSON.parse(await loadNodeContent(node));
   const text = contentful.documentToPlainTextString(doc);
   const result = text.slice(0, 160);
@@ -82,8 +83,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
   majors.forEach((major, index) => {
     const previous =
-      index === majors.length - 1 ? null : majors[index + 1].node;
-    const next = index === 0 ? null : majors[index - 1].node;
+      index === majors.length - 1 ? null : majors[index + 1].node.slug;
+    const next = index === 0 ? null : majors[index - 1].node.slug;
 
     createPage({
       path: `major/${major.node.slug}`,
@@ -98,8 +99,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
   teachers.forEach((teacher, index) => {
     const previous =
-      index === teachers.length - 1 ? null : teachers[index + 1].node;
-    const next = index === 0 ? null : teachers[index - 1].node;
+      index === teachers.length - 1 ? null : teachers[index + 1].node.slug;
+    const next = index === 0 ? null : teachers[index - 1].node.slug;
 
     createPage({
       path: `teacher/${teacher.node.slug}`,
@@ -114,8 +115,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
   courses.forEach((course, index) => {
     const previous =
-      index === courses.length - 1 ? null : courses[index + 1].node;
-    const next = index === 0 ? null : courses[index - 1].node;
+      index === courses.length - 1 ? null : courses[index + 1].node.courseId;
+    const next = index === 0 ? null : courses[index - 1].node.courseId;
 
     createPage({
       path: `course/${course.node.courseId}`,

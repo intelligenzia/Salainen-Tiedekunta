@@ -5,6 +5,7 @@ import SEO from '../components/seo';
 import ContentfulRichText from '../components/contentfulRichText';
 import styled from 'styled-components';
 import CourseCard from '../components/CourseCard/CourseCard';
+import { Section } from '../components/primitives';
 
 interface TemplateProps {
   data: any;
@@ -43,31 +44,41 @@ const Major = (props: TemplateProps) => {
     <Layout>
       <SEO title={name} description={excerpt} />
 
+      <Flag>Opetussuuntaus</Flag>
       <h1>{name}</h1>
-      <TinyInfo>Voimassaolo {createdAt} – </TinyInfo>
-      <TinyInfo>Tiedot päivitetty {updatedAt} </TinyInfo>
+      <InfoContainer>
+        <TinyInfo>Voimassaolo {createdAt} – </TinyInfo>
+        <TinyInfo>Tiedot päivitetty {updatedAt} </TinyInfo>
+      </InfoContainer>
 
-      <h2>Opinto-ohjelman esittely</h2>
-      <ContentfulRichText document={json} />
+      <Section>
+        <h2>Opinto-ohjelman esittely</h2>
+        <ContentfulRichText document={json} />
+      </Section>
 
-      <h2>Kurssit</h2>
-      <p>Seuraavat kurssit ovat pakollisia</p>
+      <Section>
+        <h2>Kurssit</h2>
+        <p>Seuraavat kurssit ovat pakollisia</p>
 
-      {courses &&
-        courses.map((course, index) => {
-          const { courseId, name: courseName, ects, teacher } = course;
-          return (
-            <CourseCard
-              key={index}
-              name={courseName}
-              courseId={courseId}
-              ects={ects}
-              teachers={teacher}
-            />
-          );
-        })}
-
-      <h3>Muita Opintosuuntauksia</h3>
+        <Courses>
+          {courses &&
+            courses.map((course, index) => {
+              const { courseId, name: courseName, ects, teacher } = course;
+              return (
+                <CourseCard
+                  key={index}
+                  name={courseName}
+                  courseId={courseId}
+                  ects={ects}
+                  teachers={teacher}
+                />
+              );
+            })}
+        </Courses>
+      </Section>
+      <Section>
+        <h3>Muita Opintosuuntauksia</h3>
+      </Section>
     </Layout>
   );
 };
@@ -112,4 +123,29 @@ const TinyInfo = styled.p`
   font-size: 0.9rem;
   color: var(--secondary-text);
   margin: 0.2rem 0rem;
+`;
+
+const Courses = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 0 -0.5rem 2rem;
+`;
+
+const Flag = styled.div`
+  padding: 0.5rem;
+  font-size: 0.7rem;
+  font-style: bold;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: #cecece;
+  display: inline-block;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+`;
+
+const InfoContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 5rem;
 `;
