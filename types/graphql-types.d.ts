@@ -5801,7 +5801,10 @@ export type AllMajorsQueryQuery = { allContentfulMajor: { edges: Array<{ node: (
 export type AllTeachersQueryQueryVariables = {};
 
 
-export type AllTeachersQueryQuery = { allContentfulTeacher: { nodes: Array<Pick<ContentfulTeacher, 'id' | 'name' | 'slug'>> } };
+export type AllTeachersQueryQuery = { allContentfulTeacher: { nodes: Array<(
+      Pick<ContentfulTeacher, 'id' | 'name' | 'slug'>
+      & { avatar?: Maybe<{ fluid?: Maybe<GatsbyContentfulFluidFragment> }> }
+    )> } };
 
 export type Unnamed_3_QueryVariables = {
   courseId: Scalars['String'];

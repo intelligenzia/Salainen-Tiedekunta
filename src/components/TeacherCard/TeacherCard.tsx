@@ -1,18 +1,23 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
+import Image, { FluidObject, GatsbyImageProps } from 'gatsby-image';
 import { Link } from 'gatsby';
+import { Icon } from '../Icons/Icons';
 
 interface Props {
-  name: string;
-  slug: string;
+  name: string | undefined | null;
+  slug: string | undefined | null;
+  avatar: FluidObject | undefined | null;
 }
 
-const TeacherCard = (props: Props) => {
-  const { name, slug } = props;
-
+const TeacherCard: FC<Props> = ({ name, slug, avatar }) => {
   return (
     <Container to={`/teacher/${slug}`}>
+      {avatar && <Avatar fluid={avatar} alt={`${name}`} />}
       <Name>{name}</Name>
+      <ArrowContainer>
+        <Arrow />
+      </ArrowContainer>
     </Container>
   );
 };
@@ -22,8 +27,8 @@ export default TeacherCard;
 const Container = styled(Link)`
   display: block;
   padding: 1rem 0.5rem;
-  background-color: ${({ theme }) => theme.bgSecondary};
-  border-bottom: 1px solid ${({ theme }) => theme.textSecondary};
+  background-color: ${({ theme }): string => theme.bgSecondary};
+  border-bottom: 1px solid ${({ theme }): string => theme.textSecondary};
 
   display: flex;
   flex-direction: row;
@@ -42,5 +47,37 @@ const Container = styled(Link)`
 `;
 
 const Name = styled.h4`
+  margin: 0 0 0 1rem;
+`;
+
+const Avatar = styled(Image)<GatsbyImageProps>`
+  height: 30px;
+  width: 30px;
+  border-radius: 30px;
+  border: 2px solid black;
+  box-sizing: border-box;
+  transition: 0.7s ease-in-out transform;
+  filter: grayscale(100%);
+  &:hover {
+    transform: rotate(1080deg);
+  }
+`;
+
+const ArrowContainer = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+`;
+
+const Arrow = styled(Icon).attrs(({ theme }) => ({
+  name: 'arrow',
+  height: 30,
+  fill: 'none',
+  stroke: theme.textSecondary,
+  width: 30,
+  viewBox: '0 0 30 30',
+}))`
   margin: 0;
 `;

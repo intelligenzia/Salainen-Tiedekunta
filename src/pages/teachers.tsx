@@ -1,6 +1,9 @@
 import { graphql, PageProps, useStaticQuery } from 'gatsby';
 import React, { FC } from 'react';
-import { AllTeachersQueryQuery } from '../../types/graphql-types';
+import {
+  AllTeachersQueryQuery,
+  ContentfulTeacher,
+} from '../../types/graphql-types';
 import Layout from '../components/layout';
 import { H1 } from '../components/primitives';
 import SEO from '../components/seo';
@@ -14,13 +17,21 @@ const IndexPage: FC<PageProps> = ({ location }) => {
           id
           name
           slug
+          avatar {
+            fluid(maxWidth: 100) {
+              ...GatsbyContentfulFluid
+            }
+          }
         }
       }
     }
   `);
 
-  const teachers = data.allContentfulTeacher.nodes.sort((a, b) =>
-    a.name.localeCompare(b.name)
+  const teachers = data.allContentfulTeacher.nodes.sort(
+    (
+      a: Pick<ContentfulTeacher, 'id' | 'name' | 'slug'>,
+      b: Pick<ContentfulTeacher, 'id' | 'name' | 'slug'>
+    ) => a?.name?.localeCompare(b?.name ?? 'a') ?? 0
   );
 
   return (
@@ -33,7 +44,12 @@ const IndexPage: FC<PageProps> = ({ location }) => {
       <H1>Opettajat</H1>
 
       {teachers.map(node => (
-        <TeacherCard name={node.name} slug={node.slug} key={node.id} />
+        <TeacherCard
+          name={node.name}
+          slug={node.slug}
+          key={node.id}
+          avatar={node.avatar?.fluid}
+        />
       ))}
     </Layout>
   );

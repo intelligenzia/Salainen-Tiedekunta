@@ -22,9 +22,18 @@ module.exports = {
   },
   rules: {
     'prettier/prettier': ['error'],
+    'import/prefer-default-export': 0,
     '@typescript-eslint/no-var-requires': 0,
-    'import/extensions': 'never',
+    'import/extensions': 0,
     'react/jsx-one-expression-per-line': 0,
+    'react/prop-types': 0,
+    'react/self-closing-comp': [
+      'error',
+      {
+        component: true,
+        html: true,
+      },
+    ],
     'react/jsx-filename-extension': [1, { extensions: ['.tsx', '.jsx'] }],
   },
 };
