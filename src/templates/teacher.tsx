@@ -25,7 +25,7 @@ const Teacher: FC<Props> = ({
 
   return (
     <Layout>
-      <SEO title={name} pathname={location.pathname} />
+      <SEO title={name as string} pathname={location.pathname} />
       <H1>{name}</H1>
       <time dateTime={createdAt}>{createdAt}</time>
       <time dateTime={updatedAt}>{updatedAt}</time>
@@ -33,7 +33,7 @@ const Teacher: FC<Props> = ({
       <h3>Opettajan järjestämä opetus</h3>
       {course &&
         course.map(c => (
-          <Link to={`course/${c?.courseId}`} key={c?.id}>
+          <Link to={`/course/${c?.courseId}`} key={c?.id}>
             <h4>
               {c?.courseId} - {c?.name}
             </h4>

@@ -1,28 +1,27 @@
-import * as React from 'react';
-import { Link, useStaticQuery, graphql } from 'gatsby';
-import styled from 'styled-components';
-import { AllTeachersQueryQuery } from '../../types/graphql-types'; // eslint-disable-line import/no-unresolved
-
+import { graphql, PageProps, useStaticQuery } from 'gatsby';
+import React, { FC } from 'react';
+import { AllTeachersQueryQuery } from '../../types/graphql-types';
 import Layout from '../components/layout';
-import Image from '../components/image';
-import SEO from '../components/seo';
 import { H1 } from '../components/primitives';
+import SEO from '../components/seo';
+import TeacherCard from '../components/TeacherCard/TeacherCard';
 
-const IndexPage: React.FC = ({ location }) => {
+const IndexPage: FC<PageProps> = ({ location }) => {
   const data: AllTeachersQueryQuery = useStaticQuery(graphql`
     query allTeachersQuery {
       allContentfulTeacher {
-        edges {
-          node {
-            id
-            name
-          }
+        nodes {
+          id
+          name
+          slug
         }
       }
     }
   `);
 
-  const teachers = data.allContentfulTeacher.edges;
+  const teachers = data.allContentfulTeacher.nodes.sort((a, b) =>
+    a.name.localeCompare(b.name)
+  );
 
   return (
     <Layout>
@@ -33,34 +32,11 @@ const IndexPage: React.FC = ({ location }) => {
       />
       <H1>Opettajat</H1>
 
-      <TeacherCards>
-        {teachers.map(({ node }) => (
-          <TeacherCard key={node.id}>
-            <Name>{node.name}</Name>
-          </TeacherCard>
-        ))}
-      </TeacherCards>
+      {teachers.map(node => (
+        <TeacherCard name={node.name} slug={node.slug} key={node.id} />
+      ))}
     </Layout>
   );
 };
 
 export default IndexPage;
-
-const TeacherCards = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 2rem;
-  grid-auto-rows: minmax(300px, auto);
-`;
-
-const TeacherCard = styled.div`
-  flex: 1;
-  padding: 1rem;
-  border-radius: 5px;
-  background: #ffffff;
-  box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff;
-`;
-
-const Name = styled.h3`
-  text-align: center;
-`;

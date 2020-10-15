@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
-import Image, { FluidObject } from 'gatsby-image';
+import Image, { FluidObject, GatsbyImageProps } from 'gatsby-image';
 import { ContentfulTeacher } from '../../../types/graphql-types';
 import { Link } from 'gatsby';
 
@@ -11,32 +11,28 @@ interface Props {
   teachers: ContentfulTeacher[];
 }
 
-const CourseCard = (props: Props) => {
-  const { name, courseId, ects, teachers } = props;
-
+const CourseCard: FC<Props> = ({ name, courseId, ects, teachers }) => {
   return (
-    <Container>
-      <Link to={`course/${courseId}`}>
-        <Name>
-          {courseId} : {name}
-        </Name>
-        <div>{ects} op</div>
-        {teachers && (
-          <>
-            {teachers.map(teacher => {
-              if (!teacher.avatar || !teacher.avatar.fluid) return null;
-              return teacher ? <Teacher fluid={teacher.avatar?.fluid} /> : null;
-            })}
-          </>
-        )}
-      </Link>
+    <Container to={`/course/${courseId}`}>
+      <Name>
+        {courseId} : {name}
+      </Name>
+      <div>{ects} op</div>
+      {teachers && (
+        <Teachers>
+          {teachers.map(teacher => {
+            if (!teacher.avatar || !teacher.avatar.fluid) return null;
+            return teacher ? <Teacher fluid={teacher.avatar?.fluid} /> : null;
+          })}
+        </Teachers>
+      )}
     </Container>
   );
 };
 
 export default CourseCard;
 
-const Container = styled.div`
+const Container = styled(Link)`
   padding: 1.5rem;
   box-sizing: border-box;
   margin: 5px;
@@ -47,6 +43,11 @@ const Container = styled.div`
   flex: 1;
   flex-basis: 33%;
   width: 100%;
+  transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+  &:hover {
+    transform: translateY(-2px);
+  }
 `;
 
 const Name = styled.h4`
@@ -54,7 +55,12 @@ const Name = styled.h4`
   text-decoration: none;
 `;
 
-const Teacher = styled(Image)`
+const Teachers = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const Teacher = styled(Image)<GatsbyImageProps>`
   height: 30px;
   width: 30px;
   border-radius: 30px;

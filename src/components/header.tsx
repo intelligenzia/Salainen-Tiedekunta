@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { FC } from 'react';
 import { Link } from 'gatsby';
 import styled from 'styled-components';
 import { maxWidth } from './primitives';
@@ -27,7 +27,7 @@ const routes = [
   },
 ];
 
-const Header: React.FC<Props> = ({ siteTitle }: Props) => (
+const Header: FC<Props> = ({ siteTitle }: Props) => (
   <HeaderContainer>
     <Inner>
       <Title>
