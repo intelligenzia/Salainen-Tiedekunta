@@ -1,5 +1,6 @@
-require('dotenv').config();
-
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`,
+});
 module.exports = {
   siteMetadata: {
     title: `Salainen Tiedekunta`,
@@ -44,7 +45,6 @@ module.exports = {
     `gatsby-plugin-sitemap`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
-    /* eslint-disable @typescript-eslint/camelcase */
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -54,15 +54,15 @@ module.exports = {
         background_color: `#fff`,
         theme_color: `#373737`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/gatsby-icon.png`,
       },
     },
-    {
-      resolve: `gatsby-source-github-api`,
-      options: {
-        token: process.env.GITHUB,
-      },
-    },
+    // {
+    //   resolve: `gatsby-source-github-api`,
+    //   options: {
+    //     token: process.env.GITHUB,
+    //   },
+    // },
     {
       resolve: `gatsby-source-contentful`,
       options: {
@@ -88,14 +88,13 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        // The property ID; the tracking code won't be generated without it
         trackingId: 'UA-63351583-3',
         head: false,
         anonymize: true,
         respectDNT: true,
         sampleRate: 5,
         siteSpeedSampleRate: 10,
-        cookieDomain: 'example.com',
+        cookieDomain: 'tiedekunta.com',
       },
     },
     {
