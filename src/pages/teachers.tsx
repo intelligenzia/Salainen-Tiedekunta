@@ -5,7 +5,7 @@ import {
   ContentfulTeacher,
 } from '../../types/graphql-types';
 import Layout from '../components/layout';
-import { H1 } from '../components/primitives';
+import { H1, P } from '../components/primitives';
 import SEO from '../components/seo';
 import TeacherCard from '../components/TeacherCard/TeacherCard';
 
@@ -43,6 +43,10 @@ const IndexPage: FC<PageProps> = ({ location }) => {
       />
       <H1>Opettajat</H1>
 
+      <P>
+        Salaisen Tiedekunnan palveluksessa on tällä hetkellä {teachers.length}{' '}
+        opettajaa.
+      </P>
       {teachers.map(node => (
         <TeacherCard
           name={node.name}

@@ -3,17 +3,21 @@ import styled from 'styled-components';
 import Image, { FluidObject, GatsbyImageProps } from 'gatsby-image';
 import { Link } from 'gatsby';
 import { Icon } from '../Icons/Icons';
+import { ContentfulFluid } from '../../../types/graphql-types';
 
 interface Props {
   name: string | undefined | null;
   slug: string | undefined | null;
-  avatar: FluidObject | undefined | null;
+  avatar:
+    | Pick<ContentfulFluid, 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>
+    | undefined
+    | null;
 }
 
 const TeacherCard: FC<Props> = ({ name, slug, avatar }) => {
   return (
     <Container to={`/teacher/${slug}`}>
-      {avatar && <Avatar fluid={avatar} alt={`${name}`} />}
+      {avatar ? <Avatar fluid={avatar} alt={`${name}`} /> : <PlaceHolder />}
       <Name>{name}</Name>
       <ArrowContainer>
         <Arrow />
@@ -50,6 +54,14 @@ const Name = styled.h4`
   margin: 0 0 0 1rem;
 `;
 
+const PlaceHolder = styled.div`
+  height: 30px;
+  width: 30px;
+  border-radius: 30px;
+  border: 2px solid black;
+  box-sizing: border-box;
+`;
+
 const Avatar = styled(Image)<GatsbyImageProps>`
   height: 30px;
   width: 30px;
@@ -73,11 +85,11 @@ const ArrowContainer = styled.div`
 
 const Arrow = styled(Icon).attrs(({ theme }) => ({
   name: 'arrow',
-  height: 30,
+  height: 18,
   fill: 'none',
   stroke: theme.textSecondary,
-  width: 30,
-  viewBox: '0 0 30 30',
+  width: 50,
+  viewBox: '0 0 20 20',
 }))`
   margin: 0;
 `;

@@ -1,24 +1,22 @@
-import { graphql, PageProps } from 'gatsby';
+import { graphql, Link, PageProps } from 'gatsby';
 import React, { FC } from 'react';
-import { ContentfulCourse } from '../../types/graphql-types';
+import styled from 'styled-components';
+import { ContentfulTeacher, CoursePageQuery } from '../../types/graphql-types';
 import ContentfulRichText from '../components/contentfulRichText';
 import CourseCard from '../components/CourseCard/CourseCard';
+import { Icon } from '../components/Icons/Icons';
 import Layout from '../components/layout';
-import { H1, CourseContainer } from '../components/primitives';
+import { CourseContainer, H1 } from '../components/primitives';
 import SEO from '../components/seo';
 import TeacherCard from '../components/TeacherCard/TeacherCard';
-import { Icon } from '../components/Icons/Icons';
-import styled from 'styled-components';
+import devices from '../helpers/devices';
 
-interface Props {
-  contentfulCourse: ContentfulCourse;
-}
-
-const Course: FC<PageProps<Props>> = props => {
+const Course: FC<PageProps<CoursePageQuery>> = props => {
   const {
     data: {
       contentfulCourse: {
         name = '',
+        major: majors,
         teacher: teachers,
         description: {
           json,
@@ -32,9 +30,17 @@ const Course: FC<PageProps<Props>> = props => {
 
   return (
     <Layout>
-      <SEO title={name} description={excerpt} pathname={location.pathname} />
+      <SEO
+        title={`${name}`}
+        description={excerpt}
+        pathname={location.pathname}
+      />
+
+      {majors && (
+        <Major to={`/major/${majors[0].slug}`}>{majors[0].name}</Major>
+      )}
+
       <H1>{name}</H1>
-      <time></time>
 
       {teachers && (
         <>
@@ -44,7 +50,7 @@ const Course: FC<PageProps<Props>> = props => {
               <TeacherCard
                 name={teacher?.name}
                 slug={teacher?.slug}
-                avatar={teacher?.avatar}
+                avatar={teacher?.avatar?.fluid}
               />
             ))}
           </Teachers>
@@ -63,7 +69,7 @@ const Course: FC<PageProps<Props>> = props => {
       </h3>
       <ContentfulRichText document={json} />
 
-      <h3>Muita samanlaisia kursseja</h3>
+      <h3>Muita vastaavia kursseja</h3>
 
       <CourseContainer>
         {next && (
@@ -71,7 +77,7 @@ const Course: FC<PageProps<Props>> = props => {
             name={next.name}
             courseId={next.courseId}
             teachers={[]}
-            ects={3}
+            ects={`${3}`}
           />
         )}
 
@@ -91,7 +97,7 @@ const Course: FC<PageProps<Props>> = props => {
 export default Course;
 
 export const pageQuery = graphql`
-  query($courseId: String!) {
+  query CoursePage($courseId: String!) {
     contentfulCourse(courseId: { eq: $courseId }) {
       name
       id
@@ -110,7 +116,7 @@ export const pageQuery = graphql`
         name
         avatar {
           fluid(maxWidth: 30) {
-            src
+            ...GatsbyContentfulFluid
           }
         }
       }
@@ -128,4 +134,19 @@ const Teachers = styled.div`
   box-sizing: border-box;
   border-radius: 10px;
   box-shadow: 1px 1px 4px 0px #27272738;
+
+  @media ${devices.tablet} {
+    width: 50%;
+  }
+`;
+
+const Major = styled(Link)`
+  display: inline-block;
+  border-radius: 0.5rem;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.8rem;
+  box-sizing: border-box;
+  background-color: ${({ theme }): string => theme.gray};
+  color: ${({ theme }): string => theme.textPrimary};
+  margin-bottom: 0.8rem;
 `;

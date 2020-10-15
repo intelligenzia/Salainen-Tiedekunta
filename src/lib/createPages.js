@@ -1,4 +1,5 @@
 import path from 'path';
+import jimp from 'jimp';
 
 const teacherTemplate = path.resolve('../templates/teacher.tsx');
 

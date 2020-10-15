@@ -5806,19 +5806,19 @@ export type AllTeachersQueryQuery = { allContentfulTeacher: { nodes: Array<(
       & { avatar?: Maybe<{ fluid?: Maybe<GatsbyContentfulFluidFragment> }> }
     )> } };
 
-export type Unnamed_3_QueryVariables = {
+export type CoursePageQueryVariables = {
   courseId: Scalars['String'];
 };
 
 
-export type Unnamed_3_Query = { contentfulCourse?: Maybe<(
+export type CoursePageQuery = { contentfulCourse?: Maybe<(
     Pick<ContentfulCourse, 'name' | 'id' | 'ects' | 'courseId' | 'createdAt' | 'updatedAt'>
     & { description?: Maybe<(
       Pick<ContentfulCourseDescriptionRichTextNode, 'json'>
       & { fields?: Maybe<Pick<ContentfulCourseDescriptionRichTextNodeFields, 'excerpt'>> }
     )>, teacher?: Maybe<Array<Maybe<(
       Pick<ContentfulTeacher, 'slug' | 'name'>
-      & { avatar?: Maybe<{ fluid?: Maybe<Pick<ContentfulFluid, 'src'>> }> }
+      & { avatar?: Maybe<{ fluid?: Maybe<GatsbyContentfulFluidFragment> }> }
     )>>>, major?: Maybe<Array<Maybe<Pick<ContentfulMajor, 'slug' | 'name'>>>> }
   )> };
 
@@ -5841,12 +5841,12 @@ export type MajorBySlugQuery = { contentfulMajor?: Maybe<(
     )>>> }
   )> };
 
-export type Unnamed_4_QueryVariables = {
+export type Unnamed_3_QueryVariables = {
   slug: Scalars['String'];
 };
 
 
-export type Unnamed_4_Query = { contentfulTeacher?: Maybe<(
+export type Unnamed_3_Query = { contentfulTeacher?: Maybe<(
     Pick<ContentfulTeacher, 'id' | 'slug' | 'name' | 'createdAt' | 'updatedAt'>
     & { course?: Maybe<Array<Maybe<Pick<ContentfulCourse, 'id' | 'name' | 'courseId'>>>> }
   )> };

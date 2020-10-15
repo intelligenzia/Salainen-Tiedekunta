@@ -16,3 +16,8 @@ export const CourseContainer = styled.div`
   flex-wrap: wrap;
   margin: 0 -1rem;
 `;
+
+export const P = styled.p`
+  line-height: 1.5rem;
+  font-size: 1rem;
+`;
