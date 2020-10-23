@@ -1,8 +1,8 @@
+import { Link } from 'gatsby';
+import Image, { GatsbyImageProps } from 'gatsby-image';
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import Image, { FluidObject, GatsbyImageProps } from 'gatsby-image';
 import { ContentfulTeacher } from '../../../types/graphql-types';
-import { Link } from 'gatsby';
 
 interface Props {
   name: string;
@@ -17,6 +17,7 @@ const CourseCard: FC<Props> = ({ name, courseId, ects, teachers }) => {
       <Name>
         {courseId} : {name}
       </Name>
+      <Introduction />
       <div>{ects} op</div>
       {teachers && (
         <Teachers>
@@ -72,3 +73,5 @@ const Teacher = styled(Image)<GatsbyImageProps>`
     transform: rotate(1080deg);
   }
 `;
+
+const Introduction = styled.p``;

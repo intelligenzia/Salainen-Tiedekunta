@@ -1,35 +1,37 @@
-import * as React from 'react';
-import { Link, useStaticQuery, graphql } from 'gatsby';
-import { AllTeachersQueryQuery } from '../../types/graphql-types'; // eslint-disable-line import/no-unresolved
-import { H1 } from '../components/primitives';
-import Layout from '../components/layout';
-import Image from '../components/image';
-import SEO from '../components/seo';
-import CourseCard from '../components/CourseCard/CourseCard';
+import { graphql, Link, PageProps, useStaticQuery } from 'gatsby';
+import React, { FC } from 'react';
 import styled from 'styled-components';
+import { AllMajorsQueryQuery } from '../../types/graphql-types'; // eslint-disable-line import/no-unresolved
 import ContentfulRichText from '../components/contentfulRichText';
+import CourseCard from '../components/CourseCard/CourseCard';
+import Layout from '../components/layout';
+import { H1 } from '../components/primitives';
+import SEO from '../components/seo';
 
-const Majors: React.FC = () => {
-  const data: any = useStaticQuery(graphql`
+const Majors: FC<PageProps> = ({ pageContext: { path } }) => {
+  const data: AllMajorsQueryQuery = useStaticQuery(graphql`
     query allMajorsQuery {
       allContentfulMajor {
-        edges {
-          node {
+        nodes {
+          name
+          id
+          slug
+          introduction {
+            json
+          }
+          courses {
             name
-            id
-            slug
-            introduction {
-              json
+            courseId
+            ects
+            description {
+              fields {
+                excerpt
+              }
             }
-            courses {
-              name
-              courseId
-              ects
-              teacher {
-                avatar {
-                  fluid(maxWidth: 30) {
-                    srcSet
-                  }
+            teacher {
+              avatar {
+                fluid(maxWidth: 30) {
+                  srcSet
                 }
               }
             }
@@ -39,17 +41,18 @@ const Majors: React.FC = () => {
     }
   `);
 
-  const majors = data.allContentfulMajor.edges;
+  const majors = data.allContentfulMajor.nodes;
 
   return (
     <Layout>
       <SEO
         title="Pääaineet"
         description="Kaikki Salaisen Tiedekunnan opetuksessa olevat opintokokonaisuudet"
+        pathname={path}
       />
       <H1>Opintokokonaisuudet</H1>
 
-      {majors.map(({ node }) => (
+      {majors.map(node => (
         <div key={node.id}>
           <Link to={`major/${node.slug}`}>
             <h3>{node.name}</h3>
@@ -60,6 +63,7 @@ const Majors: React.FC = () => {
               node.courses.map(course => (
                 <CourseCard
                   key={course.courseId}
+                  description={course.description.fields.excerpt}
                   name={course.name}
                   courseId={course.courseId}
                   ects={course.ects}

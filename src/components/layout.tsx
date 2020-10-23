@@ -41,6 +41,7 @@ Layout.propTypes = {
 
 const Main = styled.main`
   margin: 0rem 0rem 5rem;
+  min-height: 60vh;
 `;
 
 export default Layout;

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {
   BLOCKS,
-  //, MARKS, Document, Block
+  // , MARKS, Document, Block
 } from '@contentful/rich-text-types';
 import {
   documentToReactComponents,

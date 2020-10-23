@@ -1,45 +1,31 @@
-import React from 'react';
-import { graphql } from 'gatsby';
+import React, { FC } from 'react';
+import { graphql, PageProps } from 'gatsby';
+import styled from 'styled-components';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 import ContentfulRichText from '../components/contentfulRichText';
-import styled from 'styled-components';
 import CourseCard from '../components/CourseCard/CourseCard';
 
-interface TemplateProps {
-  data: any;
-  pageContext: {
-    next?: {
-      name: string;
-      slug: string;
-    };
-    previous?: {
-      name: string;
-      slug: string;
-    };
-  };
-  location: any;
-}
+type Props = {
+  contentfulMajor: any;
+};
 
-const Major = (props: TemplateProps) => {
-  const {
-    data: {
-      contentfulMajor: {
-        slug,
-        name,
-        createdAt,
-        updatedAt,
-        courses,
-        introduction: {
-          json,
-          fields: { excerpt },
-        },
+const Major: FC<PageProps<Props>> = ({
+  data: {
+    contentfulMajor: {
+      slug,
+      name,
+      createdAt,
+      updatedAt,
+      courses,
+      introduction: {
+        json,
+        fields: { excerpt },
       },
     },
-    location,
-    pageContext: { next, previous },
-  } = props;
-
+  },
+  location,
+}) => {
   return (
     <Layout>
       <SEO title={name} description={excerpt} pathname={location.pathname} />

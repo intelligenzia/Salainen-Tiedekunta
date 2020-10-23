@@ -1,6 +1,10 @@
-require('dotenv').config({
+require(`ts-node`).register({
+  files: true,
+});
+require(`dotenv`).config({
   path: `.env.${process.env.NODE_ENV}`,
 });
+
 module.exports = {
   siteMetadata: {
     title: `Salainen Tiedekunta`,
@@ -22,26 +26,8 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
-    {
-      resolve: `gatsby-transformer-remark`,
-      options: {
-        plugins: [
-          {
-            resolve: `gatsby-remark-twitter-cards`,
-            options: {
-              title: 'Salainen Tiedekunta', // website title
-              separator: '|', // default
-              author: 'Salainen Tiedekunta',
-              fontColor: 'white', // defaults to white (#ffffff)
-              titleFontSize: 96, // default
-              subtitleFontSize: 60, // default
-              fontStyle: 'monospace', // default
-              fontFile: require.resolve('./static/Domine-Regular.ttf'), // will override fontStyle - path to custom TTF font
-            },
-          },
-        ],
-      },
-    },
+    `gatsby-plugin-styled-components`,
+    `gatsby-transformer-remark`,
     `gatsby-plugin-sitemap`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
@@ -57,21 +43,15 @@ module.exports = {
         icon: `src/images/gatsby-icon.png`,
       },
     },
-    // {
-    //   resolve: `gatsby-source-github-api`,
-    //   options: {
-    //     token: process.env.GITHUB,
-    //   },
-    // },
     {
       resolve: `gatsby-source-contentful`,
       options: {
         spaceId: process.env.CONTENTFUL_SPACE_ID,
-        localeFilter: locale => locale.code === 'fi-FI',
+        localeFilter: locale => locale.code === `fi-FI`,
         accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
       },
     },
-    'gatsby-og-images',
+    `gatsby-og-images`,
     {
       resolve: `gatsby-plugin-prefetch-google-fonts`,
       options: {
@@ -88,13 +68,13 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: 'UA-63351583-3',
+        trackingId: `UA-63351583-3`,
         head: false,
         anonymize: true,
         respectDNT: true,
         sampleRate: 5,
         siteSpeedSampleRate: 10,
-        cookieDomain: 'tiedekunta.com',
+        cookieDomain: `tiedekunta.com`,
       },
     },
     {
@@ -103,9 +83,5 @@ module.exports = {
         fileName: `types/graphql-types.d.ts`,
       },
     },
-    /* eslint-enable @typescript-eslint/camelcase */
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
   ],
 };

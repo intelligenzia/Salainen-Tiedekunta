@@ -5228,22 +5228,8 @@ export type SitePageFieldsEnum =
   'pluginCreator___resolve' |
   'pluginCreator___name' |
   'pluginCreator___version' |
-  'pluginCreator___pluginOptions___plugins' |
-  'pluginCreator___pluginOptions___plugins___resolve' |
-  'pluginCreator___pluginOptions___plugins___id' |
-  'pluginCreator___pluginOptions___plugins___name' |
-  'pluginCreator___pluginOptions___plugins___version' |
-  'pluginCreator___pluginOptions___plugins___pluginFilepath' |
   'pluginCreator___pluginOptions___name' |
   'pluginCreator___pluginOptions___path' |
-  'pluginCreator___pluginOptions___title' |
-  'pluginCreator___pluginOptions___separator' |
-  'pluginCreator___pluginOptions___author' |
-  'pluginCreator___pluginOptions___fontColor' |
-  'pluginCreator___pluginOptions___titleFontSize' |
-  'pluginCreator___pluginOptions___subtitleFontSize' |
-  'pluginCreator___pluginOptions___fontStyle' |
-  'pluginCreator___pluginOptions___fontFile' |
   'pluginCreator___pluginOptions___short_name' |
   'pluginCreator___pluginOptions___start_url' |
   'pluginCreator___pluginOptions___background_color' |
@@ -5450,30 +5436,8 @@ export type SitePluginFieldsEnum =
   'resolve' |
   'name' |
   'version' |
-  'pluginOptions___plugins' |
-  'pluginOptions___plugins___resolve' |
-  'pluginOptions___plugins___id' |
-  'pluginOptions___plugins___name' |
-  'pluginOptions___plugins___version' |
-  'pluginOptions___plugins___pluginOptions___title' |
-  'pluginOptions___plugins___pluginOptions___separator' |
-  'pluginOptions___plugins___pluginOptions___author' |
-  'pluginOptions___plugins___pluginOptions___fontColor' |
-  'pluginOptions___plugins___pluginOptions___titleFontSize' |
-  'pluginOptions___plugins___pluginOptions___subtitleFontSize' |
-  'pluginOptions___plugins___pluginOptions___fontStyle' |
-  'pluginOptions___plugins___pluginOptions___fontFile' |
-  'pluginOptions___plugins___pluginFilepath' |
   'pluginOptions___name' |
   'pluginOptions___path' |
-  'pluginOptions___title' |
-  'pluginOptions___separator' |
-  'pluginOptions___author' |
-  'pluginOptions___fontColor' |
-  'pluginOptions___titleFontSize' |
-  'pluginOptions___subtitleFontSize' |
-  'pluginOptions___fontStyle' |
-  'pluginOptions___fontFile' |
   'pluginOptions___short_name' |
   'pluginOptions___start_url' |
   'pluginOptions___background_color' |
@@ -5608,17 +5572,8 @@ export type SitePluginPackageJsonPeerDependenciesFilterListInput = {
 };
 
 export type SitePluginPluginOptions = {
-  plugins?: Maybe<Array<Maybe<SitePluginPluginOptionsPlugins>>>;
   name?: Maybe<Scalars['String']>;
   path?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-  separator?: Maybe<Scalars['String']>;
-  author?: Maybe<Scalars['String']>;
-  fontColor?: Maybe<Scalars['String']>;
-  titleFontSize?: Maybe<Scalars['Int']>;
-  subtitleFontSize?: Maybe<Scalars['Int']>;
-  fontStyle?: Maybe<Scalars['String']>;
-  fontFile?: Maybe<Scalars['String']>;
   short_name?: Maybe<Scalars['String']>;
   start_url?: Maybe<Scalars['String']>;
   background_color?: Maybe<Scalars['String']>;
@@ -5640,17 +5595,8 @@ export type SitePluginPluginOptions = {
 };
 
 export type SitePluginPluginOptionsFilterInput = {
-  plugins?: Maybe<SitePluginPluginOptionsPluginsFilterListInput>;
   name?: Maybe<StringQueryOperatorInput>;
   path?: Maybe<StringQueryOperatorInput>;
-  title?: Maybe<StringQueryOperatorInput>;
-  separator?: Maybe<StringQueryOperatorInput>;
-  author?: Maybe<StringQueryOperatorInput>;
-  fontColor?: Maybe<StringQueryOperatorInput>;
-  titleFontSize?: Maybe<IntQueryOperatorInput>;
-  subtitleFontSize?: Maybe<IntQueryOperatorInput>;
-  fontStyle?: Maybe<StringQueryOperatorInput>;
-  fontFile?: Maybe<StringQueryOperatorInput>;
   short_name?: Maybe<StringQueryOperatorInput>;
   start_url?: Maybe<StringQueryOperatorInput>;
   background_color?: Maybe<StringQueryOperatorInput>;
@@ -5681,50 +5627,6 @@ export type SitePluginPluginOptionsFontsFilterInput = {
 
 export type SitePluginPluginOptionsFontsFilterListInput = {
   elemMatch?: Maybe<SitePluginPluginOptionsFontsFilterInput>;
-};
-
-export type SitePluginPluginOptionsPlugins = {
-  resolve?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  version?: Maybe<Scalars['String']>;
-  pluginOptions?: Maybe<SitePluginPluginOptionsPluginsPluginOptions>;
-  pluginFilepath?: Maybe<Scalars['String']>;
-};
-
-export type SitePluginPluginOptionsPluginsFilterInput = {
-  resolve?: Maybe<StringQueryOperatorInput>;
-  id?: Maybe<StringQueryOperatorInput>;
-  name?: Maybe<StringQueryOperatorInput>;
-  version?: Maybe<StringQueryOperatorInput>;
-  pluginOptions?: Maybe<SitePluginPluginOptionsPluginsPluginOptionsFilterInput>;
-  pluginFilepath?: Maybe<StringQueryOperatorInput>;
-};
-
-export type SitePluginPluginOptionsPluginsFilterListInput = {
-  elemMatch?: Maybe<SitePluginPluginOptionsPluginsFilterInput>;
-};
-
-export type SitePluginPluginOptionsPluginsPluginOptions = {
-  title?: Maybe<Scalars['String']>;
-  separator?: Maybe<Scalars['String']>;
-  author?: Maybe<Scalars['String']>;
-  fontColor?: Maybe<Scalars['String']>;
-  titleFontSize?: Maybe<Scalars['Int']>;
-  subtitleFontSize?: Maybe<Scalars['Int']>;
-  fontStyle?: Maybe<Scalars['String']>;
-  fontFile?: Maybe<Scalars['String']>;
-};
-
-export type SitePluginPluginOptionsPluginsPluginOptionsFilterInput = {
-  title?: Maybe<StringQueryOperatorInput>;
-  separator?: Maybe<StringQueryOperatorInput>;
-  author?: Maybe<StringQueryOperatorInput>;
-  fontColor?: Maybe<StringQueryOperatorInput>;
-  titleFontSize?: Maybe<IntQueryOperatorInput>;
-  subtitleFontSize?: Maybe<IntQueryOperatorInput>;
-  fontStyle?: Maybe<StringQueryOperatorInput>;
-  fontFile?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePluginSortInput = {
@@ -5779,6 +5681,11 @@ export type Unnamed_2_QueryVariables = {};
 
 export type Unnamed_2_Query = { site?: Maybe<{ siteMetadata?: Maybe<Pick<SiteSiteMetadata, 'title' | 'description' | 'author' | 'siteUrl'>> }> };
 
+export type CreatePagesQueryQueryVariables = {};
+
+
+export type CreatePagesQueryQuery = { allCourses: { nodes: Array<Pick<ContentfulCourse, 'id' | 'courseId' | 'name'>> }, allTeachers: { nodes: Array<Pick<ContentfulTeacher, 'id' | 'slug' | 'name'>> }, allMajors: { nodes: Array<Pick<ContentfulMajor, 'name' | 'id' | 'slug'>> } };
+
 export type AllCoursesQueryQueryVariables = {};
 
 
@@ -5790,13 +5697,13 @@ export type AllCoursesQueryQuery = { allContentfulCourse: { edges: Array<{ node:
 export type AllMajorsQueryQueryVariables = {};
 
 
-export type AllMajorsQueryQuery = { allContentfulMajor: { edges: Array<{ node: (
-        Pick<ContentfulMajor, 'name' | 'id' | 'slug'>
-        & { introduction?: Maybe<Pick<ContentfulMajorIntroductionRichTextNode, 'json'>>, courses?: Maybe<Array<Maybe<(
-          Pick<ContentfulCourse, 'name' | 'courseId' | 'ects'>
-          & { teacher?: Maybe<Array<Maybe<{ avatar?: Maybe<{ fluid?: Maybe<Pick<ContentfulFluid, 'srcSet'>> }> }>>> }
-        )>>> }
-      ) }> } };
+export type AllMajorsQueryQuery = { allContentfulMajor: { nodes: Array<(
+      Pick<ContentfulMajor, 'name' | 'id' | 'slug'>
+      & { introduction?: Maybe<Pick<ContentfulMajorIntroductionRichTextNode, 'json'>>, courses?: Maybe<Array<Maybe<(
+        Pick<ContentfulCourse, 'name' | 'courseId' | 'ects'>
+        & { description?: Maybe<{ fields?: Maybe<Pick<ContentfulCourseDescriptionRichTextNodeFields, 'excerpt'>> }>, teacher?: Maybe<Array<Maybe<{ avatar?: Maybe<{ fluid?: Maybe<Pick<ContentfulFluid, 'srcSet'>> }> }>>> }
+      )>>> }
+    )> } };
 
 export type AllTeachersQueryQueryVariables = {};
 

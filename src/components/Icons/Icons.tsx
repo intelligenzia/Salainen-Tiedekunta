@@ -1,10 +1,6 @@
 import React, { FC, ReactElement } from 'react';
 import styled from 'styled-components';
 
-const defs = {
-  width: '30px',
-};
-
 type Icons = {
   [key: string]: ReactElement;
 };
