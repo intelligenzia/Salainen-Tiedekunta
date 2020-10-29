@@ -1,25 +1,27 @@
-import { graphql, useStaticQuery } from 'gatsby';
-import * as React from 'react';
-import styled from 'styled-components';
+import { graphql, PageProps, useStaticQuery } from 'gatsby';
+import React from 'react';
 import CourseCard from '../components/CourseCard/CourseCard';
 import Layout from '../components/layout';
-import SEO from '../components/seo';
 import { CourseContainer } from '../components/primitives';
+import SEO from '../components/seo';
 
-const Teachers: React.FC = ({ location }: any) => {
+const Teachers: React.FC<PageProps> = ({ location }) => {
   const data: any = useStaticQuery(graphql`
     query AllCoursesQuery {
       allContentfulCourse {
-        edges {
-          node {
-            name
-            courseId
-            ects
-            teacher {
-              avatar {
-                fluid(maxWidth: 30) {
-                  srcSet
-                }
+        nodes {
+          name
+          courseId
+          ects
+          description {
+            fields {
+              excerpt
+            }
+          }
+          teacher {
+            avatar {
+              fluid(maxWidth: 30) {
+                srcSet
               }
             }
           }
@@ -28,7 +30,7 @@ const Teachers: React.FC = ({ location }: any) => {
     }
   `);
 
-  const courses = data.allContentfulCourse.edges;
+  const courses = data.allContentfulCourse.nodes;
 
   return (
     <Layout>
@@ -38,12 +40,13 @@ const Teachers: React.FC = ({ location }: any) => {
       />
       <h1>Kaikki tiedekunnan kurssit</h1>
       <CourseContainer>
-        {courses.map(({ node }: { node: ContentfulCourse }, index: number) => (
+        {courses.map((node: ContentfulCourse) => (
           <CourseCard
-            key={index}
+            key={`${node.courseId}`}
             courseId={node.courseId}
             name={node.name}
             ects={node.ects}
+            introduction={node.description.fields.excerpt}
             teachers={node.teacher}
           />
         ))}

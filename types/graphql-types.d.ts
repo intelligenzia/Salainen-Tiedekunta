@@ -499,6 +499,7 @@ export type ContentfulCourse = Node & {
   courseId?: Maybe<Scalars['String']>;
   ects?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  teacher?: Maybe<Array<Maybe<ContentfulTeacher>>>;
   major?: Maybe<Array<Maybe<ContentfulMajor>>>;
   description?: Maybe<ContentfulCourseDescriptionRichTextNode>;
   spaceId?: Maybe<Scalars['String']>;
@@ -507,7 +508,6 @@ export type ContentfulCourse = Node & {
   updatedAt?: Maybe<Scalars['Date']>;
   sys?: Maybe<ContentfulCourseSys>;
   node_locale?: Maybe<Scalars['String']>;
-  teacher?: Maybe<Array<Maybe<ContentfulTeacher>>>;
   childContentfulCourseDescriptionRichTextNode?: Maybe<ContentfulCourseDescriptionRichTextNode>;
 };
 
@@ -859,211 +859,6 @@ export type ContentfulCourseFieldsEnum =
   'courseId' |
   'ects' |
   'name' |
-  'major' |
-  'major___id' |
-  'major___parent___id' |
-  'major___parent___parent___id' |
-  'major___parent___parent___children' |
-  'major___parent___children' |
-  'major___parent___children___id' |
-  'major___parent___children___children' |
-  'major___parent___internal___content' |
-  'major___parent___internal___contentDigest' |
-  'major___parent___internal___description' |
-  'major___parent___internal___fieldOwners' |
-  'major___parent___internal___ignoreType' |
-  'major___parent___internal___mediaType' |
-  'major___parent___internal___owner' |
-  'major___parent___internal___type' |
-  'major___children' |
-  'major___children___id' |
-  'major___children___parent___id' |
-  'major___children___parent___children' |
-  'major___children___children' |
-  'major___children___children___id' |
-  'major___children___children___children' |
-  'major___children___internal___content' |
-  'major___children___internal___contentDigest' |
-  'major___children___internal___description' |
-  'major___children___internal___fieldOwners' |
-  'major___children___internal___ignoreType' |
-  'major___children___internal___mediaType' |
-  'major___children___internal___owner' |
-  'major___children___internal___type' |
-  'major___internal___content' |
-  'major___internal___contentDigest' |
-  'major___internal___description' |
-  'major___internal___fieldOwners' |
-  'major___internal___ignoreType' |
-  'major___internal___mediaType' |
-  'major___internal___owner' |
-  'major___internal___type' |
-  'major___name' |
-  'major___slug' |
-  'major___courses' |
-  'major___courses___id' |
-  'major___courses___parent___id' |
-  'major___courses___parent___children' |
-  'major___courses___children' |
-  'major___courses___children___id' |
-  'major___courses___children___children' |
-  'major___courses___internal___content' |
-  'major___courses___internal___contentDigest' |
-  'major___courses___internal___description' |
-  'major___courses___internal___fieldOwners' |
-  'major___courses___internal___ignoreType' |
-  'major___courses___internal___mediaType' |
-  'major___courses___internal___owner' |
-  'major___courses___internal___type' |
-  'major___courses___courseId' |
-  'major___courses___ects' |
-  'major___courses___name' |
-  'major___courses___major' |
-  'major___courses___major___id' |
-  'major___courses___major___children' |
-  'major___courses___major___name' |
-  'major___courses___major___slug' |
-  'major___courses___major___courses' |
-  'major___courses___major___spaceId' |
-  'major___courses___major___contentful_id' |
-  'major___courses___major___createdAt' |
-  'major___courses___major___updatedAt' |
-  'major___courses___major___node_locale' |
-  'major___courses___description___id' |
-  'major___courses___description___children' |
-  'major___courses___description___nodeType' |
-  'major___courses___description___content' |
-  'major___courses___description___description' |
-  'major___courses___description___json' |
-  'major___courses___spaceId' |
-  'major___courses___contentful_id' |
-  'major___courses___createdAt' |
-  'major___courses___updatedAt' |
-  'major___courses___sys___revision' |
-  'major___courses___node_locale' |
-  'major___courses___teacher' |
-  'major___courses___teacher___id' |
-  'major___courses___teacher___children' |
-  'major___courses___teacher___name' |
-  'major___courses___teacher___slug' |
-  'major___courses___teacher___spaceId' |
-  'major___courses___teacher___contentful_id' |
-  'major___courses___teacher___createdAt' |
-  'major___courses___teacher___updatedAt' |
-  'major___courses___teacher___node_locale' |
-  'major___courses___teacher___course' |
-  'major___courses___childContentfulCourseDescriptionRichTextNode___id' |
-  'major___courses___childContentfulCourseDescriptionRichTextNode___children' |
-  'major___courses___childContentfulCourseDescriptionRichTextNode___nodeType' |
-  'major___courses___childContentfulCourseDescriptionRichTextNode___content' |
-  'major___courses___childContentfulCourseDescriptionRichTextNode___description' |
-  'major___courses___childContentfulCourseDescriptionRichTextNode___json' |
-  'major___introduction___id' |
-  'major___introduction___parent___id' |
-  'major___introduction___parent___children' |
-  'major___introduction___children' |
-  'major___introduction___children___id' |
-  'major___introduction___children___children' |
-  'major___introduction___internal___content' |
-  'major___introduction___internal___contentDigest' |
-  'major___introduction___internal___description' |
-  'major___introduction___internal___fieldOwners' |
-  'major___introduction___internal___ignoreType' |
-  'major___introduction___internal___mediaType' |
-  'major___introduction___internal___owner' |
-  'major___introduction___internal___type' |
-  'major___introduction___content' |
-  'major___introduction___content___content' |
-  'major___introduction___content___nodeType' |
-  'major___introduction___nodeType' |
-  'major___introduction___introduction' |
-  'major___introduction___fields___excerpt' |
-  'major___introduction___json' |
-  'major___spaceId' |
-  'major___contentful_id' |
-  'major___createdAt' |
-  'major___updatedAt' |
-  'major___sys___revision' |
-  'major___node_locale' |
-  'major___childContentfulMajorIntroductionRichTextNode___id' |
-  'major___childContentfulMajorIntroductionRichTextNode___parent___id' |
-  'major___childContentfulMajorIntroductionRichTextNode___parent___children' |
-  'major___childContentfulMajorIntroductionRichTextNode___children' |
-  'major___childContentfulMajorIntroductionRichTextNode___children___id' |
-  'major___childContentfulMajorIntroductionRichTextNode___children___children' |
-  'major___childContentfulMajorIntroductionRichTextNode___internal___content' |
-  'major___childContentfulMajorIntroductionRichTextNode___internal___contentDigest' |
-  'major___childContentfulMajorIntroductionRichTextNode___internal___description' |
-  'major___childContentfulMajorIntroductionRichTextNode___internal___fieldOwners' |
-  'major___childContentfulMajorIntroductionRichTextNode___internal___ignoreType' |
-  'major___childContentfulMajorIntroductionRichTextNode___internal___mediaType' |
-  'major___childContentfulMajorIntroductionRichTextNode___internal___owner' |
-  'major___childContentfulMajorIntroductionRichTextNode___internal___type' |
-  'major___childContentfulMajorIntroductionRichTextNode___content' |
-  'major___childContentfulMajorIntroductionRichTextNode___content___content' |
-  'major___childContentfulMajorIntroductionRichTextNode___content___nodeType' |
-  'major___childContentfulMajorIntroductionRichTextNode___nodeType' |
-  'major___childContentfulMajorIntroductionRichTextNode___introduction' |
-  'major___childContentfulMajorIntroductionRichTextNode___fields___excerpt' |
-  'major___childContentfulMajorIntroductionRichTextNode___json' |
-  'description___id' |
-  'description___parent___id' |
-  'description___parent___parent___id' |
-  'description___parent___parent___children' |
-  'description___parent___children' |
-  'description___parent___children___id' |
-  'description___parent___children___children' |
-  'description___parent___internal___content' |
-  'description___parent___internal___contentDigest' |
-  'description___parent___internal___description' |
-  'description___parent___internal___fieldOwners' |
-  'description___parent___internal___ignoreType' |
-  'description___parent___internal___mediaType' |
-  'description___parent___internal___owner' |
-  'description___parent___internal___type' |
-  'description___children' |
-  'description___children___id' |
-  'description___children___parent___id' |
-  'description___children___parent___children' |
-  'description___children___children' |
-  'description___children___children___id' |
-  'description___children___children___children' |
-  'description___children___internal___content' |
-  'description___children___internal___contentDigest' |
-  'description___children___internal___description' |
-  'description___children___internal___fieldOwners' |
-  'description___children___internal___ignoreType' |
-  'description___children___internal___mediaType' |
-  'description___children___internal___owner' |
-  'description___children___internal___type' |
-  'description___internal___content' |
-  'description___internal___contentDigest' |
-  'description___internal___description' |
-  'description___internal___fieldOwners' |
-  'description___internal___ignoreType' |
-  'description___internal___mediaType' |
-  'description___internal___owner' |
-  'description___internal___type' |
-  'description___nodeType' |
-  'description___content' |
-  'description___content___nodeType' |
-  'description___content___content' |
-  'description___content___content___nodeType' |
-  'description___content___content___value' |
-  'description___content___content___marks' |
-  'description___description' |
-  'description___fields___excerpt' |
-  'description___json' |
-  'spaceId' |
-  'contentful_id' |
-  'createdAt' |
-  'updatedAt' |
-  'sys___revision' |
-  'sys___contentType___sys___type' |
-  'sys___contentType___sys___linkType' |
-  'sys___contentType___sys___id' |
-  'sys___contentType___sys___contentful_id' |
-  'node_locale' |
   'teacher' |
   'teacher___id' |
   'teacher___parent___id' |
@@ -1190,6 +985,17 @@ export type ContentfulCourseFieldsEnum =
   'teacher___course___courseId' |
   'teacher___course___ects' |
   'teacher___course___name' |
+  'teacher___course___teacher' |
+  'teacher___course___teacher___id' |
+  'teacher___course___teacher___children' |
+  'teacher___course___teacher___name' |
+  'teacher___course___teacher___slug' |
+  'teacher___course___teacher___spaceId' |
+  'teacher___course___teacher___contentful_id' |
+  'teacher___course___teacher___createdAt' |
+  'teacher___course___teacher___updatedAt' |
+  'teacher___course___teacher___node_locale' |
+  'teacher___course___teacher___course' |
   'teacher___course___major' |
   'teacher___course___major___id' |
   'teacher___course___major___children' |
@@ -1213,23 +1019,217 @@ export type ContentfulCourseFieldsEnum =
   'teacher___course___updatedAt' |
   'teacher___course___sys___revision' |
   'teacher___course___node_locale' |
-  'teacher___course___teacher' |
-  'teacher___course___teacher___id' |
-  'teacher___course___teacher___children' |
-  'teacher___course___teacher___name' |
-  'teacher___course___teacher___slug' |
-  'teacher___course___teacher___spaceId' |
-  'teacher___course___teacher___contentful_id' |
-  'teacher___course___teacher___createdAt' |
-  'teacher___course___teacher___updatedAt' |
-  'teacher___course___teacher___node_locale' |
-  'teacher___course___teacher___course' |
   'teacher___course___childContentfulCourseDescriptionRichTextNode___id' |
   'teacher___course___childContentfulCourseDescriptionRichTextNode___children' |
   'teacher___course___childContentfulCourseDescriptionRichTextNode___nodeType' |
   'teacher___course___childContentfulCourseDescriptionRichTextNode___content' |
   'teacher___course___childContentfulCourseDescriptionRichTextNode___description' |
   'teacher___course___childContentfulCourseDescriptionRichTextNode___json' |
+  'major' |
+  'major___id' |
+  'major___parent___id' |
+  'major___parent___parent___id' |
+  'major___parent___parent___children' |
+  'major___parent___children' |
+  'major___parent___children___id' |
+  'major___parent___children___children' |
+  'major___parent___internal___content' |
+  'major___parent___internal___contentDigest' |
+  'major___parent___internal___description' |
+  'major___parent___internal___fieldOwners' |
+  'major___parent___internal___ignoreType' |
+  'major___parent___internal___mediaType' |
+  'major___parent___internal___owner' |
+  'major___parent___internal___type' |
+  'major___children' |
+  'major___children___id' |
+  'major___children___parent___id' |
+  'major___children___parent___children' |
+  'major___children___children' |
+  'major___children___children___id' |
+  'major___children___children___children' |
+  'major___children___internal___content' |
+  'major___children___internal___contentDigest' |
+  'major___children___internal___description' |
+  'major___children___internal___fieldOwners' |
+  'major___children___internal___ignoreType' |
+  'major___children___internal___mediaType' |
+  'major___children___internal___owner' |
+  'major___children___internal___type' |
+  'major___internal___content' |
+  'major___internal___contentDigest' |
+  'major___internal___description' |
+  'major___internal___fieldOwners' |
+  'major___internal___ignoreType' |
+  'major___internal___mediaType' |
+  'major___internal___owner' |
+  'major___internal___type' |
+  'major___name' |
+  'major___slug' |
+  'major___courses' |
+  'major___courses___id' |
+  'major___courses___parent___id' |
+  'major___courses___parent___children' |
+  'major___courses___children' |
+  'major___courses___children___id' |
+  'major___courses___children___children' |
+  'major___courses___internal___content' |
+  'major___courses___internal___contentDigest' |
+  'major___courses___internal___description' |
+  'major___courses___internal___fieldOwners' |
+  'major___courses___internal___ignoreType' |
+  'major___courses___internal___mediaType' |
+  'major___courses___internal___owner' |
+  'major___courses___internal___type' |
+  'major___courses___courseId' |
+  'major___courses___ects' |
+  'major___courses___name' |
+  'major___courses___teacher' |
+  'major___courses___teacher___id' |
+  'major___courses___teacher___children' |
+  'major___courses___teacher___name' |
+  'major___courses___teacher___slug' |
+  'major___courses___teacher___spaceId' |
+  'major___courses___teacher___contentful_id' |
+  'major___courses___teacher___createdAt' |
+  'major___courses___teacher___updatedAt' |
+  'major___courses___teacher___node_locale' |
+  'major___courses___teacher___course' |
+  'major___courses___major' |
+  'major___courses___major___id' |
+  'major___courses___major___children' |
+  'major___courses___major___name' |
+  'major___courses___major___slug' |
+  'major___courses___major___courses' |
+  'major___courses___major___spaceId' |
+  'major___courses___major___contentful_id' |
+  'major___courses___major___createdAt' |
+  'major___courses___major___updatedAt' |
+  'major___courses___major___node_locale' |
+  'major___courses___description___id' |
+  'major___courses___description___children' |
+  'major___courses___description___nodeType' |
+  'major___courses___description___content' |
+  'major___courses___description___description' |
+  'major___courses___description___json' |
+  'major___courses___spaceId' |
+  'major___courses___contentful_id' |
+  'major___courses___createdAt' |
+  'major___courses___updatedAt' |
+  'major___courses___sys___revision' |
+  'major___courses___node_locale' |
+  'major___courses___childContentfulCourseDescriptionRichTextNode___id' |
+  'major___courses___childContentfulCourseDescriptionRichTextNode___children' |
+  'major___courses___childContentfulCourseDescriptionRichTextNode___nodeType' |
+  'major___courses___childContentfulCourseDescriptionRichTextNode___content' |
+  'major___courses___childContentfulCourseDescriptionRichTextNode___description' |
+  'major___courses___childContentfulCourseDescriptionRichTextNode___json' |
+  'major___introduction___id' |
+  'major___introduction___parent___id' |
+  'major___introduction___parent___children' |
+  'major___introduction___children' |
+  'major___introduction___children___id' |
+  'major___introduction___children___children' |
+  'major___introduction___internal___content' |
+  'major___introduction___internal___contentDigest' |
+  'major___introduction___internal___description' |
+  'major___introduction___internal___fieldOwners' |
+  'major___introduction___internal___ignoreType' |
+  'major___introduction___internal___mediaType' |
+  'major___introduction___internal___owner' |
+  'major___introduction___internal___type' |
+  'major___introduction___content' |
+  'major___introduction___content___content' |
+  'major___introduction___content___nodeType' |
+  'major___introduction___nodeType' |
+  'major___introduction___introduction' |
+  'major___introduction___fields___excerpt' |
+  'major___introduction___json' |
+  'major___spaceId' |
+  'major___contentful_id' |
+  'major___createdAt' |
+  'major___updatedAt' |
+  'major___sys___revision' |
+  'major___node_locale' |
+  'major___childContentfulMajorIntroductionRichTextNode___id' |
+  'major___childContentfulMajorIntroductionRichTextNode___parent___id' |
+  'major___childContentfulMajorIntroductionRichTextNode___parent___children' |
+  'major___childContentfulMajorIntroductionRichTextNode___children' |
+  'major___childContentfulMajorIntroductionRichTextNode___children___id' |
+  'major___childContentfulMajorIntroductionRichTextNode___children___children' |
+  'major___childContentfulMajorIntroductionRichTextNode___internal___content' |
+  'major___childContentfulMajorIntroductionRichTextNode___internal___contentDigest' |
+  'major___childContentfulMajorIntroductionRichTextNode___internal___description' |
+  'major___childContentfulMajorIntroductionRichTextNode___internal___fieldOwners' |
+  'major___childContentfulMajorIntroductionRichTextNode___internal___ignoreType' |
+  'major___childContentfulMajorIntroductionRichTextNode___internal___mediaType' |
+  'major___childContentfulMajorIntroductionRichTextNode___internal___owner' |
+  'major___childContentfulMajorIntroductionRichTextNode___internal___type' |
+  'major___childContentfulMajorIntroductionRichTextNode___content' |
+  'major___childContentfulMajorIntroductionRichTextNode___content___content' |
+  'major___childContentfulMajorIntroductionRichTextNode___content___nodeType' |
+  'major___childContentfulMajorIntroductionRichTextNode___nodeType' |
+  'major___childContentfulMajorIntroductionRichTextNode___introduction' |
+  'major___childContentfulMajorIntroductionRichTextNode___fields___excerpt' |
+  'major___childContentfulMajorIntroductionRichTextNode___json' |
+  'description___id' |
+  'description___parent___id' |
+  'description___parent___parent___id' |
+  'description___parent___parent___children' |
+  'description___parent___children' |
+  'description___parent___children___id' |
+  'description___parent___children___children' |
+  'description___parent___internal___content' |
+  'description___parent___internal___contentDigest' |
+  'description___parent___internal___description' |
+  'description___parent___internal___fieldOwners' |
+  'description___parent___internal___ignoreType' |
+  'description___parent___internal___mediaType' |
+  'description___parent___internal___owner' |
+  'description___parent___internal___type' |
+  'description___children' |
+  'description___children___id' |
+  'description___children___parent___id' |
+  'description___children___parent___children' |
+  'description___children___children' |
+  'description___children___children___id' |
+  'description___children___children___children' |
+  'description___children___internal___content' |
+  'description___children___internal___contentDigest' |
+  'description___children___internal___description' |
+  'description___children___internal___fieldOwners' |
+  'description___children___internal___ignoreType' |
+  'description___children___internal___mediaType' |
+  'description___children___internal___owner' |
+  'description___children___internal___type' |
+  'description___internal___content' |
+  'description___internal___contentDigest' |
+  'description___internal___description' |
+  'description___internal___fieldOwners' |
+  'description___internal___ignoreType' |
+  'description___internal___mediaType' |
+  'description___internal___owner' |
+  'description___internal___type' |
+  'description___nodeType' |
+  'description___content' |
+  'description___content___nodeType' |
+  'description___content___content' |
+  'description___content___content___nodeType' |
+  'description___content___content___value' |
+  'description___content___content___marks' |
+  'description___description' |
+  'description___fields___excerpt' |
+  'description___json' |
+  'spaceId' |
+  'contentful_id' |
+  'createdAt' |
+  'updatedAt' |
+  'sys___revision' |
+  'sys___contentType___sys___type' |
+  'sys___contentType___sys___linkType' |
+  'sys___contentType___sys___id' |
+  'sys___contentType___sys___contentful_id' |
+  'node_locale' |
   'childContentfulCourseDescriptionRichTextNode___id' |
   'childContentfulCourseDescriptionRichTextNode___parent___id' |
   'childContentfulCourseDescriptionRichTextNode___parent___parent___id' |
@@ -1287,6 +1287,7 @@ export type ContentfulCourseFilterInput = {
   courseId?: Maybe<StringQueryOperatorInput>;
   ects?: Maybe<IntQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
+  teacher?: Maybe<ContentfulTeacherFilterListInput>;
   major?: Maybe<ContentfulMajorFilterListInput>;
   description?: Maybe<ContentfulCourseDescriptionRichTextNodeFilterInput>;
   spaceId?: Maybe<StringQueryOperatorInput>;
@@ -1295,7 +1296,6 @@ export type ContentfulCourseFilterInput = {
   updatedAt?: Maybe<DateQueryOperatorInput>;
   sys?: Maybe<ContentfulCourseSysFilterInput>;
   node_locale?: Maybe<StringQueryOperatorInput>;
-  teacher?: Maybe<ContentfulTeacherFilterListInput>;
   childContentfulCourseDescriptionRichTextNode?: Maybe<ContentfulCourseDescriptionRichTextNodeFilterInput>;
 };
 
@@ -1606,6 +1606,48 @@ export type ContentfulMajorFieldsEnum =
   'courses___courseId' |
   'courses___ects' |
   'courses___name' |
+  'courses___teacher' |
+  'courses___teacher___id' |
+  'courses___teacher___parent___id' |
+  'courses___teacher___parent___children' |
+  'courses___teacher___children' |
+  'courses___teacher___children___id' |
+  'courses___teacher___children___children' |
+  'courses___teacher___internal___content' |
+  'courses___teacher___internal___contentDigest' |
+  'courses___teacher___internal___description' |
+  'courses___teacher___internal___fieldOwners' |
+  'courses___teacher___internal___ignoreType' |
+  'courses___teacher___internal___mediaType' |
+  'courses___teacher___internal___owner' |
+  'courses___teacher___internal___type' |
+  'courses___teacher___name' |
+  'courses___teacher___slug' |
+  'courses___teacher___spaceId' |
+  'courses___teacher___contentful_id' |
+  'courses___teacher___createdAt' |
+  'courses___teacher___updatedAt' |
+  'courses___teacher___sys___revision' |
+  'courses___teacher___node_locale' |
+  'courses___teacher___avatar___id' |
+  'courses___teacher___avatar___children' |
+  'courses___teacher___avatar___contentful_id' |
+  'courses___teacher___avatar___title' |
+  'courses___teacher___avatar___description' |
+  'courses___teacher___avatar___node_locale' |
+  'courses___teacher___course' |
+  'courses___teacher___course___id' |
+  'courses___teacher___course___children' |
+  'courses___teacher___course___courseId' |
+  'courses___teacher___course___ects' |
+  'courses___teacher___course___name' |
+  'courses___teacher___course___teacher' |
+  'courses___teacher___course___major' |
+  'courses___teacher___course___spaceId' |
+  'courses___teacher___course___contentful_id' |
+  'courses___teacher___course___createdAt' |
+  'courses___teacher___course___updatedAt' |
+  'courses___teacher___course___node_locale' |
   'courses___major' |
   'courses___major___id' |
   'courses___major___parent___id' |
@@ -1629,13 +1671,13 @@ export type ContentfulMajorFieldsEnum =
   'courses___major___courses___courseId' |
   'courses___major___courses___ects' |
   'courses___major___courses___name' |
+  'courses___major___courses___teacher' |
   'courses___major___courses___major' |
   'courses___major___courses___spaceId' |
   'courses___major___courses___contentful_id' |
   'courses___major___courses___createdAt' |
   'courses___major___courses___updatedAt' |
   'courses___major___courses___node_locale' |
-  'courses___major___courses___teacher' |
   'courses___major___introduction___id' |
   'courses___major___introduction___children' |
   'courses___major___introduction___content' |
@@ -1681,48 +1723,6 @@ export type ContentfulMajorFieldsEnum =
   'courses___updatedAt' |
   'courses___sys___revision' |
   'courses___node_locale' |
-  'courses___teacher' |
-  'courses___teacher___id' |
-  'courses___teacher___parent___id' |
-  'courses___teacher___parent___children' |
-  'courses___teacher___children' |
-  'courses___teacher___children___id' |
-  'courses___teacher___children___children' |
-  'courses___teacher___internal___content' |
-  'courses___teacher___internal___contentDigest' |
-  'courses___teacher___internal___description' |
-  'courses___teacher___internal___fieldOwners' |
-  'courses___teacher___internal___ignoreType' |
-  'courses___teacher___internal___mediaType' |
-  'courses___teacher___internal___owner' |
-  'courses___teacher___internal___type' |
-  'courses___teacher___name' |
-  'courses___teacher___slug' |
-  'courses___teacher___spaceId' |
-  'courses___teacher___contentful_id' |
-  'courses___teacher___createdAt' |
-  'courses___teacher___updatedAt' |
-  'courses___teacher___sys___revision' |
-  'courses___teacher___node_locale' |
-  'courses___teacher___avatar___id' |
-  'courses___teacher___avatar___children' |
-  'courses___teacher___avatar___contentful_id' |
-  'courses___teacher___avatar___title' |
-  'courses___teacher___avatar___description' |
-  'courses___teacher___avatar___node_locale' |
-  'courses___teacher___course' |
-  'courses___teacher___course___id' |
-  'courses___teacher___course___children' |
-  'courses___teacher___course___courseId' |
-  'courses___teacher___course___ects' |
-  'courses___teacher___course___name' |
-  'courses___teacher___course___major' |
-  'courses___teacher___course___spaceId' |
-  'courses___teacher___course___contentful_id' |
-  'courses___teacher___course___createdAt' |
-  'courses___teacher___course___updatedAt' |
-  'courses___teacher___course___node_locale' |
-  'courses___teacher___course___teacher' |
   'courses___childContentfulCourseDescriptionRichTextNode___id' |
   'courses___childContentfulCourseDescriptionRichTextNode___parent___id' |
   'courses___childContentfulCourseDescriptionRichTextNode___parent___children' |
@@ -2467,6 +2467,48 @@ export type ContentfulTeacherFieldsEnum =
   'course___courseId' |
   'course___ects' |
   'course___name' |
+  'course___teacher' |
+  'course___teacher___id' |
+  'course___teacher___parent___id' |
+  'course___teacher___parent___children' |
+  'course___teacher___children' |
+  'course___teacher___children___id' |
+  'course___teacher___children___children' |
+  'course___teacher___internal___content' |
+  'course___teacher___internal___contentDigest' |
+  'course___teacher___internal___description' |
+  'course___teacher___internal___fieldOwners' |
+  'course___teacher___internal___ignoreType' |
+  'course___teacher___internal___mediaType' |
+  'course___teacher___internal___owner' |
+  'course___teacher___internal___type' |
+  'course___teacher___name' |
+  'course___teacher___slug' |
+  'course___teacher___spaceId' |
+  'course___teacher___contentful_id' |
+  'course___teacher___createdAt' |
+  'course___teacher___updatedAt' |
+  'course___teacher___sys___revision' |
+  'course___teacher___node_locale' |
+  'course___teacher___avatar___id' |
+  'course___teacher___avatar___children' |
+  'course___teacher___avatar___contentful_id' |
+  'course___teacher___avatar___title' |
+  'course___teacher___avatar___description' |
+  'course___teacher___avatar___node_locale' |
+  'course___teacher___course' |
+  'course___teacher___course___id' |
+  'course___teacher___course___children' |
+  'course___teacher___course___courseId' |
+  'course___teacher___course___ects' |
+  'course___teacher___course___name' |
+  'course___teacher___course___teacher' |
+  'course___teacher___course___major' |
+  'course___teacher___course___spaceId' |
+  'course___teacher___course___contentful_id' |
+  'course___teacher___course___createdAt' |
+  'course___teacher___course___updatedAt' |
+  'course___teacher___course___node_locale' |
   'course___major' |
   'course___major___id' |
   'course___major___parent___id' |
@@ -2490,13 +2532,13 @@ export type ContentfulTeacherFieldsEnum =
   'course___major___courses___courseId' |
   'course___major___courses___ects' |
   'course___major___courses___name' |
+  'course___major___courses___teacher' |
   'course___major___courses___major' |
   'course___major___courses___spaceId' |
   'course___major___courses___contentful_id' |
   'course___major___courses___createdAt' |
   'course___major___courses___updatedAt' |
   'course___major___courses___node_locale' |
-  'course___major___courses___teacher' |
   'course___major___introduction___id' |
   'course___major___introduction___children' |
   'course___major___introduction___content' |
@@ -2542,48 +2584,6 @@ export type ContentfulTeacherFieldsEnum =
   'course___updatedAt' |
   'course___sys___revision' |
   'course___node_locale' |
-  'course___teacher' |
-  'course___teacher___id' |
-  'course___teacher___parent___id' |
-  'course___teacher___parent___children' |
-  'course___teacher___children' |
-  'course___teacher___children___id' |
-  'course___teacher___children___children' |
-  'course___teacher___internal___content' |
-  'course___teacher___internal___contentDigest' |
-  'course___teacher___internal___description' |
-  'course___teacher___internal___fieldOwners' |
-  'course___teacher___internal___ignoreType' |
-  'course___teacher___internal___mediaType' |
-  'course___teacher___internal___owner' |
-  'course___teacher___internal___type' |
-  'course___teacher___name' |
-  'course___teacher___slug' |
-  'course___teacher___spaceId' |
-  'course___teacher___contentful_id' |
-  'course___teacher___createdAt' |
-  'course___teacher___updatedAt' |
-  'course___teacher___sys___revision' |
-  'course___teacher___node_locale' |
-  'course___teacher___avatar___id' |
-  'course___teacher___avatar___children' |
-  'course___teacher___avatar___contentful_id' |
-  'course___teacher___avatar___title' |
-  'course___teacher___avatar___description' |
-  'course___teacher___avatar___node_locale' |
-  'course___teacher___course' |
-  'course___teacher___course___id' |
-  'course___teacher___course___children' |
-  'course___teacher___course___courseId' |
-  'course___teacher___course___ects' |
-  'course___teacher___course___name' |
-  'course___teacher___course___major' |
-  'course___teacher___course___spaceId' |
-  'course___teacher___course___contentful_id' |
-  'course___teacher___course___createdAt' |
-  'course___teacher___course___updatedAt' |
-  'course___teacher___course___node_locale' |
-  'course___teacher___course___teacher' |
   'course___childContentfulCourseDescriptionRichTextNode___id' |
   'course___childContentfulCourseDescriptionRichTextNode___parent___id' |
   'course___childContentfulCourseDescriptionRichTextNode___parent___children' |
@@ -4596,6 +4596,7 @@ export type QueryContentfulCourseArgs = {
   courseId?: Maybe<StringQueryOperatorInput>;
   ects?: Maybe<IntQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
+  teacher?: Maybe<ContentfulTeacherFilterListInput>;
   major?: Maybe<ContentfulMajorFilterListInput>;
   description?: Maybe<ContentfulCourseDescriptionRichTextNodeFilterInput>;
   spaceId?: Maybe<StringQueryOperatorInput>;
@@ -4604,7 +4605,6 @@ export type QueryContentfulCourseArgs = {
   updatedAt?: Maybe<DateQueryOperatorInput>;
   sys?: Maybe<ContentfulCourseSysFilterInput>;
   node_locale?: Maybe<StringQueryOperatorInput>;
-  teacher?: Maybe<ContentfulTeacherFilterListInput>;
   childContentfulCourseDescriptionRichTextNode?: Maybe<ContentfulCourseDescriptionRichTextNodeFilterInput>;
 };
 
@@ -5037,43 +5037,15 @@ export type SitePageConnectionGroupArgs = {
 };
 
 export type SitePageContext = {
-  next?: Maybe<SitePageContextNext>;
-  previous?: Maybe<SitePageContextPrevious>;
+  next?: Maybe<Scalars['String']>;
+  previous?: Maybe<Scalars['String']>;
   slug?: Maybe<Scalars['String']>;
   courseId?: Maybe<Scalars['String']>;
 };
 
 export type SitePageContextFilterInput = {
-  next?: Maybe<SitePageContextNextFilterInput>;
-  previous?: Maybe<SitePageContextPreviousFilterInput>;
-  slug?: Maybe<StringQueryOperatorInput>;
-  courseId?: Maybe<StringQueryOperatorInput>;
-};
-
-export type SitePageContextNext = {
-  name?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['String']>;
-  slug?: Maybe<Scalars['String']>;
-  courseId?: Maybe<Scalars['String']>;
-};
-
-export type SitePageContextNextFilterInput = {
-  name?: Maybe<StringQueryOperatorInput>;
-  id?: Maybe<StringQueryOperatorInput>;
-  slug?: Maybe<StringQueryOperatorInput>;
-  courseId?: Maybe<StringQueryOperatorInput>;
-};
-
-export type SitePageContextPrevious = {
-  name?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['String']>;
-  slug?: Maybe<Scalars['String']>;
-  courseId?: Maybe<Scalars['String']>;
-};
-
-export type SitePageContextPreviousFilterInput = {
-  name?: Maybe<StringQueryOperatorInput>;
-  id?: Maybe<StringQueryOperatorInput>;
+  next?: Maybe<StringQueryOperatorInput>;
+  previous?: Maybe<StringQueryOperatorInput>;
   slug?: Maybe<StringQueryOperatorInput>;
   courseId?: Maybe<StringQueryOperatorInput>;
 };
@@ -5177,14 +5149,8 @@ export type SitePageFieldsEnum =
   'internal___owner' |
   'internal___type' |
   'isCreatedByStatefulCreatePages' |
-  'context___next___name' |
-  'context___next___id' |
-  'context___next___slug' |
-  'context___next___courseId' |
-  'context___previous___name' |
-  'context___previous___id' |
-  'context___previous___slug' |
-  'context___previous___courseId' |
+  'context___next' |
+  'context___previous' |
   'context___slug' |
   'context___courseId' |
   'pluginCreator___id' |
@@ -5681,18 +5647,48 @@ export type Unnamed_2_QueryVariables = {};
 
 export type Unnamed_2_Query = { site?: Maybe<{ siteMetadata?: Maybe<Pick<SiteSiteMetadata, 'title' | 'description' | 'author' | 'siteUrl'>> }> };
 
+export type CourseFragmentFragment = (
+  Pick<ContentfulCourse, 'name' | 'id' | 'ects' | 'courseId' | 'createdAt' | 'updatedAt'>
+  & { description?: Maybe<(
+    Pick<ContentfulCourseDescriptionRichTextNode, 'json'>
+    & { fields?: Maybe<Pick<ContentfulCourseDescriptionRichTextNodeFields, 'excerpt'>> }
+  )>, teacher?: Maybe<Array<Maybe<(
+    Pick<ContentfulTeacher, 'slug' | 'name'>
+    & { avatar?: Maybe<{ fluid?: Maybe<GatsbyContentfulFluidFragment> }> }
+  )>>>, major?: Maybe<Array<Maybe<Pick<ContentfulMajor, 'slug' | 'name'>>>> }
+);
+
+export type TeacherFragmentFragment = (
+  Pick<ContentfulTeacher, 'id' | 'slug' | 'name' | 'createdAt' | 'updatedAt'>
+  & { course?: Maybe<Array<Maybe<Pick<ContentfulCourse, 'id' | 'name' | 'courseId'>>>> }
+);
+
+export type MajorFragmentFragment = (
+  Pick<ContentfulMajor, 'id' | 'slug' | 'name' | 'createdAt' | 'updatedAt'>
+  & { introduction?: Maybe<(
+    Pick<ContentfulMajorIntroductionRichTextNode, 'json'>
+    & { fields?: Maybe<Pick<ContentfulMajorIntroductionRichTextNodeFields, 'excerpt'>> }
+  )>, courses?: Maybe<Array<Maybe<(
+    Pick<ContentfulCourse, 'name' | 'courseId' | 'ects'>
+    & { teacher?: Maybe<Array<Maybe<(
+      Pick<ContentfulTeacher, 'id'>
+      & { avatar?: Maybe<{ fluid?: Maybe<Pick<ContentfulFluid, 'srcSet'>> }> }
+    )>>> }
+  )>>> }
+);
+
 export type CreatePagesQueryQueryVariables = {};
 
 
-export type CreatePagesQueryQuery = { allCourses: { nodes: Array<Pick<ContentfulCourse, 'id' | 'courseId' | 'name'>> }, allTeachers: { nodes: Array<Pick<ContentfulTeacher, 'id' | 'slug' | 'name'>> }, allMajors: { nodes: Array<Pick<ContentfulMajor, 'name' | 'id' | 'slug'>> } };
+export type CreatePagesQueryQuery = { allCourses: { nodes: Array<Pick<ContentfulCourse, 'courseId' | 'name'>> }, allTeachers: { nodes: Array<Pick<ContentfulTeacher, 'slug' | 'name'>> }, allMajors: { nodes: Array<Pick<ContentfulMajor, 'name' | 'slug'>> } };
 
 export type AllCoursesQueryQueryVariables = {};
 
 
-export type AllCoursesQueryQuery = { allContentfulCourse: { edges: Array<{ node: (
-        Pick<ContentfulCourse, 'name' | 'courseId' | 'ects'>
-        & { teacher?: Maybe<Array<Maybe<{ avatar?: Maybe<{ fluid?: Maybe<Pick<ContentfulFluid, 'srcSet'>> }> }>>> }
-      ) }> } };
+export type AllCoursesQueryQuery = { allContentfulCourse: { nodes: Array<(
+      Pick<ContentfulCourse, 'name' | 'courseId' | 'ects'>
+      & { description?: Maybe<{ fields?: Maybe<Pick<ContentfulCourseDescriptionRichTextNodeFields, 'excerpt'>> }>, teacher?: Maybe<Array<Maybe<{ avatar?: Maybe<{ fluid?: Maybe<Pick<ContentfulFluid, 'srcSet'>> }> }>>> }
+    )> } };
 
 export type AllMajorsQueryQueryVariables = {};
 
@@ -5715,48 +5711,28 @@ export type AllTeachersQueryQuery = { allContentfulTeacher: { nodes: Array<(
 
 export type CoursePageQueryVariables = {
   courseId: Scalars['String'];
+  next?: Maybe<Scalars['String']>;
+  previous?: Maybe<Scalars['String']>;
 };
 
 
-export type CoursePageQuery = { contentfulCourse?: Maybe<(
-    Pick<ContentfulCourse, 'name' | 'id' | 'ects' | 'courseId' | 'createdAt' | 'updatedAt'>
-    & { description?: Maybe<(
-      Pick<ContentfulCourseDescriptionRichTextNode, 'json'>
-      & { fields?: Maybe<Pick<ContentfulCourseDescriptionRichTextNodeFields, 'excerpt'>> }
-    )>, teacher?: Maybe<Array<Maybe<(
-      Pick<ContentfulTeacher, 'slug' | 'name'>
-      & { avatar?: Maybe<{ fluid?: Maybe<GatsbyContentfulFluidFragment> }> }
-    )>>>, major?: Maybe<Array<Maybe<Pick<ContentfulMajor, 'slug' | 'name'>>>> }
-  )> };
+export type CoursePageQuery = { contentfulCourse?: Maybe<CourseFragmentFragment>, nextCourse?: Maybe<CourseFragmentFragment>, previousCourse?: Maybe<CourseFragmentFragment> };
 
 export type MajorBySlugQueryVariables = {
   slug: Scalars['String'];
+  previous?: Maybe<Scalars['String']>;
+  next?: Maybe<Scalars['String']>;
 };
 
 
-export type MajorBySlugQuery = { contentfulMajor?: Maybe<(
-    Pick<ContentfulMajor, 'id' | 'slug' | 'name' | 'createdAt' | 'updatedAt'>
-    & { introduction?: Maybe<(
-      Pick<ContentfulMajorIntroductionRichTextNode, 'json'>
-      & { fields?: Maybe<Pick<ContentfulMajorIntroductionRichTextNodeFields, 'excerpt'>> }
-    )>, courses?: Maybe<Array<Maybe<(
-      Pick<ContentfulCourse, 'name' | 'courseId' | 'ects'>
-      & { teacher?: Maybe<Array<Maybe<(
-        Pick<ContentfulTeacher, 'id'>
-        & { avatar?: Maybe<{ fluid?: Maybe<Pick<ContentfulFluid, 'srcSet'>> }> }
-      )>>> }
-    )>>> }
-  )> };
+export type MajorBySlugQuery = { contentfulMajor?: Maybe<MajorFragmentFragment>, nextMajor?: Maybe<MajorFragmentFragment>, previousMajor?: Maybe<MajorFragmentFragment> };
 
 export type Unnamed_3_QueryVariables = {
   slug: Scalars['String'];
 };
 
 
-export type Unnamed_3_Query = { contentfulTeacher?: Maybe<(
-    Pick<ContentfulTeacher, 'id' | 'slug' | 'name' | 'createdAt' | 'updatedAt'>
-    & { course?: Maybe<Array<Maybe<Pick<ContentfulCourse, 'id' | 'name' | 'courseId'>>>> }
-  )> };
+export type Unnamed_3_Query = { contentfulTeacher?: Maybe<TeacherFragmentFragment> };
 
 export type GatsbyContentfulFixedFragment = Pick<ContentfulFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
 

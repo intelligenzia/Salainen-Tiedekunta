@@ -11,23 +11,24 @@ import SEO from '../components/seo';
 import TeacherCard from '../components/TeacherCard/TeacherCard';
 import devices from '../helpers/devices';
 
-const Course: FC<PageProps<CoursePageQuery>> = props => {
-  const {
-    data: {
-      contentfulCourse: {
-        name = '',
-        major: majors,
-        teacher: teachers,
-        description: {
-          json,
-          fields: { excerpt },
-        },
+const Course: FC<PageProps<CoursePageQuery>> = ({
+  data: {
+    contentfulCourse: {
+      name = '',
+      major: majors,
+      teacher: teachers,
+      description: {
+        json,
+        fields: { excerpt },
       },
     },
-    location,
-    pageContext: { next, previous },
-  } = props;
+    nextCourse: next,
+    previousCourse: previous,
+  },
 
+  location,
+}) => {
+  console.log(majors);
   return (
     <Layout>
       <SEO
@@ -39,15 +40,24 @@ const Course: FC<PageProps<CoursePageQuery>> = props => {
       {majors && (
         <Major to={`/major/${majors[0].slug}`}>{majors[0].name}</Major>
       )}
-
       <H1>{name}</H1>
 
       {teachers && (
         <>
-          <h3>Luennoitsijat</h3>
+          <h3>
+            <Icon
+              height="30px"
+              width="30px"
+              stroke="none"
+              fill="currentColor"
+              name="teacher"
+            />
+            Luennoitsijat
+          </h3>
           <Teachers>
             {teachers?.map(teacher => (
               <TeacherCard
+                key={`${teacher?.slug}`}
                 name={teacher?.name}
                 slug={teacher?.slug}
                 avatar={teacher?.avatar?.fluid}
@@ -57,17 +67,11 @@ const Course: FC<PageProps<CoursePageQuery>> = props => {
         </>
       )}
 
-      <h3>
-        <Icon
-          height="30px"
-          width="30px"
-          stroke="none"
-          fill="currentColor"
-          name="teacher"
-        />
-        Kurssin esittely
-      </h3>
+      <Divider />
+
       <ContentfulRichText document={json} />
+
+      <Divider />
 
       <h3>Muita vastaavia kursseja</h3>
 
@@ -77,6 +81,7 @@ const Course: FC<PageProps<CoursePageQuery>> = props => {
             name={next.name}
             courseId={next.courseId}
             teachers={[]}
+            introduction={next?.description?.fields?.excerpt}
             ects={`${3}`}
           />
         )}
@@ -86,6 +91,7 @@ const Course: FC<PageProps<CoursePageQuery>> = props => {
             name={previous.name}
             courseId={previous.courseId}
             teachers={[]}
+            introduction={previous?.description?.fields?.excerpt}
             ects={3}
           />
         )}
@@ -97,33 +103,15 @@ const Course: FC<PageProps<CoursePageQuery>> = props => {
 export default Course;
 
 export const pageQuery = graphql`
-  query CoursePage($courseId: String!) {
+  query CoursePage($courseId: String!, $next: String, $previous: String) {
     contentfulCourse(courseId: { eq: $courseId }) {
-      name
-      id
-      ects
-      description {
-        json
-        fields {
-          excerpt
-        }
-      }
-      courseId
-      createdAt(fromNow: false)
-      updatedAt
-      teacher {
-        slug
-        name
-        avatar {
-          fluid(maxWidth: 30) {
-            ...GatsbyContentfulFluid
-          }
-        }
-      }
-      major {
-        slug
-        name
-      }
+      ...CourseFragment
+    }
+    nextCourse: contentfulCourse(courseId: { eq: $next }) {
+      ...CourseFragment
+    }
+    previousCourse: contentfulCourse(courseId: { eq: $previous }) {
+      ...CourseFragment
     }
   }
 `;
@@ -149,4 +137,8 @@ const Major = styled(Link)`
   background-color: ${({ theme }): string => theme.gray};
   color: ${({ theme }): string => theme.textPrimary};
   margin-bottom: 0.8rem;
+`;
+
+const Divider = styled.hr`
+  margin: 5rem 3rem;
 `;

@@ -62,35 +62,15 @@ const Major: FC<PageProps<Props>> = ({
 export default Major;
 
 export const pageQuery = graphql`
-  query MajorBySlug($slug: String!) {
+  query MajorBySlug($slug: String!, $previous: String, $next: String) {
     contentfulMajor(slug: { eq: $slug }) {
-      id
-      slug
-      name
-      introduction {
-        json
-        fields {
-          excerpt
-        }
-      }
-      courses {
-        name
-        courseId
-        ects
-        teacher {
-          id
-          avatar {
-            fluid(maxWidth: 30) {
-              srcSet
-            }
-          }
-        }
-      }
-      createdAt(formatString: "DD.MM.YYYY")
-      updatedAt(formatString: "DD.MM.YYYY")
-      courses {
-        courseId
-      }
+      ...MajorFragment
+    }
+    nextMajor: contentfulMajor(slug: { eq: $previous }) {
+      ...MajorFragment
+    }
+    previousMajor: contentfulMajor(slug: { eq: $next }) {
+      ...MajorFragment
     }
   }
 `;

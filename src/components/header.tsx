@@ -77,6 +77,7 @@ const Inner = styled.div`
   align-items: center;
   border-radius: 10px;
   background-color: var(--secondary-bg);
+  box-shadow: 1px 1px 4px 0px #27272738;
 `;
 
 const Title = styled.div`

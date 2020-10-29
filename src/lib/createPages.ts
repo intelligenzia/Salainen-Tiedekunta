@@ -13,7 +13,6 @@ export const createPages: GatsbyNode['createPages'] = async ({
     query createPagesQuery {
       allCourses: allContentfulCourse {
         nodes {
-          id
           courseId
           name
         }
@@ -21,7 +20,6 @@ export const createPages: GatsbyNode['createPages'] = async ({
 
       allTeachers: allContentfulTeacher {
         nodes {
-          id
           slug
           name
         }
@@ -30,7 +28,6 @@ export const createPages: GatsbyNode['createPages'] = async ({
       allMajors: allContentfulMajor {
         nodes {
           name
-          id
           name
           slug
         }
@@ -55,8 +52,8 @@ export const createPages: GatsbyNode['createPages'] = async ({
       path: `major/${major.slug}`,
       component: path.resolve('./src/templates/major.tsx'),
       context: {
-        next,
-        previous,
+        next: next?.slug,
+        previous: previous?.slug,
         slug: major.slug,
       },
     });
@@ -70,8 +67,8 @@ export const createPages: GatsbyNode['createPages'] = async ({
       path: `teacher/${teacher.slug}`,
       component: path.resolve('./src/templates/teacher.tsx'),
       context: {
-        next,
-        previous,
+        next: next?.slug,
+        previous: previous?.slug,
         slug: teacher.slug,
       },
     });
@@ -85,8 +82,8 @@ export const createPages: GatsbyNode['createPages'] = async ({
       path: `course/${course.courseId}`,
       component: path.resolve('./src/templates/course.tsx'),
       context: {
-        next,
-        previous,
+        next: next?.courseId,
+        previous: previous?.courseId,
         courseId: course.courseId,
       },
     });

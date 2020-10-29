@@ -48,16 +48,7 @@ export default Teacher;
 export const pageQuery = graphql`
   query($slug: String!) {
     contentfulTeacher(slug: { eq: $slug }) {
-      id
-      slug
-      name
-      course {
-        id
-        name
-        courseId
-      }
-      createdAt(formatString: "DD.MM.YYYY")
-      updatedAt(formatString: "DD.MM.YYYY")
+      ...TeacherFragment
     }
   }
 `;

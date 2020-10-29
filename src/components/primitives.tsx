@@ -8,7 +8,9 @@ export const Container = styled.div`
   padding: 1rem;
 `;
 
-export const H1 = styled.h1``;
+export const H1 = styled.h1`
+  margin-bottom: 5rem;
+`;
 
 export const CourseContainer = styled.div`
   display: flex;

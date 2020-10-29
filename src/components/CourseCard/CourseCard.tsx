@@ -9,15 +9,22 @@ interface Props {
   courseId: string;
   ects: string;
   teachers: ContentfulTeacher[];
+  introduction: string;
 }
 
-const CourseCard: FC<Props> = ({ name, courseId, ects, teachers }) => {
+const CourseCard: FC<Props> = ({
+  name,
+  courseId,
+  ects,
+  teachers,
+  introduction,
+}) => {
   return (
     <Container to={`/course/${courseId}`}>
       <Name>
         {courseId} : {name}
       </Name>
-      <Introduction />
+      <Introduction>{introduction}</Introduction>
       <div>{ects} op</div>
       {teachers && (
         <Teachers>
@@ -45,6 +52,7 @@ const Container = styled(Link)`
   flex-basis: 33%;
   width: 100%;
   transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+  box-shadow: 1px 1px 4px 0px #27272738;
 
   &:hover {
     transform: translateY(-2px);
