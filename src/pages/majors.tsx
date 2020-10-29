@@ -71,6 +71,7 @@ const Majors: FC<PageProps> = ({ pageContext: { path } }) => {
                 />
               ))}
           </Courses>
+          <Divider />
         </div>
       ))}
     </Layout>
@@ -83,6 +84,9 @@ const Courses = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  border-bottom: 1px solid var(--secondary-text);
   margin-bottom: 2rem;
+`;
+
+const Divider = styled.hr`
+  margin: 5rem 0rem;
 `;
