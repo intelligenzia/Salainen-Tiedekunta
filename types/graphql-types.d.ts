@@ -553,9 +553,9 @@ export type ContentfulCourseDescriptionRichTextNode = Node & {
   parent?: Maybe<Node>;
   children: Array<Node>;
   internal: Internal;
+  content?: Maybe<Array<Maybe<ContentfulCourseDescriptionRichTextNodeContent>>>;
   /** @deprecated This field is deprecated, please use 'json' instead. */
   nodeType?: Maybe<Scalars['String']>;
-  content?: Maybe<Array<Maybe<ContentfulCourseDescriptionRichTextNodeContent>>>;
   description?: Maybe<Scalars['String']>;
   fields?: Maybe<ContentfulCourseDescriptionRichTextNodeFields>;
   json?: Maybe<Scalars['JSON']>;
@@ -583,20 +583,199 @@ export type ContentfulCourseDescriptionRichTextNodeConnectionGroupArgs = {
 };
 
 export type ContentfulCourseDescriptionRichTextNodeContent = {
-  nodeType?: Maybe<Scalars['String']>;
+  data?: Maybe<ContentfulCourseDescriptionRichTextNodeContentData>;
   content?: Maybe<Array<Maybe<ContentfulCourseDescriptionRichTextNodeContentContent>>>;
+  nodeType?: Maybe<Scalars['String']>;
 };
 
 export type ContentfulCourseDescriptionRichTextNodeContentContent = {
+  data?: Maybe<ContentfulCourseDescriptionRichTextNodeContentContentData>;
+  marks?: Maybe<Array<Maybe<ContentfulCourseDescriptionRichTextNodeContentContentMarks>>>;
+  value?: Maybe<Scalars['String']>;
+  nodeType?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentContentData = {
+  target?: Maybe<ContentfulCourseDescriptionRichTextNodeContentContentDataTarget>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentContentDataFilterInput = {
+  target?: Maybe<ContentfulCourseDescriptionRichTextNodeContentContentDataTargetFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentContentDataTarget = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentContentDataTargetSys>;
+  fields?: Maybe<ContentfulCourseDescriptionRichTextNodeContentContentDataTargetFields>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentContentDataTargetFields = {
+  courseId?: Maybe<Scalars['String']>;
+  ects?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+  description?: Maybe<ContentfulCourseDescriptionRichTextNodeContentContentDataTargetFieldsDescription>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentContentDataTargetFieldsDescription = {
+  nodeType?: Maybe<Scalars['String']>;
+  content?: Maybe<Array<Maybe<ContentfulCourseDescriptionRichTextNodeContentContentDataTargetFieldsDescriptionContent>>>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentContentDataTargetFieldsDescriptionContent = {
+  nodeType?: Maybe<Scalars['String']>;
+  content?: Maybe<Array<Maybe<ContentfulCourseDescriptionRichTextNodeContentContentDataTargetFieldsDescriptionContentContent>>>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentContentDataTargetFieldsDescriptionContentContent = {
   nodeType?: Maybe<Scalars['String']>;
   value?: Maybe<Scalars['String']>;
-  marks?: Maybe<Array<Maybe<ContentfulCourseDescriptionRichTextNodeContentContentMarks>>>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentContentDataTargetFieldsDescriptionContentContentFilterInput = {
+  nodeType?: Maybe<StringQueryOperatorInput>;
+  value?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentContentDataTargetFieldsDescriptionContentContentFilterListInput = {
+  elemMatch?: Maybe<ContentfulCourseDescriptionRichTextNodeContentContentDataTargetFieldsDescriptionContentContentFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentContentDataTargetFieldsDescriptionContentFilterInput = {
+  nodeType?: Maybe<StringQueryOperatorInput>;
+  content?: Maybe<ContentfulCourseDescriptionRichTextNodeContentContentDataTargetFieldsDescriptionContentContentFilterListInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentContentDataTargetFieldsDescriptionContentFilterListInput = {
+  elemMatch?: Maybe<ContentfulCourseDescriptionRichTextNodeContentContentDataTargetFieldsDescriptionContentFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentContentDataTargetFieldsDescriptionFilterInput = {
+  nodeType?: Maybe<StringQueryOperatorInput>;
+  content?: Maybe<ContentfulCourseDescriptionRichTextNodeContentContentDataTargetFieldsDescriptionContentFilterListInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentContentDataTargetFieldsFilterInput = {
+  courseId?: Maybe<StringQueryOperatorInput>;
+  ects?: Maybe<IntQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  description?: Maybe<ContentfulCourseDescriptionRichTextNodeContentContentDataTargetFieldsDescriptionFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentContentDataTargetFilterInput = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentContentDataTargetSysFilterInput>;
+  fields?: Maybe<ContentfulCourseDescriptionRichTextNodeContentContentDataTargetFieldsFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentContentDataTargetSys = {
+  space?: Maybe<ContentfulCourseDescriptionRichTextNodeContentContentDataTargetSysSpace>;
+  id?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['Date']>;
+  updatedAt?: Maybe<Scalars['Date']>;
+  environment?: Maybe<ContentfulCourseDescriptionRichTextNodeContentContentDataTargetSysEnvironment>;
+  revision?: Maybe<Scalars['Int']>;
+  contentType?: Maybe<ContentfulCourseDescriptionRichTextNodeContentContentDataTargetSysContentType>;
+  contentful_id?: Maybe<Scalars['String']>;
+};
+
+
+export type ContentfulCourseDescriptionRichTextNodeContentContentDataTargetSysCreatedAtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type ContentfulCourseDescriptionRichTextNodeContentContentDataTargetSysUpdatedAtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentContentDataTargetSysContentType = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentContentDataTargetSysContentTypeSys>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentContentDataTargetSysContentTypeFilterInput = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentContentDataTargetSysContentTypeSysFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentContentDataTargetSysContentTypeSys = {
+  type?: Maybe<Scalars['String']>;
+  linkType?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  contentful_id?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentContentDataTargetSysContentTypeSysFilterInput = {
+  type?: Maybe<StringQueryOperatorInput>;
+  linkType?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  contentful_id?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentContentDataTargetSysEnvironment = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentContentDataTargetSysEnvironmentSys>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentContentDataTargetSysEnvironmentFilterInput = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentContentDataTargetSysEnvironmentSysFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentContentDataTargetSysEnvironmentSys = {
+  id?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  linkType?: Maybe<Scalars['String']>;
+  contentful_id?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentContentDataTargetSysEnvironmentSysFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+  type?: Maybe<StringQueryOperatorInput>;
+  linkType?: Maybe<StringQueryOperatorInput>;
+  contentful_id?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentContentDataTargetSysFilterInput = {
+  space?: Maybe<ContentfulCourseDescriptionRichTextNodeContentContentDataTargetSysSpaceFilterInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  type?: Maybe<StringQueryOperatorInput>;
+  createdAt?: Maybe<DateQueryOperatorInput>;
+  updatedAt?: Maybe<DateQueryOperatorInput>;
+  environment?: Maybe<ContentfulCourseDescriptionRichTextNodeContentContentDataTargetSysEnvironmentFilterInput>;
+  revision?: Maybe<IntQueryOperatorInput>;
+  contentType?: Maybe<ContentfulCourseDescriptionRichTextNodeContentContentDataTargetSysContentTypeFilterInput>;
+  contentful_id?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentContentDataTargetSysSpace = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentContentDataTargetSysSpaceSys>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentContentDataTargetSysSpaceFilterInput = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentContentDataTargetSysSpaceSysFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentContentDataTargetSysSpaceSys = {
+  type?: Maybe<Scalars['String']>;
+  linkType?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  contentful_id?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentContentDataTargetSysSpaceSysFilterInput = {
+  type?: Maybe<StringQueryOperatorInput>;
+  linkType?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  contentful_id?: Maybe<StringQueryOperatorInput>;
 };
 
 export type ContentfulCourseDescriptionRichTextNodeContentContentFilterInput = {
-  nodeType?: Maybe<StringQueryOperatorInput>;
-  value?: Maybe<StringQueryOperatorInput>;
+  data?: Maybe<ContentfulCourseDescriptionRichTextNodeContentContentDataFilterInput>;
   marks?: Maybe<ContentfulCourseDescriptionRichTextNodeContentContentMarksFilterListInput>;
+  value?: Maybe<StringQueryOperatorInput>;
+  nodeType?: Maybe<StringQueryOperatorInput>;
 };
 
 export type ContentfulCourseDescriptionRichTextNodeContentContentFilterListInput = {
@@ -615,9 +794,1146 @@ export type ContentfulCourseDescriptionRichTextNodeContentContentMarksFilterList
   elemMatch?: Maybe<ContentfulCourseDescriptionRichTextNodeContentContentMarksFilterInput>;
 };
 
-export type ContentfulCourseDescriptionRichTextNodeContentFilterInput = {
+export type ContentfulCourseDescriptionRichTextNodeContentData = {
+  target?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTarget>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataFilterInput = {
+  target?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTarget = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetSys>;
+  fields?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFields>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFields = {
+  courseId?: Maybe<Scalars['String']>;
+  ects?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+  description?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescription>;
+  teacher?: Maybe<Array<Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacher>>>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescription = {
+  content?: Maybe<Array<Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContent>>>;
+  nodeType?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContent = {
+  data?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentData>;
+  content?: Maybe<Array<Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContent>>>;
+  nodeType?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContent = {
+  data?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentData>;
+  value?: Maybe<Scalars['String']>;
+  nodeType?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentData = {
+  target?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTarget>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataFilterInput = {
+  target?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTarget = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetSys>;
+  fields?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFields>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFields = {
+  courseId?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFieldsCourseId>;
+  ects?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFieldsEcts>;
+  name?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFieldsName>;
+  description?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFieldsDescription>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFieldsCourseId = {
+  fi_FI?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFieldsCourseIdFilterInput = {
+  fi_FI?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFieldsDescription = {
+  fi_FI?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFieldsDescriptionFi_Fi>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFieldsDescriptionFi_Fi = {
+  nodeType?: Maybe<Scalars['String']>;
+  content?: Maybe<Array<Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFieldsDescriptionFi_FiContent>>>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFieldsDescriptionFi_FiContent = {
+  nodeType?: Maybe<Scalars['String']>;
+  content?: Maybe<Array<Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFieldsDescriptionFi_FiContentContent>>>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFieldsDescriptionFi_FiContentContent = {
+  nodeType?: Maybe<Scalars['String']>;
+  value?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFieldsDescriptionFi_FiContentContentFilterInput = {
   nodeType?: Maybe<StringQueryOperatorInput>;
+  value?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFieldsDescriptionFi_FiContentContentFilterListInput = {
+  elemMatch?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFieldsDescriptionFi_FiContentContentFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFieldsDescriptionFi_FiContentFilterInput = {
+  nodeType?: Maybe<StringQueryOperatorInput>;
+  content?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFieldsDescriptionFi_FiContentContentFilterListInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFieldsDescriptionFi_FiContentFilterListInput = {
+  elemMatch?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFieldsDescriptionFi_FiContentFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFieldsDescriptionFi_FiFilterInput = {
+  nodeType?: Maybe<StringQueryOperatorInput>;
+  content?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFieldsDescriptionFi_FiContentFilterListInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFieldsDescriptionFilterInput = {
+  fi_FI?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFieldsDescriptionFi_FiFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFieldsEcts = {
+  fi_FI?: Maybe<Scalars['Int']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFieldsEctsFilterInput = {
+  fi_FI?: Maybe<IntQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFieldsFilterInput = {
+  courseId?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFieldsCourseIdFilterInput>;
+  ects?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFieldsEctsFilterInput>;
+  name?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFieldsNameFilterInput>;
+  description?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFieldsDescriptionFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFieldsName = {
+  fi_FI?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFieldsNameFilterInput = {
+  fi_FI?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFilterInput = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetSysFilterInput>;
+  fields?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetFieldsFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetSys = {
+  space?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetSysSpace>;
+  id?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['Date']>;
+  updatedAt?: Maybe<Scalars['Date']>;
+  environment?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetSysEnvironment>;
+  revision?: Maybe<Scalars['Int']>;
+  contentType?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetSysContentType>;
+  contentful_id?: Maybe<Scalars['String']>;
+};
+
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetSysCreatedAtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetSysUpdatedAtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetSysContentType = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetSysContentTypeSys>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetSysContentTypeFilterInput = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetSysContentTypeSysFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetSysContentTypeSys = {
+  type?: Maybe<Scalars['String']>;
+  linkType?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  contentful_id?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetSysContentTypeSysFilterInput = {
+  type?: Maybe<StringQueryOperatorInput>;
+  linkType?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  contentful_id?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetSysEnvironment = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetSysEnvironmentSys>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetSysEnvironmentFilterInput = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetSysEnvironmentSysFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetSysEnvironmentSys = {
+  id?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  linkType?: Maybe<Scalars['String']>;
+  contentful_id?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetSysEnvironmentSysFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+  type?: Maybe<StringQueryOperatorInput>;
+  linkType?: Maybe<StringQueryOperatorInput>;
+  contentful_id?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetSysFilterInput = {
+  space?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetSysSpaceFilterInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  type?: Maybe<StringQueryOperatorInput>;
+  createdAt?: Maybe<DateQueryOperatorInput>;
+  updatedAt?: Maybe<DateQueryOperatorInput>;
+  environment?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetSysEnvironmentFilterInput>;
+  revision?: Maybe<IntQueryOperatorInput>;
+  contentType?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetSysContentTypeFilterInput>;
+  contentful_id?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetSysSpace = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetSysSpaceSys>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetSysSpaceFilterInput = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetSysSpaceSysFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetSysSpaceSys = {
+  type?: Maybe<Scalars['String']>;
+  linkType?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  contentful_id?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataTargetSysSpaceSysFilterInput = {
+  type?: Maybe<StringQueryOperatorInput>;
+  linkType?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  contentful_id?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentFilterInput = {
+  data?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentDataFilterInput>;
+  value?: Maybe<StringQueryOperatorInput>;
+  nodeType?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentFilterListInput = {
+  elemMatch?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentData = {
+  target?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTarget>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataFilterInput = {
+  target?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTarget = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetSys>;
+  fields?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFields>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFields = {
+  courseId?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsCourseId>;
+  ects?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsEcts>;
+  name?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsName>;
+  teacher?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacher>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsCourseId = {
+  fi_FI?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsCourseIdFilterInput = {
+  fi_FI?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsEcts = {
+  fi_FI?: Maybe<Scalars['Int']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsEctsFilterInput = {
+  fi_FI?: Maybe<IntQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsFilterInput = {
+  courseId?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsCourseIdFilterInput>;
+  ects?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsEctsFilterInput>;
+  name?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsNameFilterInput>;
+  teacher?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsName = {
+  fi_FI?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsNameFilterInput = {
+  fi_FI?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacher = {
+  fi_FI?: Maybe<Array<Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_Fi>>>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_Fi = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiSys>;
+  fields?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFields>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFields = {
+  avatar?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatar>;
+  name?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsName>;
+  slug?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsSlug>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatar = {
+  fi_FI?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_Fi>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_Fi = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiSys>;
+  fields?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiFields>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiFields = {
+  title?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiFieldsTitle>;
+  file?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiFieldsFile>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiFieldsFile = {
+  fi_FI?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiFieldsFileFi_Fi>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiFieldsFileFi_Fi = {
+  url?: Maybe<Scalars['String']>;
+  details?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiFieldsFileFi_FiDetails>;
+  fileName?: Maybe<Scalars['String']>;
+  contentType?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiFieldsFileFi_FiDetails = {
+  size?: Maybe<Scalars['Int']>;
+  image?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiFieldsFileFi_FiDetailsImage>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiFieldsFileFi_FiDetailsFilterInput = {
+  size?: Maybe<IntQueryOperatorInput>;
+  image?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiFieldsFileFi_FiDetailsImageFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiFieldsFileFi_FiDetailsImage = {
+  width?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Int']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiFieldsFileFi_FiDetailsImageFilterInput = {
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiFieldsFileFi_FiFilterInput = {
+  url?: Maybe<StringQueryOperatorInput>;
+  details?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiFieldsFileFi_FiDetailsFilterInput>;
+  fileName?: Maybe<StringQueryOperatorInput>;
+  contentType?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiFieldsFileFilterInput = {
+  fi_FI?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiFieldsFileFi_FiFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiFieldsFilterInput = {
+  title?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiFieldsTitleFilterInput>;
+  file?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiFieldsFileFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiFieldsTitle = {
+  fi_FI?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiFieldsTitleFilterInput = {
+  fi_FI?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiFilterInput = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiSysFilterInput>;
+  fields?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiFieldsFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiSys = {
+  space?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiSysSpace>;
+  id?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['Date']>;
+  updatedAt?: Maybe<Scalars['Date']>;
+  environment?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiSysEnvironment>;
+  revision?: Maybe<Scalars['Int']>;
+  contentful_id?: Maybe<Scalars['String']>;
+};
+
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiSysCreatedAtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiSysUpdatedAtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiSysEnvironment = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiSysEnvironmentSys>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiSysEnvironmentFilterInput = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiSysEnvironmentSysFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiSysEnvironmentSys = {
+  id?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  linkType?: Maybe<Scalars['String']>;
+  contentful_id?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiSysEnvironmentSysFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+  type?: Maybe<StringQueryOperatorInput>;
+  linkType?: Maybe<StringQueryOperatorInput>;
+  contentful_id?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiSysFilterInput = {
+  space?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiSysSpaceFilterInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  type?: Maybe<StringQueryOperatorInput>;
+  createdAt?: Maybe<DateQueryOperatorInput>;
+  updatedAt?: Maybe<DateQueryOperatorInput>;
+  environment?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiSysEnvironmentFilterInput>;
+  revision?: Maybe<IntQueryOperatorInput>;
+  contentful_id?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiSysSpace = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiSysSpaceSys>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiSysSpaceFilterInput = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiSysSpaceSysFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiSysSpaceSys = {
+  type?: Maybe<Scalars['String']>;
+  linkType?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  contentful_id?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiSysSpaceSysFilterInput = {
+  type?: Maybe<StringQueryOperatorInput>;
+  linkType?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  contentful_id?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFilterInput = {
+  fi_FI?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFi_FiFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsFilterInput = {
+  avatar?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsAvatarFilterInput>;
+  name?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsNameFilterInput>;
+  slug?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsSlugFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsName = {
+  fi_FI?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsNameFilterInput = {
+  fi_FI?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsSlug = {
+  fi_FI?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsSlugFilterInput = {
+  fi_FI?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFilterInput = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiSysFilterInput>;
+  fields?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFieldsFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFilterListInput = {
+  elemMatch?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiSys = {
+  space?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiSysSpace>;
+  id?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['Date']>;
+  updatedAt?: Maybe<Scalars['Date']>;
+  environment?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiSysEnvironment>;
+  revision?: Maybe<Scalars['Int']>;
+  contentType?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiSysContentType>;
+  contentful_id?: Maybe<Scalars['String']>;
+};
+
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiSysCreatedAtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiSysUpdatedAtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiSysContentType = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiSysContentTypeSys>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiSysContentTypeFilterInput = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiSysContentTypeSysFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiSysContentTypeSys = {
+  type?: Maybe<Scalars['String']>;
+  linkType?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  contentful_id?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiSysContentTypeSysFilterInput = {
+  type?: Maybe<StringQueryOperatorInput>;
+  linkType?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  contentful_id?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiSysEnvironment = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiSysEnvironmentSys>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiSysEnvironmentFilterInput = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiSysEnvironmentSysFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiSysEnvironmentSys = {
+  id?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  linkType?: Maybe<Scalars['String']>;
+  contentful_id?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiSysEnvironmentSysFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+  type?: Maybe<StringQueryOperatorInput>;
+  linkType?: Maybe<StringQueryOperatorInput>;
+  contentful_id?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiSysFilterInput = {
+  space?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiSysSpaceFilterInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  type?: Maybe<StringQueryOperatorInput>;
+  createdAt?: Maybe<DateQueryOperatorInput>;
+  updatedAt?: Maybe<DateQueryOperatorInput>;
+  environment?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiSysEnvironmentFilterInput>;
+  revision?: Maybe<IntQueryOperatorInput>;
+  contentType?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiSysContentTypeFilterInput>;
+  contentful_id?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiSysSpace = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiSysSpaceSys>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiSysSpaceFilterInput = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiSysSpaceSysFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiSysSpaceSys = {
+  type?: Maybe<Scalars['String']>;
+  linkType?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  contentful_id?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiSysSpaceSysFilterInput = {
+  type?: Maybe<StringQueryOperatorInput>;
+  linkType?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  contentful_id?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFilterInput = {
+  fi_FI?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsTeacherFi_FiFilterListInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFilterInput = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetSysFilterInput>;
+  fields?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetFieldsFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetSys = {
+  space?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetSysSpace>;
+  id?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['Date']>;
+  updatedAt?: Maybe<Scalars['Date']>;
+  environment?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetSysEnvironment>;
+  revision?: Maybe<Scalars['Int']>;
+  contentType?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetSysContentType>;
+  contentful_id?: Maybe<Scalars['String']>;
+};
+
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetSysCreatedAtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetSysUpdatedAtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetSysContentType = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetSysContentTypeSys>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetSysContentTypeFilterInput = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetSysContentTypeSysFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetSysContentTypeSys = {
+  type?: Maybe<Scalars['String']>;
+  linkType?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  contentful_id?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetSysContentTypeSysFilterInput = {
+  type?: Maybe<StringQueryOperatorInput>;
+  linkType?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  contentful_id?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetSysEnvironment = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetSysEnvironmentSys>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetSysEnvironmentFilterInput = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetSysEnvironmentSysFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetSysEnvironmentSys = {
+  id?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  linkType?: Maybe<Scalars['String']>;
+  contentful_id?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetSysEnvironmentSysFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+  type?: Maybe<StringQueryOperatorInput>;
+  linkType?: Maybe<StringQueryOperatorInput>;
+  contentful_id?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetSysFilterInput = {
+  space?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetSysSpaceFilterInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  type?: Maybe<StringQueryOperatorInput>;
+  createdAt?: Maybe<DateQueryOperatorInput>;
+  updatedAt?: Maybe<DateQueryOperatorInput>;
+  environment?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetSysEnvironmentFilterInput>;
+  revision?: Maybe<IntQueryOperatorInput>;
+  contentType?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetSysContentTypeFilterInput>;
+  contentful_id?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetSysSpace = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetSysSpaceSys>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetSysSpaceFilterInput = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetSysSpaceSysFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetSysSpaceSys = {
+  type?: Maybe<Scalars['String']>;
+  linkType?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  contentful_id?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataTargetSysSpaceSysFilterInput = {
+  type?: Maybe<StringQueryOperatorInput>;
+  linkType?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  contentful_id?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentFilterInput = {
+  data?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentDataFilterInput>;
+  content?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentContentFilterListInput>;
+  nodeType?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentFilterListInput = {
+  elemMatch?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionFilterInput = {
+  content?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionContentFilterListInput>;
+  nodeType?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsFilterInput = {
+  courseId?: Maybe<StringQueryOperatorInput>;
+  ects?: Maybe<IntQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  description?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsDescriptionFilterInput>;
+  teacher?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFilterListInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacher = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherSys>;
+  fields?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFields>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFields = {
+  avatar?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatar>;
+  name?: Maybe<Scalars['String']>;
+  slug?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatar = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarSys>;
+  fields?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarFields>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarFields = {
+  title?: Maybe<Scalars['String']>;
+  file?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarFieldsFile>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarFieldsFile = {
+  url?: Maybe<Scalars['String']>;
+  details?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarFieldsFileDetails>;
+  fileName?: Maybe<Scalars['String']>;
+  contentType?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarFieldsFileDetails = {
+  size?: Maybe<Scalars['Int']>;
+  image?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarFieldsFileDetailsImage>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarFieldsFileDetailsFilterInput = {
+  size?: Maybe<IntQueryOperatorInput>;
+  image?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarFieldsFileDetailsImageFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarFieldsFileDetailsImage = {
+  width?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Int']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarFieldsFileDetailsImageFilterInput = {
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarFieldsFileFilterInput = {
+  url?: Maybe<StringQueryOperatorInput>;
+  details?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarFieldsFileDetailsFilterInput>;
+  fileName?: Maybe<StringQueryOperatorInput>;
+  contentType?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarFieldsFilterInput = {
+  title?: Maybe<StringQueryOperatorInput>;
+  file?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarFieldsFileFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarFilterInput = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarSysFilterInput>;
+  fields?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarFieldsFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarSys = {
+  space?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarSysSpace>;
+  id?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['Date']>;
+  updatedAt?: Maybe<Scalars['Date']>;
+  environment?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarSysEnvironment>;
+  revision?: Maybe<Scalars['Int']>;
+  contentful_id?: Maybe<Scalars['String']>;
+};
+
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarSysCreatedAtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarSysUpdatedAtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarSysEnvironment = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarSysEnvironmentSys>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarSysEnvironmentFilterInput = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarSysEnvironmentSysFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarSysEnvironmentSys = {
+  id?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  linkType?: Maybe<Scalars['String']>;
+  contentful_id?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarSysEnvironmentSysFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+  type?: Maybe<StringQueryOperatorInput>;
+  linkType?: Maybe<StringQueryOperatorInput>;
+  contentful_id?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarSysFilterInput = {
+  space?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarSysSpaceFilterInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  type?: Maybe<StringQueryOperatorInput>;
+  createdAt?: Maybe<DateQueryOperatorInput>;
+  updatedAt?: Maybe<DateQueryOperatorInput>;
+  environment?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarSysEnvironmentFilterInput>;
+  revision?: Maybe<IntQueryOperatorInput>;
+  contentful_id?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarSysSpace = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarSysSpaceSys>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarSysSpaceFilterInput = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarSysSpaceSysFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarSysSpaceSys = {
+  type?: Maybe<Scalars['String']>;
+  linkType?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  contentful_id?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarSysSpaceSysFilterInput = {
+  type?: Maybe<StringQueryOperatorInput>;
+  linkType?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  contentful_id?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsFilterInput = {
+  avatar?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsAvatarFilterInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  slug?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFilterInput = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherSysFilterInput>;
+  fields?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFieldsFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFilterListInput = {
+  elemMatch?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherSys = {
+  space?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherSysSpace>;
+  id?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['Date']>;
+  updatedAt?: Maybe<Scalars['Date']>;
+  environment?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherSysEnvironment>;
+  revision?: Maybe<Scalars['Int']>;
+  contentType?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherSysContentType>;
+  contentful_id?: Maybe<Scalars['String']>;
+};
+
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherSysCreatedAtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherSysUpdatedAtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherSysContentType = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherSysContentTypeSys>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherSysContentTypeFilterInput = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherSysContentTypeSysFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherSysContentTypeSys = {
+  type?: Maybe<Scalars['String']>;
+  linkType?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  contentful_id?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherSysContentTypeSysFilterInput = {
+  type?: Maybe<StringQueryOperatorInput>;
+  linkType?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  contentful_id?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherSysEnvironment = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherSysEnvironmentSys>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherSysEnvironmentFilterInput = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherSysEnvironmentSysFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherSysEnvironmentSys = {
+  id?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  linkType?: Maybe<Scalars['String']>;
+  contentful_id?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherSysEnvironmentSysFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+  type?: Maybe<StringQueryOperatorInput>;
+  linkType?: Maybe<StringQueryOperatorInput>;
+  contentful_id?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherSysFilterInput = {
+  space?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherSysSpaceFilterInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  type?: Maybe<StringQueryOperatorInput>;
+  createdAt?: Maybe<DateQueryOperatorInput>;
+  updatedAt?: Maybe<DateQueryOperatorInput>;
+  environment?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherSysEnvironmentFilterInput>;
+  revision?: Maybe<IntQueryOperatorInput>;
+  contentType?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherSysContentTypeFilterInput>;
+  contentful_id?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherSysSpace = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherSysSpaceSys>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherSysSpaceFilterInput = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherSysSpaceSysFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherSysSpaceSys = {
+  type?: Maybe<Scalars['String']>;
+  linkType?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  contentful_id?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsTeacherSysSpaceSysFilterInput = {
+  type?: Maybe<StringQueryOperatorInput>;
+  linkType?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  contentful_id?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetFilterInput = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetSysFilterInput>;
+  fields?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetFieldsFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetSys = {
+  space?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetSysSpace>;
+  id?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['Date']>;
+  updatedAt?: Maybe<Scalars['Date']>;
+  environment?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetSysEnvironment>;
+  revision?: Maybe<Scalars['Int']>;
+  contentType?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetSysContentType>;
+  contentful_id?: Maybe<Scalars['String']>;
+};
+
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetSysCreatedAtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetSysUpdatedAtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetSysContentType = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetSysContentTypeSys>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetSysContentTypeFilterInput = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetSysContentTypeSysFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetSysContentTypeSys = {
+  type?: Maybe<Scalars['String']>;
+  linkType?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  contentful_id?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetSysContentTypeSysFilterInput = {
+  type?: Maybe<StringQueryOperatorInput>;
+  linkType?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  contentful_id?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetSysEnvironment = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetSysEnvironmentSys>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetSysEnvironmentFilterInput = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetSysEnvironmentSysFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetSysEnvironmentSys = {
+  id?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  linkType?: Maybe<Scalars['String']>;
+  contentful_id?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetSysEnvironmentSysFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+  type?: Maybe<StringQueryOperatorInput>;
+  linkType?: Maybe<StringQueryOperatorInput>;
+  contentful_id?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetSysFilterInput = {
+  space?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetSysSpaceFilterInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  type?: Maybe<StringQueryOperatorInput>;
+  createdAt?: Maybe<DateQueryOperatorInput>;
+  updatedAt?: Maybe<DateQueryOperatorInput>;
+  environment?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetSysEnvironmentFilterInput>;
+  revision?: Maybe<IntQueryOperatorInput>;
+  contentType?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetSysContentTypeFilterInput>;
+  contentful_id?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetSysSpace = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetSysSpaceSys>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetSysSpaceFilterInput = {
+  sys?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataTargetSysSpaceSysFilterInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetSysSpaceSys = {
+  type?: Maybe<Scalars['String']>;
+  linkType?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  contentful_id?: Maybe<Scalars['String']>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentDataTargetSysSpaceSysFilterInput = {
+  type?: Maybe<StringQueryOperatorInput>;
+  linkType?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  contentful_id?: Maybe<StringQueryOperatorInput>;
+};
+
+export type ContentfulCourseDescriptionRichTextNodeContentFilterInput = {
+  data?: Maybe<ContentfulCourseDescriptionRichTextNodeContentDataFilterInput>;
   content?: Maybe<ContentfulCourseDescriptionRichTextNodeContentContentFilterListInput>;
+  nodeType?: Maybe<StringQueryOperatorInput>;
 };
 
 export type ContentfulCourseDescriptionRichTextNodeContentFilterListInput = {
@@ -721,14 +2037,14 @@ export type ContentfulCourseDescriptionRichTextNodeFieldsEnum =
   'internal___mediaType' |
   'internal___owner' |
   'internal___type' |
-  'nodeType' |
   'content' |
-  'content___nodeType' |
   'content___content' |
-  'content___content___nodeType' |
-  'content___content___value' |
   'content___content___marks' |
   'content___content___marks___type' |
+  'content___content___value' |
+  'content___content___nodeType' |
+  'content___nodeType' |
+  'nodeType' |
   'description' |
   'fields___excerpt' |
   'json';
@@ -742,8 +2058,8 @@ export type ContentfulCourseDescriptionRichTextNodeFilterInput = {
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
   internal?: Maybe<InternalFilterInput>;
-  nodeType?: Maybe<StringQueryOperatorInput>;
   content?: Maybe<ContentfulCourseDescriptionRichTextNodeContentFilterListInput>;
+  nodeType?: Maybe<StringQueryOperatorInput>;
   description?: Maybe<StringQueryOperatorInput>;
   fields?: Maybe<ContentfulCourseDescriptionRichTextNodeFieldsFilterInput>;
   json?: Maybe<JsonQueryOperatorInput>;
@@ -900,12 +2216,6 @@ export type ContentfulCourseFieldsEnum =
   'teacher___internal___type' |
   'teacher___name' |
   'teacher___slug' |
-  'teacher___spaceId' |
-  'teacher___contentful_id' |
-  'teacher___createdAt' |
-  'teacher___updatedAt' |
-  'teacher___sys___revision' |
-  'teacher___node_locale' |
   'teacher___avatar___id' |
   'teacher___avatar___parent___id' |
   'teacher___avatar___parent___children' |
@@ -990,12 +2300,12 @@ export type ContentfulCourseFieldsEnum =
   'teacher___course___teacher___children' |
   'teacher___course___teacher___name' |
   'teacher___course___teacher___slug' |
+  'teacher___course___teacher___course' |
   'teacher___course___teacher___spaceId' |
   'teacher___course___teacher___contentful_id' |
   'teacher___course___teacher___createdAt' |
   'teacher___course___teacher___updatedAt' |
   'teacher___course___teacher___node_locale' |
-  'teacher___course___teacher___course' |
   'teacher___course___major' |
   'teacher___course___major___id' |
   'teacher___course___major___children' |
@@ -1009,8 +2319,8 @@ export type ContentfulCourseFieldsEnum =
   'teacher___course___major___node_locale' |
   'teacher___course___description___id' |
   'teacher___course___description___children' |
-  'teacher___course___description___nodeType' |
   'teacher___course___description___content' |
+  'teacher___course___description___nodeType' |
   'teacher___course___description___description' |
   'teacher___course___description___json' |
   'teacher___course___spaceId' |
@@ -1021,10 +2331,16 @@ export type ContentfulCourseFieldsEnum =
   'teacher___course___node_locale' |
   'teacher___course___childContentfulCourseDescriptionRichTextNode___id' |
   'teacher___course___childContentfulCourseDescriptionRichTextNode___children' |
-  'teacher___course___childContentfulCourseDescriptionRichTextNode___nodeType' |
   'teacher___course___childContentfulCourseDescriptionRichTextNode___content' |
+  'teacher___course___childContentfulCourseDescriptionRichTextNode___nodeType' |
   'teacher___course___childContentfulCourseDescriptionRichTextNode___description' |
   'teacher___course___childContentfulCourseDescriptionRichTextNode___json' |
+  'teacher___spaceId' |
+  'teacher___contentful_id' |
+  'teacher___createdAt' |
+  'teacher___updatedAt' |
+  'teacher___sys___revision' |
+  'teacher___node_locale' |
   'major' |
   'major___id' |
   'major___parent___id' |
@@ -1089,12 +2405,12 @@ export type ContentfulCourseFieldsEnum =
   'major___courses___teacher___children' |
   'major___courses___teacher___name' |
   'major___courses___teacher___slug' |
+  'major___courses___teacher___course' |
   'major___courses___teacher___spaceId' |
   'major___courses___teacher___contentful_id' |
   'major___courses___teacher___createdAt' |
   'major___courses___teacher___updatedAt' |
   'major___courses___teacher___node_locale' |
-  'major___courses___teacher___course' |
   'major___courses___major' |
   'major___courses___major___id' |
   'major___courses___major___children' |
@@ -1108,8 +2424,8 @@ export type ContentfulCourseFieldsEnum =
   'major___courses___major___node_locale' |
   'major___courses___description___id' |
   'major___courses___description___children' |
-  'major___courses___description___nodeType' |
   'major___courses___description___content' |
+  'major___courses___description___nodeType' |
   'major___courses___description___description' |
   'major___courses___description___json' |
   'major___courses___spaceId' |
@@ -1120,8 +2436,8 @@ export type ContentfulCourseFieldsEnum =
   'major___courses___node_locale' |
   'major___courses___childContentfulCourseDescriptionRichTextNode___id' |
   'major___courses___childContentfulCourseDescriptionRichTextNode___children' |
-  'major___courses___childContentfulCourseDescriptionRichTextNode___nodeType' |
   'major___courses___childContentfulCourseDescriptionRichTextNode___content' |
+  'major___courses___childContentfulCourseDescriptionRichTextNode___nodeType' |
   'major___courses___childContentfulCourseDescriptionRichTextNode___description' |
   'major___courses___childContentfulCourseDescriptionRichTextNode___json' |
   'major___introduction___id' |
@@ -1210,13 +2526,13 @@ export type ContentfulCourseFieldsEnum =
   'description___internal___mediaType' |
   'description___internal___owner' |
   'description___internal___type' |
-  'description___nodeType' |
   'description___content' |
-  'description___content___nodeType' |
   'description___content___content' |
-  'description___content___content___nodeType' |
-  'description___content___content___value' |
   'description___content___content___marks' |
+  'description___content___content___value' |
+  'description___content___content___nodeType' |
+  'description___content___nodeType' |
+  'description___nodeType' |
   'description___description' |
   'description___fields___excerpt' |
   'description___json' |
@@ -1268,13 +2584,13 @@ export type ContentfulCourseFieldsEnum =
   'childContentfulCourseDescriptionRichTextNode___internal___mediaType' |
   'childContentfulCourseDescriptionRichTextNode___internal___owner' |
   'childContentfulCourseDescriptionRichTextNode___internal___type' |
-  'childContentfulCourseDescriptionRichTextNode___nodeType' |
   'childContentfulCourseDescriptionRichTextNode___content' |
-  'childContentfulCourseDescriptionRichTextNode___content___nodeType' |
   'childContentfulCourseDescriptionRichTextNode___content___content' |
-  'childContentfulCourseDescriptionRichTextNode___content___content___nodeType' |
-  'childContentfulCourseDescriptionRichTextNode___content___content___value' |
   'childContentfulCourseDescriptionRichTextNode___content___content___marks' |
+  'childContentfulCourseDescriptionRichTextNode___content___content___value' |
+  'childContentfulCourseDescriptionRichTextNode___content___content___nodeType' |
+  'childContentfulCourseDescriptionRichTextNode___content___nodeType' |
+  'childContentfulCourseDescriptionRichTextNode___nodeType' |
   'childContentfulCourseDescriptionRichTextNode___description' |
   'childContentfulCourseDescriptionRichTextNode___fields___excerpt' |
   'childContentfulCourseDescriptionRichTextNode___json';
@@ -1623,12 +2939,6 @@ export type ContentfulMajorFieldsEnum =
   'courses___teacher___internal___type' |
   'courses___teacher___name' |
   'courses___teacher___slug' |
-  'courses___teacher___spaceId' |
-  'courses___teacher___contentful_id' |
-  'courses___teacher___createdAt' |
-  'courses___teacher___updatedAt' |
-  'courses___teacher___sys___revision' |
-  'courses___teacher___node_locale' |
   'courses___teacher___avatar___id' |
   'courses___teacher___avatar___children' |
   'courses___teacher___avatar___contentful_id' |
@@ -1648,6 +2958,12 @@ export type ContentfulMajorFieldsEnum =
   'courses___teacher___course___createdAt' |
   'courses___teacher___course___updatedAt' |
   'courses___teacher___course___node_locale' |
+  'courses___teacher___spaceId' |
+  'courses___teacher___contentful_id' |
+  'courses___teacher___createdAt' |
+  'courses___teacher___updatedAt' |
+  'courses___teacher___sys___revision' |
+  'courses___teacher___node_locale' |
   'courses___major' |
   'courses___major___id' |
   'courses___major___parent___id' |
@@ -1710,10 +3026,10 @@ export type ContentfulMajorFieldsEnum =
   'courses___description___internal___mediaType' |
   'courses___description___internal___owner' |
   'courses___description___internal___type' |
-  'courses___description___nodeType' |
   'courses___description___content' |
-  'courses___description___content___nodeType' |
   'courses___description___content___content' |
+  'courses___description___content___nodeType' |
+  'courses___description___nodeType' |
   'courses___description___description' |
   'courses___description___fields___excerpt' |
   'courses___description___json' |
@@ -1737,10 +3053,10 @@ export type ContentfulMajorFieldsEnum =
   'courses___childContentfulCourseDescriptionRichTextNode___internal___mediaType' |
   'courses___childContentfulCourseDescriptionRichTextNode___internal___owner' |
   'courses___childContentfulCourseDescriptionRichTextNode___internal___type' |
-  'courses___childContentfulCourseDescriptionRichTextNode___nodeType' |
   'courses___childContentfulCourseDescriptionRichTextNode___content' |
-  'courses___childContentfulCourseDescriptionRichTextNode___content___nodeType' |
   'courses___childContentfulCourseDescriptionRichTextNode___content___content' |
+  'courses___childContentfulCourseDescriptionRichTextNode___content___nodeType' |
+  'courses___childContentfulCourseDescriptionRichTextNode___nodeType' |
   'courses___childContentfulCourseDescriptionRichTextNode___description' |
   'courses___childContentfulCourseDescriptionRichTextNode___fields___excerpt' |
   'courses___childContentfulCourseDescriptionRichTextNode___json' |
@@ -2187,14 +3503,14 @@ export type ContentfulTeacher = Node & {
   internal: Internal;
   name?: Maybe<Scalars['String']>;
   slug?: Maybe<Scalars['String']>;
+  avatar?: Maybe<ContentfulAsset>;
+  course?: Maybe<Array<Maybe<ContentfulCourse>>>;
   spaceId?: Maybe<Scalars['String']>;
   contentful_id?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['Date']>;
   updatedAt?: Maybe<Scalars['Date']>;
   sys?: Maybe<ContentfulTeacherSys>;
   node_locale?: Maybe<Scalars['String']>;
-  avatar?: Maybe<ContentfulAsset>;
-  course?: Maybe<Array<Maybe<ContentfulCourse>>>;
 };
 
 
@@ -2329,16 +3645,6 @@ export type ContentfulTeacherFieldsEnum =
   'internal___type' |
   'name' |
   'slug' |
-  'spaceId' |
-  'contentful_id' |
-  'createdAt' |
-  'updatedAt' |
-  'sys___revision' |
-  'sys___contentType___sys___type' |
-  'sys___contentType___sys___linkType' |
-  'sys___contentType___sys___id' |
-  'sys___contentType___sys___contentful_id' |
-  'node_locale' |
   'avatar___id' |
   'avatar___parent___id' |
   'avatar___parent___parent___id' |
@@ -2484,12 +3790,6 @@ export type ContentfulTeacherFieldsEnum =
   'course___teacher___internal___type' |
   'course___teacher___name' |
   'course___teacher___slug' |
-  'course___teacher___spaceId' |
-  'course___teacher___contentful_id' |
-  'course___teacher___createdAt' |
-  'course___teacher___updatedAt' |
-  'course___teacher___sys___revision' |
-  'course___teacher___node_locale' |
   'course___teacher___avatar___id' |
   'course___teacher___avatar___children' |
   'course___teacher___avatar___contentful_id' |
@@ -2509,6 +3809,12 @@ export type ContentfulTeacherFieldsEnum =
   'course___teacher___course___createdAt' |
   'course___teacher___course___updatedAt' |
   'course___teacher___course___node_locale' |
+  'course___teacher___spaceId' |
+  'course___teacher___contentful_id' |
+  'course___teacher___createdAt' |
+  'course___teacher___updatedAt' |
+  'course___teacher___sys___revision' |
+  'course___teacher___node_locale' |
   'course___major' |
   'course___major___id' |
   'course___major___parent___id' |
@@ -2571,10 +3877,10 @@ export type ContentfulTeacherFieldsEnum =
   'course___description___internal___mediaType' |
   'course___description___internal___owner' |
   'course___description___internal___type' |
-  'course___description___nodeType' |
   'course___description___content' |
-  'course___description___content___nodeType' |
   'course___description___content___content' |
+  'course___description___content___nodeType' |
+  'course___description___nodeType' |
   'course___description___description' |
   'course___description___fields___excerpt' |
   'course___description___json' |
@@ -2598,13 +3904,23 @@ export type ContentfulTeacherFieldsEnum =
   'course___childContentfulCourseDescriptionRichTextNode___internal___mediaType' |
   'course___childContentfulCourseDescriptionRichTextNode___internal___owner' |
   'course___childContentfulCourseDescriptionRichTextNode___internal___type' |
-  'course___childContentfulCourseDescriptionRichTextNode___nodeType' |
   'course___childContentfulCourseDescriptionRichTextNode___content' |
-  'course___childContentfulCourseDescriptionRichTextNode___content___nodeType' |
   'course___childContentfulCourseDescriptionRichTextNode___content___content' |
+  'course___childContentfulCourseDescriptionRichTextNode___content___nodeType' |
+  'course___childContentfulCourseDescriptionRichTextNode___nodeType' |
   'course___childContentfulCourseDescriptionRichTextNode___description' |
   'course___childContentfulCourseDescriptionRichTextNode___fields___excerpt' |
-  'course___childContentfulCourseDescriptionRichTextNode___json';
+  'course___childContentfulCourseDescriptionRichTextNode___json' |
+  'spaceId' |
+  'contentful_id' |
+  'createdAt' |
+  'updatedAt' |
+  'sys___revision' |
+  'sys___contentType___sys___type' |
+  'sys___contentType___sys___linkType' |
+  'sys___contentType___sys___id' |
+  'sys___contentType___sys___contentful_id' |
+  'node_locale';
 
 export type ContentfulTeacherFilterInput = {
   id?: Maybe<StringQueryOperatorInput>;
@@ -2613,14 +3929,14 @@ export type ContentfulTeacherFilterInput = {
   internal?: Maybe<InternalFilterInput>;
   name?: Maybe<StringQueryOperatorInput>;
   slug?: Maybe<StringQueryOperatorInput>;
+  avatar?: Maybe<ContentfulAssetFilterInput>;
+  course?: Maybe<ContentfulCourseFilterListInput>;
   spaceId?: Maybe<StringQueryOperatorInput>;
   contentful_id?: Maybe<StringQueryOperatorInput>;
   createdAt?: Maybe<DateQueryOperatorInput>;
   updatedAt?: Maybe<DateQueryOperatorInput>;
   sys?: Maybe<ContentfulTeacherSysFilterInput>;
   node_locale?: Maybe<StringQueryOperatorInput>;
-  avatar?: Maybe<ContentfulAssetFilterInput>;
-  course?: Maybe<ContentfulCourseFilterListInput>;
 };
 
 export type ContentfulTeacherFilterListInput = {
@@ -4548,14 +5864,14 @@ export type QueryContentfulTeacherArgs = {
   internal?: Maybe<InternalFilterInput>;
   name?: Maybe<StringQueryOperatorInput>;
   slug?: Maybe<StringQueryOperatorInput>;
+  avatar?: Maybe<ContentfulAssetFilterInput>;
+  course?: Maybe<ContentfulCourseFilterListInput>;
   spaceId?: Maybe<StringQueryOperatorInput>;
   contentful_id?: Maybe<StringQueryOperatorInput>;
   createdAt?: Maybe<DateQueryOperatorInput>;
   updatedAt?: Maybe<DateQueryOperatorInput>;
   sys?: Maybe<ContentfulTeacherSysFilterInput>;
   node_locale?: Maybe<StringQueryOperatorInput>;
-  avatar?: Maybe<ContentfulAssetFilterInput>;
-  course?: Maybe<ContentfulCourseFilterListInput>;
 };
 
 
@@ -4572,8 +5888,8 @@ export type QueryContentfulCourseDescriptionRichTextNodeArgs = {
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
   internal?: Maybe<InternalFilterInput>;
-  nodeType?: Maybe<StringQueryOperatorInput>;
   content?: Maybe<ContentfulCourseDescriptionRichTextNodeContentFilterListInput>;
+  nodeType?: Maybe<StringQueryOperatorInput>;
   description?: Maybe<StringQueryOperatorInput>;
   fields?: Maybe<ContentfulCourseDescriptionRichTextNodeFieldsFilterInput>;
   json?: Maybe<JsonQueryOperatorInput>;
@@ -5204,6 +6520,7 @@ export type SitePageFieldsEnum =
   'pluginCreator___pluginOptions___icon' |
   'pluginCreator___pluginOptions___spaceId' |
   'pluginCreator___pluginOptions___accessToken' |
+  'pluginCreator___pluginOptions___richText___resolveFieldLocales' |
   'pluginCreator___pluginOptions___fonts' |
   'pluginCreator___pluginOptions___fonts___family' |
   'pluginCreator___pluginOptions___trackingId' |
@@ -5412,6 +6729,7 @@ export type SitePluginFieldsEnum =
   'pluginOptions___icon' |
   'pluginOptions___spaceId' |
   'pluginOptions___accessToken' |
+  'pluginOptions___richText___resolveFieldLocales' |
   'pluginOptions___fonts' |
   'pluginOptions___fonts___family' |
   'pluginOptions___trackingId' |
@@ -5548,6 +6866,7 @@ export type SitePluginPluginOptions = {
   icon?: Maybe<Scalars['String']>;
   spaceId?: Maybe<Scalars['String']>;
   accessToken?: Maybe<Scalars['String']>;
+  richText?: Maybe<SitePluginPluginOptionsRichText>;
   fonts?: Maybe<Array<Maybe<SitePluginPluginOptionsFonts>>>;
   trackingId?: Maybe<Scalars['String']>;
   head?: Maybe<Scalars['Boolean']>;
@@ -5571,6 +6890,7 @@ export type SitePluginPluginOptionsFilterInput = {
   icon?: Maybe<StringQueryOperatorInput>;
   spaceId?: Maybe<StringQueryOperatorInput>;
   accessToken?: Maybe<StringQueryOperatorInput>;
+  richText?: Maybe<SitePluginPluginOptionsRichTextFilterInput>;
   fonts?: Maybe<SitePluginPluginOptionsFontsFilterListInput>;
   trackingId?: Maybe<StringQueryOperatorInput>;
   head?: Maybe<BooleanQueryOperatorInput>;
@@ -5593,6 +6913,14 @@ export type SitePluginPluginOptionsFontsFilterInput = {
 
 export type SitePluginPluginOptionsFontsFilterListInput = {
   elemMatch?: Maybe<SitePluginPluginOptionsFontsFilterInput>;
+};
+
+export type SitePluginPluginOptionsRichText = {
+  resolveFieldLocales?: Maybe<Scalars['Boolean']>;
+};
+
+export type SitePluginPluginOptionsRichTextFilterInput = {
+  resolveFieldLocales?: Maybe<BooleanQueryOperatorInput>;
 };
 
 export type SitePluginSortInput = {

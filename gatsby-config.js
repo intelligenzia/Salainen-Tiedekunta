@@ -49,6 +49,9 @@ module.exports = {
         spaceId: process.env.CONTENTFUL_SPACE_ID,
         localeFilter: locale => locale.code === `fi-FI`,
         accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+        richText: {
+          resolveFieldLocales: true,
+        },
       },
     },
     `gatsby-og-images`,
