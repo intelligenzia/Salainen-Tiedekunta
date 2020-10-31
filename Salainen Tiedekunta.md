@@ -23,7 +23,6 @@ Salainen tiedekunta pidättää oikeuden vaihtaa opiskelija milloin tahansa mihi
 
 Tässä oppaassa esitellään salaisen tiedekunnan laitokset ja lukuvuonna 2002-2003 järjestettävät kurssit. Kurssien opetusajat ja -paikat ilmoitetaan erikseen salaisessa lukujärjestyksessä.
 
-
 KOGNITIIVINEN KEMIA
 
 Kognitiivisen kemian oppiaineesta valmistuu vaativiin psykokemiallisiin suorituksiin kykeneviä "psykonautteja". Kognitiivinen kemisti omaa täyden pätevyyden esim. koulukuraattorina, lastenohjelmien tuottajana, matkaoppaana ja aineenopettajana toimimiseen.
@@ -77,7 +76,6 @@ Huom. vain kognitiivisen kemian jatko-opiskelijoille tai Cch352:n kiitettäväll
 
 Lisäksi kannattaa huomioida joka kevät erikseen ilmoitettavana ajankohtana järjestettävä near-death excursio.
 
-
 TEOREETTINEN TEOLOGIA
 
 Teoreettinen teologia selvittää kristinuskon loogisia ja käytännöllisiä seurauksia ennakkoluulottomasti. Oppiaineesta voi valmistua uuden ajan papiksi, pyhien salaisuuksien tutkijaksi tai puhelinmyyjäksi.
@@ -103,7 +101,6 @@ Kurssilla käsitellään kuolleen selittelymahdollisuuksia viimeisellä tuomioll
 Tte351 Jumala oppijana (2 ov)
 Jumalille tarkoitettujen erityiskurssien pedagogiset ongelmat. Jumalat pienryhmissä ja jumalten hankalat täydellisyysvaatimukset. Mitä opettaja voi tehdä, jos jumala suuttuu?
 
-
 SPEKULATIIVINEN ERGONOMIA
 
 Oppiaine tutkii ergonomiaa tavanomaista laajemmassa viitekehyksessä eli jos asiat olisivatkin hiukan toisin kuin ovat. Alueen opiskelijoista valmistuu joko erilaisissa mahdollisissa maailmoissa työskentelemään kykeneviä ergonomeja tai soveltavan spekulatiivisen ergonomian asiantuntijoita.
@@ -119,7 +116,6 @@ Kurssilla suunnitellaan ja rakennetaan ryhmissä ergonominen oksennustuoli, joss
 
 Spe311 Humelainen ergonomia (5 ov)
 Seminaari, jossa pohdiskellaan ja mallinnetaan ergonomiaa kuvitellussa maailmassa, jossa kausaliteetti eli syy-seuraussuhde ei päde. Kognitiivisen kemian syventäviä opintoja suositellaan seminaarin tueksi.
-
 
 MONITIETEINEN SÄÄDYTTÖMYYS
 
@@ -138,7 +134,6 @@ Maailmankaikkeuden alkuhetki: Gang Bang (”kankipankki”) -teoria. Kosminen mu
 
 Mts323 Rappio (5 ov)
 Kognitiivisen kemian laitoksen kanssa yhteistyöprojektina järjestettävä soveltavan säädyttömyyden kurssi. Järjestetään noin kahden viikon mittaisena leirinä erään kognitiivisen kemian dosentin mökin jäänteillä. Päihteiden kohtuuton sekakäyttö ja orgiat. Päihteiden loputtua suunnitellaan lähikaupan ryöstöä, mihin ei kuitenkaan uskaltauduta. Sen sijaan särjetään puhelinkoppi, mihin kurssi päättyy. Rappio korvaa aikaisemmin järjestetyt kurssit Mts321 Johdatus elämään (2 ov) ja Mts322 Nautintojen maksimoiminen (3 ov).
-
 
 TÄYDENTÄVÄT PSYKOLOGIANOPINNOT
 
@@ -164,7 +159,6 @@ Minuuden purkaminen ja mielenterveydestä vapautuminen. Hulluudella keikarointi.
 
 Tps341 Arvot psykologiassa (3 ov)
 Rakkauden ja muiden tunteiden vaihtoarvot euroina. Tunteiden tilannesidonnainen arvoluokitus 2400-sivuisen taulukon pohjalta (ainoa kappale Tps-laitoksen yksityisomistuksessa).
-
 
 ERITYISRYHMÄOPETUS
 
@@ -209,7 +203,6 @@ Kuinka yksinkertainen WWW-sivu luodaan. HTML-kuvauskieli. Mitä ihmettä on XML?
 Ero421 Uskottavuuskurssi jumalille (5 ov)
 Johdatus yleiseen uskottavuuteen. Miten olla se ainoa Jumala kaikkien maailman jumalten joukossa. Jumalten yleisimmät virheet (tapaustutkimus: Jahve). Kurssia suositellaan vaikeuden takia ainoastaan omnipotenteille jumalille.
 
-
 OLIO-OHJELMOINTI
 
 Oppiaine käsittää laaja-alaisen perehtymisen elävien olioiden ohjelmoimiseen. Kursseilla opetellaan sekä ohjelmoimaan kokonaan uusia olioita että muuttamaan olemassaolevien olioiden rakennetta ja toimintaperiaatteita.
@@ -222,7 +215,6 @@ Rakennetaan säälimätön ja mitäänpelkäämätön jalkapallohuligaanirobotti
 
 Ooh241 Luojaseminaari (10 ov)
 Kurssilla suunnitellaan seuraavan maailmankaikkeuden rakenne ja toiminta painottaen erityisesti elävän elämän luomisprosessia ja sielun emergoimista sopivaksi katsotusta materiasta.
-
 
 ELÄMÄSSÄ PÄRJÄÄMINEN
 
@@ -256,7 +248,6 @@ Onko mahdollista että on välttämätöntä että saaminen ei ole mahdollista? 
 
 Epä271 Nuori, lahjakas & ahdistunut -jatkoseminaari (5 ov) Suositellaan niille vähintään seitsemän vuotta opiskelleille, joiden opintoja on hidastanut loistava menestys Epä171-seminaarilla. Teemana jatkoseminaarissa on kysymys "Mitä minusta oikein on tullut?"
 
-
 ELÄMÄSSÄ TÄYDELLISTYMINEN
 
 Etä-kurssit jatkavat siitä mihin Epä-kurssit lopettavat. Tavoitteena on kouluttautua absoluuttiseen täydellisyyteen. Huom. koulutusohjelma on tarkoitettu ainoastaan elämässä pärjäämisen opintokokonaisuuden kiitettävästi suorittaneille.
@@ -278,7 +269,6 @@ Kuolemisen teoria ja erityisesti käytäntö. Kurssin osanottajien joukosta ää
 
 Etä411 Elämän tarkoitus (3 ov)
 Kurssilla paljastetaan elämän tarkoitus. Jumala ottaa vastaan kurssi-ilmoittautumisia puhelinnumerossa p.
-
 
 OMITUINEN TOIMINTA
 
@@ -357,7 +347,6 @@ Invasiivinen neurotiede tutkii aivojen rakennetta muokkaavien menetelmien käytt
 
 Ine111 Koomiset aivovauriot (4 ov)
 Hauskojen kognitiivisten ja motoristen efektien aiheuttaminen pahaa-aavistamattomaan ystävään leesiotekniikalla. Ystävä nukutetaan ja suoritetaan suunniteltu leesio. Arvosana määräytyy tuloksen koomisuuden perusteella.
-
 
 LOOGINEN INKVISITIO
 

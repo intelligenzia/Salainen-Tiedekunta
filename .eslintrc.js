@@ -27,7 +27,8 @@ module.exports = {
     'import/extensions': 0,
     'react/jsx-one-expression-per-line': 0,
     'react/prop-types': 0,
-    'no-use-before-define': ['error', { variables: false }],
+    'no-use-before-define': 0,
+    '@typescript-eslint/no-use-before-define': ['error', { variables: false }],
     'react/self-closing-comp': [
       'error',
       {
@@ -37,4 +38,4 @@ module.exports = {
     ],
     'react/jsx-filename-extension': [1, { extensions: ['.tsx', '.jsx'] }],
   },
-};
+}

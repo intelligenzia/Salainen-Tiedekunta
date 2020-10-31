@@ -1,6 +1,6 @@
-import * as React from 'react';
-import Layout from '../components/layout';
-import SEO from '../components/seo';
+import * as React from 'react'
+import Layout from '../components/layout'
+import SEO from '../components/seo'
 
 const IndexPage: React.FC = ({ location }: any) => (
   <Layout>
@@ -93,6 +93,6 @@ const IndexPage: React.FC = ({ location }: any) => (
       opiskelija epäonnistuu salassapitovelvollisuuden täyttämisessä.
     </p>
   </Layout>
-);
+)
 
-export default IndexPage;
+export default IndexPage

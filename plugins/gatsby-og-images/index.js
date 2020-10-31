@@ -1,8 +1,8 @@
-const path = require('path');
-const jimp = require('jimp');
+const path = require('path')
+const jimp = require('jimp')
 
 module.exports = async stuff => {
-  console.log('STUFF', stuff);
+  console.log('STUFF', stuff)
   // try {
   //   const { frontmatter, fields, fileAbsolutePath } = markdownNode;
   //   const isWeekly = fileAbsolutePath.includes('weeklies');
@@ -49,4 +49,4 @@ module.exports = async stuff => {
   // } catch (error) {
   //   console.log(error);
   // }
-};
+}

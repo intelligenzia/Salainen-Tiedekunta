@@ -1,9 +1,9 @@
-import { graphql, PageProps, useStaticQuery } from 'gatsby';
-import React from 'react';
-import CourseCard from '../components/CourseCard/CourseCard';
-import Layout from '../components/layout';
-import { CourseContainer } from '../components/primitives';
-import SEO from '../components/seo';
+import { graphql, PageProps, useStaticQuery } from 'gatsby'
+import React from 'react'
+import CourseCard from '../components/CourseCard/CourseCard'
+import Layout from '../components/layout'
+import { CourseContainer } from '../components/primitives'
+import SEO from '../components/seo'
 
 const Teachers: React.FC<PageProps> = ({ location }) => {
   const data: any = useStaticQuery(graphql`
@@ -28,9 +28,9 @@ const Teachers: React.FC<PageProps> = ({ location }) => {
         }
       }
     }
-  `);
+  `)
 
-  const courses = data.allContentfulCourse.nodes;
+  const courses = data.allContentfulCourse.nodes
 
   return (
     <Layout>
@@ -52,7 +52,7 @@ const Teachers: React.FC<PageProps> = ({ location }) => {
         ))}
       </CourseContainer>
     </Layout>
-  );
-};
+  )
+}
 
-export default Teachers;
+export default Teachers

@@ -5,22 +5,22 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import * as React from 'react';
-import { Helmet } from 'react-helmet';
-import { useStaticQuery, graphql } from 'gatsby';
+import * as React from 'react'
+import { Helmet } from 'react-helmet'
+import { useStaticQuery, graphql } from 'gatsby'
 
 type metaType = Array<{
-  property?: string;
-  name?: string;
-  content: string;
-}>;
+  property?: string
+  name?: string
+  content: string
+}>
 type Props = {
-  description?: string;
-  lang?: string;
-  meta?: metaType;
-  title: string;
-  pathname: string;
-};
+  description?: string
+  lang?: string
+  meta?: metaType
+  title: string
+  pathname: string
+}
 
 const SEO: React.FC<Props> = ({
   description,
@@ -42,9 +42,9 @@ const SEO: React.FC<Props> = ({
         }
       }
     `
-  );
+  )
 
-  const metaDescription = description || site.siteMetadata.description;
+  const metaDescription = description || site.siteMetadata.description
   const defaultMeta: metaType = [
     {
       name: `description`,
@@ -82,8 +82,8 @@ const SEO: React.FC<Props> = ({
       name: `twitter:description`,
       content: metaDescription,
     },
-  ];
-  const propMeta: metaType = defaultMeta.concat(meta || []);
+  ]
+  const propMeta: metaType = defaultMeta.concat(meta || [])
 
   return (
     <Helmet
@@ -94,13 +94,13 @@ const SEO: React.FC<Props> = ({
       titleTemplate={`%s | ${site.siteMetadata.title}`}
       meta={defaultMeta.concat(propMeta)}
     />
-  );
-};
+  )
+}
 
 SEO.defaultProps = {
   lang: `en`,
   meta: [],
   description: ``,
-};
+}
 
-export default SEO;
+export default SEO

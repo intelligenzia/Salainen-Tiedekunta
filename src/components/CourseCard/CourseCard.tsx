@@ -1,15 +1,15 @@
-import { Link } from 'gatsby';
-import Image, { GatsbyImageProps } from 'gatsby-image';
-import React, { FC } from 'react';
-import styled from 'styled-components';
-import { ContentfulTeacher } from '../../../types/graphql-types';
+import { Link } from 'gatsby'
+import Image, { GatsbyImageProps } from 'gatsby-image'
+import React, { FC } from 'react'
+import styled from 'styled-components'
+import { ContentfulTeacher } from '../../../types/graphql-types'
 
 interface Props {
-  name: string;
-  courseId: string;
-  ects: string;
-  teachers: ContentfulTeacher[];
-  introduction: string;
+  name: string
+  courseId: string
+  ects: string
+  teachers: ContentfulTeacher[]
+  introduction: string
 }
 
 const CourseCard: FC<Props> = ({
@@ -29,16 +29,16 @@ const CourseCard: FC<Props> = ({
       {teachers && (
         <Teachers>
           {teachers.map(teacher => {
-            if (!teacher.avatar || !teacher.avatar.fluid) return null;
-            return teacher ? <Teacher fluid={teacher.avatar?.fluid} /> : null;
+            if (!teacher.avatar || !teacher.avatar.fluid) return null
+            return teacher ? <Teacher fluid={teacher.avatar?.fluid} /> : null
           })}
         </Teachers>
       )}
     </Container>
-  );
-};
+  )
+}
 
-export default CourseCard;
+export default CourseCard
 
 const Container = styled(Link)`
   padding: 1.5rem;
@@ -57,17 +57,17 @@ const Container = styled(Link)`
   &:hover {
     transform: translateY(-2px);
   }
-`;
+`
 
 const Name = styled.h4`
   color: var(--primary-text);
   text-decoration: none;
-`;
+`
 
 const Teachers = styled.div`
   display: flex;
   flex-direction: row;
-`;
+`
 
 const Teacher = styled(Image)<GatsbyImageProps>`
   height: 30px;
@@ -80,6 +80,6 @@ const Teacher = styled(Image)<GatsbyImageProps>`
   &:hover {
     transform: rotate(1080deg);
   }
-`;
+`
 
-const Introduction = styled.p``;
+const Introduction = styled.p``
