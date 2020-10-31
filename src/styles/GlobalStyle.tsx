@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
 html {
@@ -11,7 +11,8 @@ html {
 
 :root {
   --primary-text: #000;
-  --secondary-text: #929fb5;
+	--secondary-text: #929fb5;
+	--accent-color: #184da7;
   --gray: #c1cbd8;
   --primary-bg: #f1f3f6;
   --secondary-bg: #fff;
@@ -73,7 +74,7 @@ template {
 a {
   background-color: transparent;
   font-family: var(--fonts);
-  color: var(--secondary-text);
+  color: var(--accent-color);
   text-decoration: none;
   -webkit-text-decoration-skip: objects;
 }
@@ -691,4 +692,4 @@ pre tt::after {
   }
 }
 
-`;
+`

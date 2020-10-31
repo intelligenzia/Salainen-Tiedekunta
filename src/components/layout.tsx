@@ -1,16 +1,17 @@
-import { graphql, useStaticQuery } from 'gatsby';
-import PropTypes from 'prop-types';
-import React, { FC, ReactNode } from 'react';
-import styled, { ThemeProvider } from 'styled-components';
-import { GlobalStyle } from '../styles/GlobalStyle';
-import { theme } from '../styles/theme';
-import { Footer } from './footer';
-import Header from './header';
-import { Container } from './primitives';
+import { graphql, useStaticQuery } from 'gatsby'
+import PropTypes from 'prop-types'
+import React, { FC, ReactNode } from 'react'
+import styled, { ThemeProvider } from 'styled-components'
+import { GlobalStyle } from '../styles/GlobalStyle'
+import { theme } from '../styles/theme'
+import { Footer } from './footer'
+import Header from './header'
+import { Container } from './primitives'
+import 'react-tippy/dist/tippy.css'
 
 type Props = {
-  children: ReactNode;
-};
+  children: ReactNode
+}
 
 const Layout: FC<Props> = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -21,7 +22,7 @@ const Layout: FC<Props> = ({ children }) => {
         }
       }
     }
-  `);
+  `)
 
   return (
     <ThemeProvider theme={theme}>
@@ -32,16 +33,16 @@ const Layout: FC<Props> = ({ children }) => {
         <Footer />
       </Container>
     </ThemeProvider>
-  );
-};
+  )
+}
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
-};
+}
 
 const Main = styled.main`
   margin: 0rem 0rem 5rem;
   min-height: 60vh;
-`;
+`
 
-export default Layout;
+export default Layout

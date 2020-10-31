@@ -1,15 +1,15 @@
-import { graphql, Link, PageProps } from 'gatsby';
-import React, { FC } from 'react';
-import styled from 'styled-components';
-import { ContentfulTeacher, CoursePageQuery } from '../../types/graphql-types';
-import ContentfulRichText from '../components/contentfulRichText';
-import CourseCard from '../components/CourseCard/CourseCard';
-import { Icon } from '../components/Icons/Icons';
-import Layout from '../components/layout';
-import { CourseContainer, H1 } from '../components/primitives';
-import SEO from '../components/seo';
-import TeacherCard from '../components/TeacherCard/TeacherCard';
-import devices from '../helpers/devices';
+import { graphql, Link, PageProps } from 'gatsby'
+import React, { FC } from 'react'
+import styled from 'styled-components'
+import { ContentfulTeacher, CoursePageQuery } from '../../types/graphql-types'
+import ContentfulRichText from '../components/contentfulRichText'
+import CourseCard from '../components/CourseCard/CourseCard'
+import { Icon } from '../components/Icons/Icons'
+import Layout from '../components/layout'
+import { CourseContainer, H1 } from '../components/primitives'
+import SEO from '../components/seo'
+import TeacherCard from '../components/TeacherCard/TeacherCard'
+import devices from '../helpers/devices'
 
 const Course: FC<PageProps<CoursePageQuery>> = ({
   data: {
@@ -28,7 +28,6 @@ const Course: FC<PageProps<CoursePageQuery>> = ({
 
   location,
 }) => {
-  console.log(majors);
   return (
     <Layout>
       <SEO
@@ -97,10 +96,10 @@ const Course: FC<PageProps<CoursePageQuery>> = ({
         )}
       </CourseContainer>
     </Layout>
-  );
-};
+  )
+}
 
-export default Course;
+export default Course
 
 export const pageQuery = graphql`
   query CoursePage($courseId: String!, $next: String, $previous: String) {
@@ -114,7 +113,7 @@ export const pageQuery = graphql`
       ...CourseFragment
     }
   }
-`;
+`
 
 const Teachers = styled.div`
   margin: 2rem 0rem 4rem;
@@ -126,7 +125,7 @@ const Teachers = styled.div`
   @media ${devices.tablet} {
     width: 50%;
   }
-`;
+`
 
 const Major = styled(Link)`
   display: inline-block;
@@ -137,8 +136,8 @@ const Major = styled(Link)`
   background-color: ${({ theme }): string => theme.gray};
   color: ${({ theme }): string => theme.textPrimary};
   margin-bottom: 0.8rem;
-`;
+`
 
 const Divider = styled.hr`
   margin: 5rem 3rem;
-`;
+`
