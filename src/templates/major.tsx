@@ -1,14 +1,14 @@
-import React, { FC } from 'react';
-import { graphql, PageProps } from 'gatsby';
-import styled from 'styled-components';
-import Layout from '../components/layout';
-import SEO from '../components/seo';
-import ContentfulRichText from '../components/contentfulRichText';
-import CourseCard from '../components/CourseCard/CourseCard';
+import React, { FC } from 'react'
+import { graphql, PageProps } from 'gatsby'
+import styled from 'styled-components'
+import Layout from '../components/layout'
+import SEO from '../components/seo'
+import ContentfulRichText from '../components/contentfulRichText'
+import CourseCard from '../components/CourseCard/CourseCard'
 
 type Props = {
-  contentfulMajor: any;
-};
+  contentfulMajor: any
+}
 
 const Major: FC<PageProps<Props>> = ({
   data: {
@@ -42,7 +42,7 @@ const Major: FC<PageProps<Props>> = ({
 
       {courses &&
         courses.map((course, index) => {
-          const { courseId, name: courseName, ects, teacher } = course;
+          const { courseId, name: courseName, ects, teacher } = course
           return (
             <CourseCard
               key={index}
@@ -51,15 +51,15 @@ const Major: FC<PageProps<Props>> = ({
               ects={ects}
               teachers={teacher}
             />
-          );
+          )
         })}
 
       <h3>Muita Opintosuuntauksia</h3>
     </Layout>
-  );
-};
+  )
+}
 
-export default Major;
+export default Major
 
 export const pageQuery = graphql`
   query MajorBySlug($slug: String!, $previous: String, $next: String) {
@@ -73,10 +73,10 @@ export const pageQuery = graphql`
       ...MajorFragment
     }
   }
-`;
+`
 
 const TinyInfo = styled.p`
   font-size: 0.9rem;
   color: var(--secondary-text);
   margin: 0.2rem 0rem;
-`;
+`

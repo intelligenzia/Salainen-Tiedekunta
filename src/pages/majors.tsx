@@ -1,12 +1,12 @@
-import { graphql, Link, PageProps, useStaticQuery } from 'gatsby';
-import React, { FC } from 'react';
-import styled from 'styled-components';
-import { AllMajorsQueryQuery } from '../../types/graphql-types'; // eslint-disable-line import/no-unresolved
-import ContentfulRichText from '../components/contentfulRichText';
-import CourseCard from '../components/CourseCard/CourseCard';
-import Layout from '../components/layout';
-import { H1 } from '../components/primitives';
-import SEO from '../components/seo';
+import { graphql, Link, PageProps, useStaticQuery } from 'gatsby'
+import React, { FC } from 'react'
+import styled from 'styled-components'
+import { AllMajorsQueryQuery } from '../../types/graphql-types' // eslint-disable-line import/no-unresolved
+import ContentfulRichText from '../components/contentfulRichText'
+import CourseCard from '../components/CourseCard/CourseCard'
+import Layout from '../components/layout'
+import { H1 } from '../components/primitives'
+import SEO from '../components/seo'
 
 const Majors: FC<PageProps> = ({ pageContext: { path } }) => {
   const data: AllMajorsQueryQuery = useStaticQuery(graphql`
@@ -39,9 +39,9 @@ const Majors: FC<PageProps> = ({ pageContext: { path } }) => {
         }
       }
     }
-  `);
+  `)
 
-  const majors = data.allContentfulMajor.nodes;
+  const majors = data.allContentfulMajor.nodes
 
   return (
     <Layout>
@@ -75,18 +75,18 @@ const Majors: FC<PageProps> = ({ pageContext: { path } }) => {
         </div>
       ))}
     </Layout>
-  );
-};
+  )
+}
 
-export default Majors;
+export default Majors
 
 const Courses = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   margin-bottom: 2rem;
-`;
+`
 
 const Divider = styled.hr`
   margin: 5rem 0rem;
-`;
+`

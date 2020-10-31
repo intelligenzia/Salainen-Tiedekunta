@@ -1,4 +1,4 @@
-import { graphql } from 'gatsby';
+import { graphql } from 'gatsby'
 
 export const lessonFragment = graphql`
   fragment CourseFragment on ContentfulCourse {
@@ -28,7 +28,7 @@ export const lessonFragment = graphql`
       name
     }
   }
-`;
+`
 
 export const teacherFragment = graphql`
   fragment TeacherFragment on ContentfulTeacher {
@@ -43,7 +43,7 @@ export const teacherFragment = graphql`
     createdAt(formatString: "DD.MM.YYYY")
     updatedAt(formatString: "DD.MM.YYYY")
   }
-`;
+`
 
 export const majorFragment = graphql`
   fragment MajorFragment on ContentfulMajor {
@@ -75,4 +75,4 @@ export const majorFragment = graphql`
       courseId
     }
   }
-`;
+`

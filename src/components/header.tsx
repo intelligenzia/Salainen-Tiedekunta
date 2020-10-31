@@ -1,13 +1,13 @@
-import React, { FC } from 'react';
-import { Link } from 'gatsby';
-import styled from 'styled-components';
-import { maxWidth } from './primitives';
-import { Icon } from './Icons/Icons';
-import devices from '../helpers/devices';
+import React, { FC } from 'react'
+import { Link } from 'gatsby'
+import styled from 'styled-components'
+import { maxWidth } from './primitives'
+import { Icon } from './Icons/Icons'
+import devices from '../helpers/devices'
 
 type Props = {
-  siteTitle: string;
-};
+  siteTitle: string
+}
 
 const routes = [
   {
@@ -25,7 +25,7 @@ const routes = [
     to: 'teachers',
     icon: 'teacher',
   },
-];
+]
 
 const Header: FC<Props> = ({ siteTitle }: Props) => (
   <HeaderContainer>
@@ -52,19 +52,19 @@ const Header: FC<Props> = ({ siteTitle }: Props) => (
       </Links>
     </Inner>
   </HeaderContainer>
-);
+)
 
 Header.defaultProps = {
   siteTitle: ``,
-};
+}
 
-export default Header;
+export default Header
 
 const HeaderContainer = styled.header`
   width: 100%;
   margin-top: 1rem;
   padding: 1rem;
-`;
+`
 
 const Inner = styled.div`
   box-sizing: border-box;
@@ -78,7 +78,7 @@ const Inner = styled.div`
   border-radius: 10px;
   background-color: var(--secondary-bg);
   box-shadow: 1px 1px 4px 0px #27272738;
-`;
+`
 
 const Title = styled.div`
   flex: 1;
@@ -87,7 +87,7 @@ const Title = styled.div`
   a {
     color: var(--primary-text);
   }
-`;
+`
 
 const Links = styled.ul`
   margin: 0;
@@ -96,11 +96,11 @@ const Links = styled.ul`
   flex-direction: row;
   justify-content: flex-end;
   list-style: none;
-`;
+`
 
 const LinkItem = styled.li`
   margin: 0rem 0rem 0rem 1rem;
-`;
+`
 
 const Route = styled(Link)`
   text-decoration: none;
@@ -125,4 +125,4 @@ const Route = styled(Link)`
   :hover {
     color: var(--primary-text);
   }
-`;
+`

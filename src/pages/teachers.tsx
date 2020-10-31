@@ -1,15 +1,15 @@
-import { graphql, PageProps, useStaticQuery } from 'gatsby';
-import React, { FC } from 'react';
-import styled from 'styled-components';
+import { graphql, PageProps, useStaticQuery } from 'gatsby'
+import React, { FC } from 'react'
+import styled from 'styled-components'
 import {
   AllTeachersQueryQuery,
   ContentfulTeacher,
-} from '../../types/graphql-types';
-import Layout from '../components/layout';
-import { H1, P } from '../components/primitives';
-import SEO from '../components/seo';
-import TeacherCard from '../components/TeacherCard/TeacherCard';
-import devices from '../helpers/devices';
+} from '../../types/graphql-types'
+import Layout from '../components/layout'
+import { H1, P } from '../components/primitives'
+import SEO from '../components/seo'
+import TeacherCard from '../components/TeacherCard/TeacherCard'
+import devices from '../helpers/devices'
 
 const IndexPage: FC<PageProps> = ({ location }) => {
   const data: AllTeachersQueryQuery = useStaticQuery(graphql`
@@ -27,14 +27,14 @@ const IndexPage: FC<PageProps> = ({ location }) => {
         }
       }
     }
-  `);
+  `)
 
   const teachers = data.allContentfulTeacher.nodes.sort(
     (
       a: Pick<ContentfulTeacher, 'id' | 'name' | 'slug'>,
       b: Pick<ContentfulTeacher, 'id' | 'name' | 'slug'>
     ) => a?.name?.localeCompare(b?.name ?? 'a') ?? 0
-  );
+  )
 
   return (
     <Layout>
@@ -60,10 +60,10 @@ const IndexPage: FC<PageProps> = ({ location }) => {
         ))}
       </Teachers>
     </Layout>
-  );
-};
+  )
+}
 
-export default IndexPage;
+export default IndexPage
 
 const Teachers = styled.div`
   margin: 2rem 0rem 4rem;
@@ -75,4 +75,4 @@ const Teachers = styled.div`
   @media ${devices.tablet} {
     width: 50%;
   }
-`;
+`
