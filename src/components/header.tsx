@@ -37,7 +37,7 @@ const Header: FC<Props> = ({ siteTitle }: Props) => (
       <Links>
         {routes.map(route => (
           <LinkItem key={route.name}>
-            <Route to={`${route.to}`}>
+            <Route to={`/${route.to}`}>
               <Icon
                 stroke="none"
                 fill="currentColor"

@@ -12,7 +12,6 @@ export const createOGCard = async ({ slug, title }: Card): Promise<void> => {
   // const detailFont = await jimp.loadFont(
   //   path.join(__dirname, 'Montserrat-Medium.ttf.fnt')
   // );
-  console.log(output)
   return Promise.all([jimp.read(path.join(__dirname, 'template.png'))]).then(
     ([image]) => {
       title.replace(
