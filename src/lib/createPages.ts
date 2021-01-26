@@ -1,13 +1,13 @@
-import { GatsbyNode } from 'gatsby';
-import path from 'path';
-import { createOGCard } from '../helpers/create-og-images';
+import { GatsbyNode } from 'gatsby'
+import path from 'path'
+import { createOGCard } from '../helpers/create-og-images'
 
 export const createPages: GatsbyNode['createPages'] = async ({
   graphql,
   actions,
   reporter,
 }) => {
-  const { createPage } = actions;
+  const { createPage } = actions
 
   const result: any = await graphql(`
     query createPagesQuery {
@@ -33,20 +33,20 @@ export const createPages: GatsbyNode['createPages'] = async ({
         }
       }
     }
-  `);
+  `)
 
   if (result.errors) {
-    reporter.panicOnBuild(`Error while running GraphQL query.`);
-    return;
+    reporter.panicOnBuild(`Error while running GraphQL query.`)
+    return
   }
 
-  const majors = result.data.allMajors.nodes;
-  const teachers = result.data.allTeachers.nodes;
-  const courses = result.data.allCourses.nodes;
+  const majors = result.data.allMajors.nodes
+  const teachers = result.data.allTeachers.nodes
+  const courses = result.data.allCourses.nodes
 
   majors.forEach((major: any, index: number) => {
-    const previous = index === majors.length - 1 ? null : majors[index + 1];
-    const next = index === 0 ? null : majors[index - 1];
+    const previous = index === majors.length - 1 ? null : majors[index + 1]
+    const next = index === 0 ? null : majors[index - 1]
 
     createPage({
       path: `major/${major.slug}`,
@@ -56,12 +56,12 @@ export const createPages: GatsbyNode['createPages'] = async ({
         previous: previous?.slug,
         slug: major.slug,
       },
-    });
-  });
+    })
+  })
 
   teachers.forEach((teacher: any, index: number) => {
-    const previous = index === teachers.length - 1 ? null : teachers[index + 1];
-    const next = index === 0 ? null : teachers[index - 1];
+    const previous = index === teachers.length - 1 ? null : teachers[index + 1]
+    const next = index === 0 ? null : teachers[index - 1]
 
     createPage({
       path: `teacher/${teacher.slug}`,
@@ -71,12 +71,12 @@ export const createPages: GatsbyNode['createPages'] = async ({
         previous: previous?.slug,
         slug: teacher.slug,
       },
-    });
-  });
+    })
+  })
 
-  courses.forEach((course: any, index: number) => {
-    const previous = index === courses.length - 1 ? null : courses[index + 1];
-    const next = index === 0 ? null : courses[index - 1];
+  courses.forEach(async (course: any, index: number) => {
+    const previous = index === courses.length - 1 ? null : courses[index + 1]
+    const next = index === 0 ? null : courses[index - 1]
 
     createPage({
       path: `course/${course.courseId}`,
@@ -86,8 +86,11 @@ export const createPages: GatsbyNode['createPages'] = async ({
         previous: previous?.courseId,
         courseId: course.courseId,
       },
-    });
+    })
 
-    createOGCard({ slug: `course/${course.courseId}`, title: 'Otsikko' });
-  });
-};
+    await createOGCard({
+      slug: `course/${course.courseId}`,
+      title: `${course.name}`,
+    })
+  })
+}
