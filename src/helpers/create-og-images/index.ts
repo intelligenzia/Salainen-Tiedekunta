@@ -22,7 +22,7 @@ export const createOGCard = async ({ slug, title }: Card): Promise<void> => {
         .print(
           titleFont,
           77,
-          10,
+          15,
           {
             text: title,
             alignmentX: jimp.HORIZONTAL_ALIGN_LEFT,

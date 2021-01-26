@@ -62,6 +62,11 @@ const SEO: React.FC<Props> = ({
       property: `og:type`,
       content: `website`,
     },
+
+    {
+      property: `og:image`,
+      content: `${site.siteMetadata.siteUrl}${pathname}/seo.jpg`,
+    },
     {
       name: `twitter:card`,
       content: `summary_large_image`,
@@ -76,7 +81,7 @@ const SEO: React.FC<Props> = ({
     },
     {
       name: `twitter:image`,
-      content: `${site.siteMetadata.siteUrl}${pathname}/twitter-card.jpg`,
+      content: `${site.siteMetadata.siteUrl}${pathname}/seo.jpg`,
     },
     {
       name: `twitter:description`,
