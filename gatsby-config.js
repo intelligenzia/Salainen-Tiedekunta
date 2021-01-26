@@ -56,19 +56,6 @@ module.exports = {
     },
     `gatsby-og-images`,
     {
-      resolve: `gatsby-plugin-prefetch-google-fonts`,
-      options: {
-        fonts: [
-          {
-            family: `Alfa Slab One`,
-          },
-          {
-            family: `Domine`,
-          },
-        ],
-      },
-    },
-    {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         trackingId: `UA-63351583-3`,
