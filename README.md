@@ -1,50 +1,54 @@
-# Welcome to your Expo app 👋
+# tiedekunta.com
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Website for Salainen Tiedekunta, a cognitive science study circle at the University of Helsinki.
 
-## Get started
+## Tech Stack
 
-1. Install dependencies
+- **Framework**: Expo Router with React Native Web
+- **Styling**: NativeWind (Tailwind CSS)
+- **CMS**: Contentful (REST API)
+- **Deployment**: Vercel (server-side rendering)
+- **Runtime**: Bun
 
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Development
 
 ```bash
-npm run reset-project
+bun install
+bun start --web
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Environment Variables
 
-## Learn more
+Create a `.env` file:
 
-To learn more about developing your project with Expo, look at the following resources:
+```
+EXPO_PUBLIC_CONTENTFUL_SPACE_ID=your_space_id
+EXPO_PUBLIC_CONTENTFUL_ACCESS_TOKEN=your_access_token
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## Project Structure
 
-## Join the community
+```
+app/
+├── index.tsx           # Home page
+├── +html.tsx           # HTML template with global meta tags
+├── sitemap.xml+api.ts  # Dynamic sitemap generation
+├── robots.txt+api.ts   # robots.txt
+├── courses/            # Course listing and details
+├── majors/             # Study programs
+└── teachers/           # Faculty members
+```
 
-Join our community of developers creating universal apps.
+## Deployment
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Configured for Vercel. Push to main branch or run:
+
+```bash
+vercel
+```
+
+## Content Types (Contentful)
+
+- **Course**: courseId, name, ects, description, teacher
+- **Major**: name, slug, introduction, courses
+- **Teacher**: name, slug, avatar
