@@ -2,14 +2,20 @@ import type { Document } from '@contentful/rich-text-types';
 
 const SPACE_ID = process.env.EXPO_PUBLIC_CONTENTFUL_SPACE_ID;
 const ACCESS_TOKEN = process.env.EXPO_PUBLIC_CONTENTFUL_ACCESS_TOKEN;
-const BASE_URL = `https://cdn.contentful.com/spaces/${SPACE_ID}/environments/master`;
 
-if (!SPACE_ID || !ACCESS_TOKEN) {
-  throw new Error('Contentful credentials are missing. Please check your .env file.');
+function getBaseUrl(): string {
+  if (!SPACE_ID) {
+    throw new Error('EXPO_PUBLIC_CONTENTFUL_SPACE_ID is missing');
+  }
+  return `https://cdn.contentful.com/spaces/${SPACE_ID}/environments/master`;
 }
 
 async function fetchContentful<T>(endpoint: string): Promise<T> {
-  const response = await fetch(`${BASE_URL}${endpoint}`, {
+  if (!ACCESS_TOKEN) {
+    throw new Error('EXPO_PUBLIC_CONTENTFUL_ACCESS_TOKEN is missing');
+  }
+
+  const response = await fetch(`${getBaseUrl()}${endpoint}`, {
     headers: {
       Authorization: `Bearer ${ACCESS_TOKEN}`,
     },
