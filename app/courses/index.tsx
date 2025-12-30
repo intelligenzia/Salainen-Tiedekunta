@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, ScrollView, View, Pressable, TextInput } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useRouter, Stack } from 'expo-router';
 import Head from 'expo-router/head';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Text } from '@/components/ui/text';
 import { getCourses, type CourseEntry } from '@/lib/contentful';
 
@@ -61,11 +60,9 @@ export default function CoursesScreen() {
 
   if (loading) {
     return (
-      <SafeAreaView className="flex-1 bg-white" edges={['bottom']}>
-        <View className="flex-1 justify-center items-center">
-          <ActivityIndicator size="large" />
-        </View>
-      </SafeAreaView>
+      <View className="flex-1 bg-white justify-center items-center">
+        <ActivityIndicator size="large" />
+      </View>
     );
   }
 
@@ -80,18 +77,12 @@ export default function CoursesScreen() {
         <meta property="og:description" content="Selaa Salaisen Tiedekunnan kursseja." />
         <link rel="canonical" href="https://tiedekunta.com/courses" />
       </Head>
-      <SafeAreaView className="flex-1 bg-white" edges={['bottom']}>
-        <ScrollView className="flex-1">
-          {/* Black Header */}
-          <View className="bg-black px-4 py-6">
-            <Text className="text-2xl font-bold text-white mb-1">
-              Kurssit
-            </Text>
-          <Text className="text-white/70 text-sm">
-            {courses.length} kurssia, {totalCredits} op yhteensä
-          </Text>
-        </View>
-
+      <Stack.Screen
+        options={{
+          title: `Kurssit (${courses.length})`,
+        }}
+      />
+      <ScrollView className="flex-1 bg-white">
         {/* Search */}
         <View className="px-4 py-4 border-b border-gray-200 bg-gray-50">
           <TextInput
@@ -153,8 +144,7 @@ export default function CoursesScreen() {
             </View>
           )}
         </View>
-        </ScrollView>
-      </SafeAreaView>
+      </ScrollView>
     </>
   );
 }

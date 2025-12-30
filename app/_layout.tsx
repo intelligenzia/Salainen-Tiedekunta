@@ -12,12 +12,13 @@ export default function RootLayout() {
         <Stack
           screenOptions={{
             headerStyle: {
-              backgroundColor: '#1a1a2e',
+              backgroundColor: '#000000',
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
               fontWeight: '600',
             },
+            headerBackTitle: 'Takaisin',
           }}
         >
           <Stack.Screen
@@ -31,39 +32,36 @@ export default function RootLayout() {
             name="majors/index"
             options={{
               title: 'Pääaineet',
-              headerBackTitle: 'Takaisin',
             }}
           />
           <Stack.Screen
             name="majors/[slug]"
             options={{
-              headerBackTitle: 'Pääaineet',
+              title: 'Pääaine',
             }}
           />
           <Stack.Screen
             name="courses/index"
             options={{
               title: 'Kurssit',
-              headerBackTitle: 'Takaisin',
             }}
           />
           <Stack.Screen
             name="courses/[id]"
             options={{
-              headerBackTitle: 'Kurssit',
+              title: 'Kurssi',
             }}
           />
           <Stack.Screen
             name="teachers/index"
             options={{
               title: 'Opettajat',
-              headerBackTitle: 'Takaisin',
             }}
           />
           <Stack.Screen
             name="teachers/[slug]"
             options={{
-              headerBackTitle: 'Opettajat',
+              title: 'Opettaja',
             }}
           />
         </Stack>

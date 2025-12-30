@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { ActivityIndicator, ScrollView, View, Pressable } from 'react-native';
 import { useLocalSearchParams, useRouter, Stack } from 'expo-router';
 import Head from 'expo-router/head';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Text } from '@/components/ui/text';
 import { getMajor, getMajors, type MajorEntry, type CourseEntry } from '@/lib/contentful';
 
@@ -103,11 +102,9 @@ export default function MajorDetailScreen() {
 
   if (loading) {
     return (
-      <SafeAreaView className="flex-1 bg-white" edges={['bottom']}>
-        <View className="flex-1 justify-center items-center">
-          <ActivityIndicator size="large" />
-        </View>
-      </SafeAreaView>
+      <View className="flex-1 bg-white justify-center items-center">
+        <ActivityIndicator size="large" />
+      </View>
     );
   }
 
@@ -125,25 +122,14 @@ export default function MajorDetailScreen() {
         <meta property="og:description" content={pageDescription} />
         <link rel="canonical" href={`https://tiedekunta.com/majors/${slug}`} />
       </Head>
-      <SafeAreaView className="flex-1 bg-white" edges={['bottom']}>
-        <Stack.Screen options={{ headerShown: false }} />
-        <ScrollView className="flex-1">
-          {/* Black Header */}
-          <View className="bg-black px-4 py-6">
-            {/* Breadcrumb */}
-          <View className="flex-row flex-wrap mb-4">
-            <Pressable onPress={() => router.push('/majors')}>
-              <Text className="text-white/70 text-sm">Pääaineet</Text>
-            </Pressable>
-            <Text className="text-white/50 text-sm mx-2">/</Text>
-            <Text className="text-white text-sm">{major?.fields.name}</Text>
-          </View>
-
-          {/* Title */}
-          <Text className="text-2xl font-bold text-white mb-1">
+      <Stack.Screen options={{ title: majorName }} />
+      <ScrollView className="flex-1 bg-white">
+        {/* Header Info */}
+        <View className="p-4 border-b border-gray-200">
+          <Text className="text-xl font-bold text-gray-900 mb-1">
             {major?.fields.name}
           </Text>
-          <Text className="text-white/70 text-sm">
+          <Text className="text-gray-600 text-sm">
             {courses.length} kurssia, {totalCredits} op yhteensä
           </Text>
         </View>
@@ -213,8 +199,7 @@ export default function MajorDetailScreen() {
             ))}
           </View>
         </View>
-        </ScrollView>
-      </SafeAreaView>
+      </ScrollView>
     </>
   );
 }

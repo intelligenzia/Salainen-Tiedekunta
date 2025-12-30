@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { ActivityIndicator, ScrollView, View, Pressable } from 'react-native';
 import { useLocalSearchParams, useRouter, Stack } from 'expo-router';
 import Head from 'expo-router/head';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
 import { Text } from '@/components/ui/text';
 import { getCourse, getCourses, type CourseEntry, type TeacherEntry } from '@/lib/contentful';
@@ -66,22 +65,18 @@ export default function CourseDetailScreen() {
 
   if (loading) {
     return (
-      <SafeAreaView className="flex-1 bg-background" edges={['bottom']}>
-        <View className="flex-1 justify-center items-center">
-          <ActivityIndicator size="large" />
-        </View>
-      </SafeAreaView>
+      <View className="flex-1 bg-white justify-center items-center">
+        <ActivityIndicator size="large" />
+      </View>
     );
   }
 
   if (!course) {
     return (
-      <SafeAreaView className="flex-1 bg-background" edges={['bottom']}>
+      <View className="flex-1 bg-white justify-center items-center p-6">
         <Stack.Screen options={{ title: 'Kurssia ei löytynyt' }} />
-        <View className="flex-1 justify-center items-center p-6">
-          <Text className="text-destructive text-center">Kurssia ei löytynyt</Text>
-        </View>
-      </SafeAreaView>
+        <Text className="text-red-600 text-center">Kurssia ei löytynyt</Text>
+      </View>
     );
   }
 
@@ -100,31 +95,22 @@ export default function CourseDetailScreen() {
         <meta property="og:description" content={pageDescription} />
         <link rel="canonical" href={`https://tiedekunta.com/courses/${courseId || id}`} />
       </Head>
-      <SafeAreaView className="flex-1 bg-background" edges={['bottom']}>
-        <Stack.Screen options={{ headerShown: false }} />
-        <ScrollView className="flex-1">
-          {/* Black Header */}
-          <View className="bg-black px-4 py-6">
-            {/* Breadcrumb */}
-          <View className="flex-row flex-wrap mb-4">
-            <Pressable onPress={() => router.push('/courses')}>
-              <Text className="text-white/70 text-sm">Kurssit</Text>
-            </Pressable>
-            <Text className="text-white/50 text-sm mx-2">/</Text>
-            <Text className="text-white text-sm">{courseId || name}</Text>
-          </View>
-
-          {/* Course Title */}
+      <Stack.Screen options={{ title: courseId || name }} />
+      <ScrollView className="flex-1 bg-white">
+        {/* Course Header */}
+        <View className="p-4 border-b border-gray-200">
           <View className="flex-row items-start justify-between">
             <View className="flex-1 pr-4">
-              <Text className="text-white text-2xl font-bold mb-1">
-                {courseId}
-              </Text>
-              <Text className="text-white text-lg">
+              <Text className="text-gray-900 text-xl font-bold mb-1">
                 {name}
               </Text>
+              {courseId && (
+                <Text className="text-gray-500 text-sm">
+                  {courseId}
+                </Text>
+              )}
             </View>
-            <View className="bg-white/10 px-3 py-1 rounded">
+            <View className="bg-black px-3 py-1 rounded">
               <Text className="text-white font-semibold">{ects} op</Text>
             </View>
           </View>
@@ -319,8 +305,7 @@ Opiskelijat tutustuvat kognitiotieteen historiaan ja sen yhteyksiin filosofiaan,
             </Pressable>
           </View>
         </View>
-        </ScrollView>
-      </SafeAreaView>
+      </ScrollView>
     </>
   );
 }
