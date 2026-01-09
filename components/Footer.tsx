@@ -5,13 +5,13 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <View className="bg-black px-6 py-8 mt-auto">
-      <Text className="text-white/70 text-sm text-center mb-2">
-        {currentYear} Salainen Tiedekunta. Kaikki oikeudet pidätetään.
+    <View className="bg-zinc-950 px-6 py-8 mt-auto border-t border-zinc-800">
+      <Text className="text-zinc-400 text-sm text-center mb-2">
+        © {currentYear} Salainen Tiedekunta
       </Text>
       <Pressable onPress={() => Linking.openURL('https://perttu.dev')}>
-        <Text className="text-white/50 text-xs text-center">
-          Sivuston toteutus: perttu.dev
+        <Text className="text-zinc-600 text-xs text-center underline underline-offset-2 decoration-zinc-700">
+          perttu.dev
         </Text>
       </Pressable>
     </View>

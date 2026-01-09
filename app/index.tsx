@@ -1,9 +1,10 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Text } from '@/components/ui/text';
 import { Footer } from '@/components/Footer';
+import { SEO } from '@/components/SEO';
 import { getCourses, type CourseEntry } from '@/lib/contentful';
+import { createFAQSchema, createItemListSchema, SITE_URL } from '@/lib/seo';
 import { Link, useRouter } from 'expo-router';
-import Head from 'expo-router/head';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Pressable, ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -130,31 +131,46 @@ export default function Index() {
     fetchFeaturedCourses();
   }, []);
 
+  const faqSchema = createFAQSchema(
+    facultyInfo.map((item) => ({
+      question: item.title,
+      answer: item.content.slice(0, 300) + '...',
+    }))
+  );
+
+  const navigationSchema = createItemListSchema(
+    'Salaisen Tiedekunnan osastot',
+    navItems.map((item, index) => ({
+      name: item.title,
+      url: `${SITE_URL}${item.href}`,
+      position: index + 1,
+    }))
+  );
+
   return (
     <>
-      <Head>
-        <title>Salainen Tiedekunta - Helsingin yliopiston kognitiotieteen opintopiiri</title>
-        <meta name="description" content="Salainen tiedekunta on Helsingin yliopistoon vuonna 1998 perustettu kognitiotieteen monipuolista opetusta ja tutkimusta kehittävä organisaatio." />
-        <meta property="og:title" content="Salainen Tiedekunta" />
-        <meta property="og:description" content="Helsingin yliopiston kognitiotieteen opintopiiri. Perustettu 1998." />
-        <meta property="og:url" content="https://tiedekunta.com" />
-        <link rel="canonical" href="https://tiedekunta.com" />
-      </Head>
+      <SEO
+        title="Salainen Tiedekunta"
+        description="Salainen tiedekunta on Helsingin yliopistoon vuonna 1998 perustettu kognitiotieteen monipuolista opetusta ja tutkimusta kehittävä organisaatio."
+        path="/"
+        jsonLd={[faqSchema, navigationSchema]}
+      />
       <SafeAreaView className="flex-1 bg-white">
         <ScrollView className="flex-1">
-          {/* Black Header */}
-        <View className="bg-black px-6 pt-12 pb-8">
-          <Text className="text-4xl font-bold text-white mb-1">
+          <View className="max-w-4xl mx-auto w-full">
+          {/* Header */}
+        <View className="bg-zinc-950 px-6 pt-12 pb-8">
+          <Text className="text-3xl font-semibold text-zinc-50 mb-1 tracking-tight">
             Salainen Tiedekunta
           </Text>
-          <Text className="text-lg text-white/70">
+          <Text className="text-base text-zinc-400">
             Helsingin yliopiston kognitiotieteen opintopiiri
           </Text>
         </View>
 
         {/* Introduction */}
-        <View className="p-6 border-b border-gray-200">
-          <Text className="text-gray-700 text-sm leading-relaxed">
+        <View className="p-6 border-b border-zinc-200">
+          <Text className="text-zinc-600 text-sm leading-relaxed">
             Salainen tiedekunta on Helsingin yliopistoon vuonna 1998 perustettu
             kognitiotieteen monipuolista opetusta ja tutkimusta kehittävä
             organisaatio. Muutaman aktiivisen opiskelijan alullepanema hanke on
@@ -164,8 +180,8 @@ export default function Index() {
         </View>
 
         {/* Open for Enrollment Section */}
-        <View className="p-6 border-b border-gray-200">
-          <Text className="text-lg font-bold text-gray-900 mb-4">
+        <View className="p-6 border-b border-zinc-200">
+          <Text className="text-lg font-semibold text-zinc-900 mb-4 tracking-tight">
             Ilmoittautuminen auki
           </Text>
           {loading ? (
@@ -178,20 +194,20 @@ export default function Index() {
                 <Pressable
                   key={course.sys.id}
                   onPress={() => router.push(`/courses/${course.fields.courseId || course.sys.id}`)}
-                  className="bg-gray-50 border border-gray-200 rounded-lg p-4 active:bg-gray-100"
+                  className="border border-zinc-200 rounded-lg p-4 active:bg-zinc-50"
                 >
                   <View className="flex-row justify-between items-start">
                     <View className="flex-1 pr-4">
                       {course.fields.courseId && (
-                        <Text className="text-gray-500 text-xs mb-1">
+                        <Text className="text-zinc-400 text-xs mb-1 font-mono">
                           {course.fields.courseId}
                         </Text>
                       )}
-                      <Text className="text-blue-600 font-medium text-sm">
+                      <Text className="text-zinc-900 font-medium text-sm underline underline-offset-2 decoration-zinc-300">
                         {course.fields.name}
                       </Text>
                     </View>
-                    <Text className="text-gray-600 text-sm">{course.fields.ects} op</Text>
+                    <Text className="text-zinc-500 text-sm tabular-nums">{course.fields.ects} op</Text>
                   </View>
                 </Pressable>
               ))}
@@ -200,23 +216,23 @@ export default function Index() {
         </View>
 
         {/* Navigation Links */}
-        <View className="p-6 border-b border-gray-200">
-          <Text className="text-lg font-bold text-gray-900 mb-4">
+        <View className="p-6 border-b border-zinc-200">
+          <Text className="text-lg font-semibold text-zinc-900 mb-4 tracking-tight">
             Selaa opintoja
           </Text>
           {navItems.map((item) => (
             <Link key={item.href} href={item.href as any} asChild>
-              <Pressable className="border-b border-gray-200 py-4 active:bg-gray-50">
+              <Pressable className="border-b border-zinc-100 py-4 active:bg-zinc-50">
                 <View className="flex-row justify-between items-center">
                   <View className="flex-1 pr-4">
-                    <Text className="text-blue-600 font-medium text-base">
+                    <Text className="text-zinc-900 font-medium text-base underline underline-offset-2 decoration-zinc-300">
                       {item.title}
                     </Text>
-                    <Text className="text-gray-600 text-sm mt-1">
+                    <Text className="text-zinc-500 text-sm mt-1">
                       {item.description}
                     </Text>
                   </View>
-                  <Text className="text-gray-400 text-lg">{'>'}</Text>
+                  <Text className="text-zinc-300 text-lg">→</Text>
                 </View>
               </Pressable>
             </Link>
@@ -225,20 +241,20 @@ export default function Index() {
 
         {/* Faculty Information Accordion */}
         <View className="px-6 pt-6 pb-12">
-          <Text className="text-lg font-bold text-gray-900 mb-4">
+          <Text className="text-lg font-semibold text-zinc-900 mb-4 tracking-tight">
             Tietoa tiedekunnasta
           </Text>
-          <View className="border border-gray-200 rounded-lg overflow-hidden">
+          <View className="border border-zinc-200 rounded-lg overflow-hidden">
             <Accordion type="multiple" collapsible>
               {facultyInfo.map((item) => (
                 <AccordionItem key={item.id} value={item.id}>
                   <AccordionTrigger className="px-4">
-                    <Text className="text-gray-900 font-medium text-sm flex-1 text-left">
+                    <Text className="text-zinc-900 font-medium text-sm flex-1 text-left">
                       {item.title}
                     </Text>
                   </AccordionTrigger>
                   <AccordionContent>
-                    <Text className="text-gray-600 text-sm leading-relaxed m-4">
+                    <Text className="text-zinc-500 text-sm leading-relaxed m-4">
                       {item.content}
                     </Text>
                   </AccordionContent>
@@ -248,6 +264,7 @@ export default function Index() {
           </View>
           </View>
           <Footer />
+          </View>
         </ScrollView>
       </SafeAreaView>
     </>

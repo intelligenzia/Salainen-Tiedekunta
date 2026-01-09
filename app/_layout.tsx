@@ -1,24 +1,31 @@
 import '../global.css';
 
+import { Platform } from 'react-native';
 import { Stack } from 'expo-router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { PortalHost } from '@rn-primitives/portal';
+import { WebHeader } from '@/components/WebHeader';
+
+const isWeb = Platform.OS === 'web';
 
 export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
+        {isWeb && <WebHeader />}
         <Stack
           screenOptions={{
+            headerShown: !isWeb,
             headerStyle: {
-              backgroundColor: '#000000',
+              backgroundColor: '#09090b',
             },
-            headerTintColor: '#fff',
+            headerTintColor: '#fafafa',
             headerTitleStyle: {
-              fontWeight: '600',
+              fontWeight: '500',
             },
             headerBackTitle: 'Takaisin',
+            headerShadowVisible: false,
           }}
         >
           <Stack.Screen
