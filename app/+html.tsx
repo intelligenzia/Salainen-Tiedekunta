@@ -157,6 +157,12 @@ export default function Root({ children }: PropsWithChildren) {
 
         <ScrollViewStyleReset />
 
+        {/* Vercel Analytics */}
+        <script dangerouslySetInnerHTML={{ __html: `
+          window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+        `}} />
+        <script defer src="/_vercel/insights/script.js" />
+
         <style dangerouslySetInnerHTML={{ __html: `
           html, body {
             height: 100%;
