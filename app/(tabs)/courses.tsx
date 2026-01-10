@@ -1,83 +1,205 @@
 import { SEO } from '@/components/SEO';
 import { Text } from '@/components/ui/text';
-import { getCourses, type CourseEntry } from '@/lib/contentful';
+import { SkeletonCourseCard } from '@/components/ui/skeleton';
+import { type CourseEntry } from '@/lib/contentful';
 import { createBreadcrumbSchema, createItemListSchema, SITE_URL } from '@/lib/seo';
+import { useCourses, usePrefetch } from '@/lib/hooks/useQueries';
+import { useFavorites } from '@/lib/stores/favorites';
+import { useTheme } from '@/lib/stores/theme';
+import { haptics } from '@/lib/haptics';
+import { useSearchShortcut } from '@/lib/hooks/useKeyboardNavigation';
 import { Tabs, useRouter } from 'expo-router';
-import { useEffect, useState } from 'react';
-import { ActivityIndicator, Platform, Pressable, ScrollView, TextInput, View } from 'react-native';
-import { Search, BookOpen, Clock, ChevronRight } from 'lucide-react-native';
-
-const placeholderCourses: CourseEntry[] = [
-  { sys: { id: '1' }, fields: { courseId: 'KOG-101', name: 'Johdatus kognitiotieteeseen', ects: 5 } },
-  { sys: { id: '2' }, fields: { courseId: 'KOG-102', name: 'Kognitiivinen psykologia', ects: 5 } },
-  { sys: { id: '3' }, fields: { courseId: 'KOG-201', name: 'Neurotiede ja aivot', ects: 5 } },
-  { sys: { id: '4' }, fields: { courseId: 'KOG-202', name: 'Koneoppimisen perusteet', ects: 5 } },
-];
+import { useCallback, useMemo, useRef, useState } from 'react';
+import {
+  Platform,
+  Pressable,
+  RefreshControl,
+  TextInput,
+  View,
+  AccessibilityInfo,
+} from 'react-native';
+import { LegendList } from '@legendapp/list';
+import {
+  Search,
+  BookOpen,
+  Clock,
+  ChevronRight,
+  Heart,
+  SlidersHorizontal,
+  X,
+  ArrowUpDown,
+  Filter,
+  Keyboard,
+} from 'lucide-react-native';
 
 const isWeb = Platform.OS === 'web';
 
-export async function loader() {
-  if (!isWeb) return { courses: [] };
-  try {
-    const courses = await getCourses();
-    return { courses: courses.length > 0 ? courses : placeholderCourses };
-  } catch {
-    return { courses: placeholderCourses };
-  }
-}
+type SortOption = 'name' | 'courseId' | 'ects';
+type FilterOption = 'all' | 'favorites';
 
-export default function CoursesScreen({ loaderData }: { loaderData?: { courses: CourseEntry[] } }) {
+export default function CoursesScreen() {
   const router = useRouter();
-  const initialCourses = loaderData?.courses ?? [];
-  const [courses, setCourses] = useState<CourseEntry[]>(initialCourses);
-  const [filteredCourses, setFilteredCourses] = useState<CourseEntry[]>(initialCourses);
-  const [loading, setLoading] = useState(!isWeb || initialCourses.length === 0);
+  const searchInputRef = useRef<TextInput>(null);
+  const { data: courses = [], isLoading, refetch, isRefetching } = useCourses();
+  const { isFavorite, toggleFavorite } = useFavorites();
+  const { isDark } = useTheme();
+  const { prefetchCourse } = usePrefetch();
+
   const [searchQuery, setSearchQuery] = useState('');
+  const [showFilters, setShowFilters] = useState(false);
+  const [sortBy, setSortBy] = useState<SortOption>('name');
+  const [filterBy, setFilterBy] = useState<FilterOption>('all');
+  const [showAutocomplete, setShowAutocomplete] = useState(false);
 
-  useEffect(() => {
-    if (isWeb && initialCourses.length > 0) return;
+  // Enable keyboard shortcut to focus search
+  useSearchShortcut(searchInputRef);
 
-    async function fetchCourses() {
-      try {
-        const data = await getCourses();
-        const courseList = data.length > 0 ? data : placeholderCourses;
-        setCourses(courseList);
-        setFilteredCourses(courseList);
-      } catch (err) {
-        console.error('Error fetching courses:', err);
-        setCourses(placeholderCourses);
-        setFilteredCourses(placeholderCourses);
-      } finally {
-        setLoading(false);
-      }
+  // Filter and sort courses
+  const filteredCourses = useMemo(() => {
+    let result = [...courses];
+
+    // Apply favorites filter
+    if (filterBy === 'favorites') {
+      result = result.filter((c) => isFavorite(c.fields.courseId || c.sys.id));
     }
 
-    fetchCourses();
-  }, []);
-
-  useEffect(() => {
-    if (searchQuery.trim() === '') {
-      setFilteredCourses(courses);
-    } else {
+    // Apply search filter
+    if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
-      setFilteredCourses(
-        courses.filter(
-          (c) =>
-            c.fields.name.toLowerCase().includes(query) ||
-            c.fields.courseId?.toLowerCase().includes(query)
-        )
+      result = result.filter(
+        (c) =>
+          c.fields.name.toLowerCase().includes(query) ||
+          c.fields.courseId?.toLowerCase().includes(query)
       );
     }
-  }, [searchQuery, courses]);
 
-  if (loading) {
-    return (
-      <View className="flex-1 bg-white justify-center items-center">
-        <ActivityIndicator size="large" color="#71717a" />
-      </View>
-    );
-  }
+    // Apply sorting
+    result.sort((a, b) => {
+      switch (sortBy) {
+        case 'courseId':
+          return (a.fields.courseId || '').localeCompare(b.fields.courseId || '');
+        case 'ects':
+          return (b.fields.ects || 0) - (a.fields.ects || 0);
+        case 'name':
+        default:
+          return a.fields.name.localeCompare(b.fields.name);
+      }
+    });
 
+    return result;
+  }, [courses, searchQuery, sortBy, filterBy, isFavorite]);
+
+  // Autocomplete suggestions
+  const autocompleteSuggestions = useMemo(() => {
+    if (!searchQuery.trim() || searchQuery.length < 2) return [];
+    const query = searchQuery.toLowerCase();
+    return courses
+      .filter(
+        (c) =>
+          c.fields.name.toLowerCase().includes(query) ||
+          c.fields.courseId?.toLowerCase().includes(query)
+      )
+      .slice(0, 5);
+  }, [courses, searchQuery]);
+
+  // Handle refresh
+  const handleRefresh = useCallback(() => {
+    haptics.light();
+    refetch();
+  }, [refetch]);
+
+  // Handle favorite toggle
+  const handleToggleFavorite = useCallback(
+    (courseId: string) => {
+      haptics.selection();
+      toggleFavorite(courseId);
+    },
+    [toggleFavorite]
+  );
+
+  // Handle course press with prefetching
+  const handleCoursePress = useCallback(
+    (course: CourseEntry) => {
+      haptics.light();
+      router.push(`/courses/${course.fields.courseId || course.sys.id}`);
+    },
+    [router]
+  );
+
+  // Handle hover for prefetching (web only)
+  const handleCourseHover = useCallback(
+    (course: CourseEntry) => {
+      if (isWeb) {
+        prefetchCourse(course.fields.courseId || course.sys.id);
+      }
+    },
+    [prefetchCourse]
+  );
+
+  // Render course card
+  const renderCourseCard = useCallback(
+    ({ item: course }: { item: CourseEntry }) => {
+      const courseId = course.fields.courseId || course.sys.id;
+      const isFav = isFavorite(courseId);
+
+      return (
+        <Pressable
+          onPress={() => handleCoursePress(course)}
+          onHoverIn={() => handleCourseHover(course)}
+          accessibilityRole="button"
+          accessibilityLabel={`${course.fields.name}, ${course.fields.ects} opintopistettä${isFav ? ', suosikki' : ''}`}
+          accessibilityHint="Avaa kurssin tiedot"
+          className="bg-white dark:bg-zinc-800 rounded-xl border border-zinc-200 dark:border-zinc-700 overflow-hidden active:bg-zinc-50 dark:active:bg-zinc-700 mb-3"
+          style={{
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: 1 },
+            shadowOpacity: 0.05,
+            shadowRadius: 2,
+            elevation: 1,
+          }}
+        >
+          <View className="p-4">
+            <View className="flex-row items-start justify-between">
+              <View className="flex-1 pr-3">
+                {course.fields.courseId && (
+                  <Text className="text-zinc-400 dark:text-zinc-500 text-xs mb-1 font-mono tracking-wide">
+                    {course.fields.courseId}
+                  </Text>
+                )}
+                <Text className="text-zinc-900 dark:text-zinc-100 text-base font-medium leading-snug">
+                  {course.fields.name}
+                </Text>
+              </View>
+              <View className="flex-row items-center">
+                <Pressable
+                  onPress={() => handleToggleFavorite(courseId)}
+                  accessibilityRole="button"
+                  accessibilityLabel={isFav ? 'Poista suosikeista' : 'Lisää suosikiksi'}
+                  className="p-2 mr-1 active:opacity-70"
+                  hitSlop={8}
+                >
+                  <Heart
+                    size={18}
+                    color={isFav ? '#ef4444' : '#d4d4d8'}
+                    fill={isFav ? '#ef4444' : 'transparent'}
+                  />
+                </Pressable>
+                <View className="bg-zinc-900 dark:bg-zinc-100 px-2.5 py-1 rounded-lg mr-2">
+                  <Text className="text-white dark:text-zinc-900 text-sm font-medium tabular-nums">
+                    {course.fields.ects} op
+                  </Text>
+                </View>
+                <ChevronRight size={20} color={isDark ? '#71717a' : '#d4d4d8'} />
+              </View>
+            </View>
+          </View>
+        </Pressable>
+      );
+    },
+    [isFavorite, handleCoursePress, handleCourseHover, handleToggleFavorite, isDark]
+  );
+
+  // SEO schemas
   const courseListSchema = createItemListSchema(
     'Salaisen Tiedekunnan kurssit',
     courses.slice(0, 100).map((course, index) => ({
@@ -92,6 +214,10 @@ export default function CoursesScreen({ loaderData }: { loaderData?: { courses: 
     { name: 'Kurssit', url: `${SITE_URL}/courses` },
   ]);
 
+  const favoriteCount = courses.filter((c) =>
+    isFavorite(c.fields.courseId || c.sys.id)
+  ).length;
+
   return (
     <>
       <SEO
@@ -100,98 +226,239 @@ export default function CoursesScreen({ loaderData }: { loaderData?: { courses: 
         path="/courses"
         jsonLd={[courseListSchema, breadcrumbSchema]}
       />
-      <Tabs.Screen
-        options={{
-          title: `Kurssit`,
-        }}
-      />
-      <ScrollView className="flex-1 bg-zinc-50">
-        <View className="max-w-4xl mx-auto w-full">
+      <Tabs.Screen options={{ title: 'Kurssit' }} />
+
+      <View className="flex-1 bg-zinc-50 dark:bg-zinc-900">
+        <View className="max-w-4xl mx-auto w-full flex-1">
           {/* Search Header */}
-          <View className="px-4 py-4 bg-white border-b border-zinc-200">
-            <View className="flex-row items-center bg-zinc-100 rounded-xl px-4 py-3">
-              <Search size={20} color="#71717a" />
+          <View className="px-4 py-4 bg-white dark:bg-zinc-800 border-b border-zinc-200 dark:border-zinc-700">
+            <View className="flex-row items-center bg-zinc-100 dark:bg-zinc-700 rounded-xl px-4 py-3">
+              <Search size={20} color={isDark ? '#a1a1aa' : '#71717a'} />
               <TextInput
-                className="flex-1 ml-3 text-zinc-900 text-base"
-                placeholder="Hae kursseja..."
-                placeholderTextColor="#a1a1aa"
+                ref={searchInputRef}
+                className="flex-1 ml-3 text-zinc-900 dark:text-zinc-100 text-base"
+                placeholder={isWeb ? 'Hae kursseja... (/ tai ⌘K)' : 'Hae kursseja...'}
+                placeholderTextColor={isDark ? '#71717a' : '#a1a1aa'}
                 value={searchQuery}
-                onChangeText={setSearchQuery}
+                onChangeText={(text) => {
+                  setSearchQuery(text);
+                  setShowAutocomplete(text.length >= 2);
+                }}
+                onFocus={() => setShowAutocomplete(searchQuery.length >= 2)}
+                onBlur={() => setTimeout(() => setShowAutocomplete(false), 200)}
+                accessibilityLabel="Hae kursseja"
+                accessibilityHint="Kirjoita kurssin nimi tai koodi"
+                returnKeyType="search"
               />
+              {searchQuery && (
+                <Pressable
+                  onPress={() => {
+                    setSearchQuery('');
+                    haptics.light();
+                  }}
+                  accessibilityLabel="Tyhjennä haku"
+                  className="p-1"
+                >
+                  <X size={18} color={isDark ? '#a1a1aa' : '#71717a'} />
+                </Pressable>
+              )}
             </View>
-            {searchQuery && (
-              <Text className="text-zinc-500 text-sm mt-2">
+
+            {/* Autocomplete dropdown */}
+            {showAutocomplete && autocompleteSuggestions.length > 0 && (
+              <View className="absolute left-4 right-4 top-16 bg-white dark:bg-zinc-800 rounded-xl border border-zinc-200 dark:border-zinc-700 shadow-lg z-50 overflow-hidden">
+                {autocompleteSuggestions.map((course) => (
+                  <Pressable
+                    key={course.sys.id}
+                    onPress={() => {
+                      handleCoursePress(course);
+                      setShowAutocomplete(false);
+                    }}
+                    className="px-4 py-3 border-b border-zinc-100 dark:border-zinc-700 active:bg-zinc-50 dark:active:bg-zinc-700"
+                  >
+                    <Text className="text-zinc-500 dark:text-zinc-400 text-xs font-mono">
+                      {course.fields.courseId}
+                    </Text>
+                    <Text className="text-zinc-900 dark:text-zinc-100 text-sm">
+                      {course.fields.name}
+                    </Text>
+                  </Pressable>
+                ))}
+              </View>
+            )}
+
+            {/* Filter toggle button */}
+            <View className="flex-row items-center justify-between mt-3">
+              <Text className="text-zinc-500 dark:text-zinc-400 text-sm">
                 {filteredCourses.length} tulosta
               </Text>
+              <Pressable
+                onPress={() => {
+                  setShowFilters(!showFilters);
+                  haptics.light();
+                }}
+                accessibilityLabel={showFilters ? 'Piilota suodattimet' : 'Näytä suodattimet'}
+                className="flex-row items-center px-3 py-1.5 bg-zinc-100 dark:bg-zinc-700 rounded-lg"
+              >
+                <SlidersHorizontal size={14} color={isDark ? '#a1a1aa' : '#71717a'} />
+                <Text className="text-zinc-600 dark:text-zinc-300 text-sm ml-1.5">
+                  Suodattimet
+                </Text>
+              </Pressable>
+            </View>
+
+            {/* Filters panel */}
+            {showFilters && (
+              <View className="mt-3 pt-3 border-t border-zinc-200 dark:border-zinc-700">
+                {/* Sort options */}
+                <View className="mb-3">
+                  <View className="flex-row items-center mb-2">
+                    <ArrowUpDown size={14} color={isDark ? '#a1a1aa' : '#71717a'} />
+                    <Text className="text-zinc-600 dark:text-zinc-300 text-sm ml-1.5 font-medium">
+                      Järjestä
+                    </Text>
+                  </View>
+                  <View className="flex-row flex-wrap gap-2">
+                    {[
+                      { value: 'name' as SortOption, label: 'Nimi' },
+                      { value: 'courseId' as SortOption, label: 'Koodi' },
+                      { value: 'ects' as SortOption, label: 'Opintopisteet' },
+                    ].map((option) => (
+                      <Pressable
+                        key={option.value}
+                        onPress={() => {
+                          setSortBy(option.value);
+                          haptics.selection();
+                        }}
+                        accessibilityRole="radio"
+                        accessibilityState={{ selected: sortBy === option.value }}
+                        className={`px-3 py-1.5 rounded-lg ${
+                          sortBy === option.value
+                            ? 'bg-zinc-900 dark:bg-zinc-100'
+                            : 'bg-zinc-100 dark:bg-zinc-700'
+                        }`}
+                      >
+                        <Text
+                          className={`text-sm ${
+                            sortBy === option.value
+                              ? 'text-white dark:text-zinc-900 font-medium'
+                              : 'text-zinc-600 dark:text-zinc-300'
+                          }`}
+                        >
+                          {option.label}
+                        </Text>
+                      </Pressable>
+                    ))}
+                  </View>
+                </View>
+
+                {/* Filter options */}
+                <View>
+                  <View className="flex-row items-center mb-2">
+                    <Filter size={14} color={isDark ? '#a1a1aa' : '#71717a'} />
+                    <Text className="text-zinc-600 dark:text-zinc-300 text-sm ml-1.5 font-medium">
+                      Näytä
+                    </Text>
+                  </View>
+                  <View className="flex-row flex-wrap gap-2">
+                    {[
+                      { value: 'all' as FilterOption, label: 'Kaikki' },
+                      { value: 'favorites' as FilterOption, label: `Suosikit (${favoriteCount})` },
+                    ].map((option) => (
+                      <Pressable
+                        key={option.value}
+                        onPress={() => {
+                          setFilterBy(option.value);
+                          haptics.selection();
+                        }}
+                        accessibilityRole="radio"
+                        accessibilityState={{ selected: filterBy === option.value }}
+                        className={`px-3 py-1.5 rounded-lg ${
+                          filterBy === option.value
+                            ? 'bg-zinc-900 dark:bg-zinc-100'
+                            : 'bg-zinc-100 dark:bg-zinc-700'
+                        }`}
+                      >
+                        <Text
+                          className={`text-sm ${
+                            filterBy === option.value
+                              ? 'text-white dark:text-zinc-900 font-medium'
+                              : 'text-zinc-600 dark:text-zinc-300'
+                          }`}
+                        >
+                          {option.label}
+                        </Text>
+                      </Pressable>
+                    ))}
+                  </View>
+                </View>
+              </View>
             )}
           </View>
 
           {/* Stats Bar */}
-          <View className="flex-row px-4 py-3 bg-zinc-100 border-b border-zinc-200">
+          <View className="flex-row px-4 py-3 bg-zinc-100 dark:bg-zinc-800 border-b border-zinc-200 dark:border-zinc-700">
             <View className="flex-row items-center mr-6">
-              <BookOpen size={16} color="#71717a" />
-              <Text className="text-zinc-600 text-sm ml-2">{courses.length} kurssia</Text>
+              <BookOpen size={16} color={isDark ? '#a1a1aa' : '#71717a'} />
+              <Text className="text-zinc-600 dark:text-zinc-400 text-sm ml-2">
+                {courses.length} kurssia
+              </Text>
             </View>
             <View className="flex-row items-center">
-              <Clock size={16} color="#71717a" />
-              <Text className="text-zinc-600 text-sm ml-2">
+              <Clock size={16} color={isDark ? '#a1a1aa' : '#71717a'} />
+              <Text className="text-zinc-600 dark:text-zinc-400 text-sm ml-2">
                 {courses.reduce((sum, c) => sum + (c.fields.ects || 0), 0)} op yhteensä
               </Text>
             </View>
           </View>
 
-          {/* Course Cards */}
-          <View className="p-4 gap-3">
-            {filteredCourses.map((course) => (
-              <Pressable
-                key={course.sys.id}
-                onPress={() =>
-                  router.push(`/courses/${course.fields.courseId || course.sys.id}`)
-                }
-                className="bg-white rounded-xl border border-zinc-200 overflow-hidden active:bg-zinc-50"
-                style={{
-                  shadowColor: '#000',
-                  shadowOffset: { width: 0, height: 1 },
-                  shadowOpacity: 0.05,
-                  shadowRadius: 2,
-                  elevation: 1,
-                }}
-              >
-                <View className="p-4">
-                  <View className="flex-row items-start justify-between">
-                    <View className="flex-1 pr-3">
-                      {course.fields.courseId && (
-                        <Text className="text-zinc-400 text-xs mb-1 font-mono tracking-wide">
-                          {course.fields.courseId}
-                        </Text>
-                      )}
-                      <Text className="text-zinc-900 text-base font-medium leading-snug">
-                        {course.fields.name}
-                      </Text>
-                    </View>
-                    <View className="flex-row items-center">
-                      <View className="bg-zinc-900 px-2.5 py-1 rounded-lg mr-2">
-                        <Text className="text-white text-sm font-medium tabular-nums">
-                          {course.fields.ects} op
-                        </Text>
-                      </View>
-                      <ChevronRight size={20} color="#d4d4d8" />
-                    </View>
-                  </View>
+          {/* Course List */}
+          {isLoading ? (
+            <View className="p-4 gap-3">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <SkeletonCourseCard key={i} />
+              ))}
+            </View>
+          ) : (
+            <LegendList
+              data={filteredCourses}
+              renderItem={renderCourseCard}
+              keyExtractor={(item) => item.sys.id}
+              estimatedItemSize={88}
+              contentContainerStyle={{ padding: 16 }}
+              refreshControl={
+                <RefreshControl
+                  refreshing={isRefetching}
+                  onRefresh={handleRefresh}
+                  tintColor={isDark ? '#a1a1aa' : '#71717a'}
+                  colors={['#71717a']}
+                />
+              }
+              ListEmptyComponent={
+                <View className="py-12 items-center">
+                  <Search size={48} color={isDark ? '#52525b' : '#d4d4d8'} />
+                  <Text className="text-zinc-400 dark:text-zinc-500 mt-4">Ei hakutuloksia</Text>
+                  <Text className="text-zinc-300 dark:text-zinc-600 text-sm mt-1">
+                    Kokeile toista hakusanaa
+                  </Text>
                 </View>
-              </Pressable>
-            ))}
+              }
+              accessibilityRole="list"
+              accessibilityLabel={`Kurssilista, ${filteredCourses.length} kurssia`}
+            />
+          )}
 
-            {filteredCourses.length === 0 && (
-              <View className="py-12 items-center">
-                <Search size={48} color="#d4d4d8" />
-                <Text className="text-zinc-400 mt-4">Ei hakutuloksia</Text>
-                <Text className="text-zinc-300 text-sm mt-1">Kokeile toista hakusanaa</Text>
-              </View>
-            )}
-          </View>
+          {/* Keyboard shortcut hint (web only) */}
+          {isWeb && (
+            <View className="absolute bottom-4 right-4 flex-row items-center bg-zinc-800 dark:bg-zinc-700 px-3 py-2 rounded-lg opacity-80">
+              <Keyboard size={14} color="#a1a1aa" />
+              <Text className="text-zinc-400 text-xs ml-2">
+                j/k navigoi, Enter avaa
+              </Text>
+            </View>
+          )}
         </View>
-      </ScrollView>
+      </View>
     </>
   );
 }
