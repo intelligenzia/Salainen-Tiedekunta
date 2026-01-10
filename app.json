@@ -1,18 +1,24 @@
 {
   "expo": {
-    "name": "tiedekunta.com",
+    "name": "Salainen Tiedekunta",
     "slug": "tiedekunta.com",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "tiedekuntacom",
+    "scheme": "tiedekunta",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "icon": "./assets/images/tiedekunta.icon"
+      "icon": "./assets/images/tiedekunta.icon",
+      "bundleIdentifier": "com.tiedekunta.app",
+      "associatedDomains": ["applinks:tiedekunta.com"],
+      "config": {
+        "usesNonExemptEncryption": false
+      }
     },
     "android": {
+      "package": "com.tiedekunta.app",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
@@ -20,7 +26,31 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": [
+            {
+              "scheme": "https",
+              "host": "tiedekunta.com",
+              "pathPrefix": "/courses"
+            },
+            {
+              "scheme": "https",
+              "host": "tiedekunta.com",
+              "pathPrefix": "/majors"
+            },
+            {
+              "scheme": "https",
+              "host": "tiedekunta.com",
+              "pathPrefix": "/teachers"
+            }
+          ],
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -45,6 +75,11 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {
+        "origin": "https://tiedekunta.com"
+      }
     }
   }
 }
