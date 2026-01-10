@@ -16,59 +16,90 @@ export default function RootLayout() {
         {isWeb && <WebHeader />}
         <Stack
           screenOptions={{
-            headerShown: !isWeb,
-            headerStyle: {
-              backgroundColor: '#09090b',
-            },
-            headerTintColor: '#fafafa',
-            headerTitleStyle: {
-              fontWeight: '500',
-            },
-            headerBackTitle: 'Takaisin',
-            headerShadowVisible: false,
+            headerShown: false,
           }}
         >
+          {/* Tab navigator group */}
+          <Stack.Screen
+            name="(tabs)"
+            options={{
+              headerShown: false,
+            }}
+          />
+
+          {/* Detail screens that push on top of tabs */}
+          <Stack.Screen
+            name="courses/[id]"
+            options={{
+              headerShown: !isWeb,
+              title: 'Kurssi',
+              headerStyle: {
+                backgroundColor: '#09090b',
+              },
+              headerTintColor: '#fafafa',
+              headerTitleStyle: {
+                fontWeight: '500',
+              },
+              headerBackTitle: 'Takaisin',
+              headerShadowVisible: false,
+            }}
+          />
+          <Stack.Screen
+            name="majors/[slug]"
+            options={{
+              headerShown: !isWeb,
+              title: 'Pääaine',
+              headerStyle: {
+                backgroundColor: '#09090b',
+              },
+              headerTintColor: '#fafafa',
+              headerTitleStyle: {
+                fontWeight: '500',
+              },
+              headerBackTitle: 'Takaisin',
+              headerShadowVisible: false,
+            }}
+          />
+          <Stack.Screen
+            name="teachers/[slug]"
+            options={{
+              headerShown: !isWeb,
+              title: 'Opettaja',
+              headerStyle: {
+                backgroundColor: '#09090b',
+              },
+              headerTintColor: '#fafafa',
+              headerTitleStyle: {
+                fontWeight: '500',
+              },
+              headerBackTitle: 'Takaisin',
+              headerShadowVisible: false,
+            }}
+          />
+
+          {/* Legacy routes for web - redirect to tabs */}
           <Stack.Screen
             name="index"
             options={{
-              title: 'Salainen Tiedekunta',
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="courses/index"
+            options={{
               headerShown: false,
             }}
           />
           <Stack.Screen
             name="majors/index"
             options={{
-              title: 'Pääaineet',
-            }}
-          />
-          <Stack.Screen
-            name="majors/[slug]"
-            options={{
-              title: 'Pääaine',
-            }}
-          />
-          <Stack.Screen
-            name="courses/index"
-            options={{
-              title: 'Kurssit',
-            }}
-          />
-          <Stack.Screen
-            name="courses/[id]"
-            options={{
-              title: 'Kurssi',
+              headerShown: false,
             }}
           />
           <Stack.Screen
             name="teachers/index"
             options={{
-              title: 'Opettajat',
-            }}
-          />
-          <Stack.Screen
-            name="teachers/[slug]"
-            options={{
-              title: 'Opettaja',
+              headerShown: false,
             }}
           />
         </Stack>

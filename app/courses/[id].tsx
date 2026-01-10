@@ -6,6 +6,20 @@ import { documentToPlainTextString } from '@contentful/rich-text-plain-text-rend
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Platform, Pressable, ScrollView, View } from 'react-native';
+import {
+  BookOpen,
+  Users,
+  GraduationCap,
+  Globe,
+  Calendar,
+  Clock,
+  Target,
+  FileText,
+  CheckCircle,
+  AlertCircle,
+  ChevronRight,
+  Layers,
+} from 'lucide-react-native';
 
 const isWeb = Platform.OS === 'web';
 
@@ -57,6 +71,77 @@ export async function loader({ params }: { params: { id: string } }): Promise<Lo
   }
 }
 
+// Section Card Component
+function SectionCard({
+  title,
+  icon: Icon,
+  children,
+}: {
+  title: string;
+  icon: React.ComponentType<{ size: number; color: string }>;
+  children: React.ReactNode;
+}) {
+  return (
+    <View
+      className="bg-white rounded-xl border border-zinc-200 overflow-hidden mb-4"
+      style={{
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.05,
+        shadowRadius: 2,
+        elevation: 1,
+      }}
+    >
+      <View className="flex-row items-center px-4 py-3 bg-zinc-50 border-b border-zinc-200">
+        <Icon size={18} color="#3f3f46" />
+        <Text className="text-zinc-700 font-semibold text-sm ml-2">{title}</Text>
+      </View>
+      <View className="p-4">{children}</View>
+    </View>
+  );
+}
+
+// Metadata Row Component
+function MetaRow({
+  icon: Icon,
+  label,
+  value,
+  onPress,
+}: {
+  icon: React.ComponentType<{ size: number; color: string }>;
+  label: string;
+  value: string | React.ReactNode;
+  onPress?: () => void;
+}) {
+  const Content = (
+    <View className="flex-row items-center py-2">
+      <View className="w-8 items-center">
+        <Icon size={16} color="#71717a" />
+      </View>
+      <Text className="text-zinc-500 text-sm w-28">{label}</Text>
+      {typeof value === 'string' ? (
+        <Text
+          className={`flex-1 text-sm font-medium ${onPress ? 'text-zinc-900 underline underline-offset-2 decoration-zinc-300' : 'text-zinc-900'}`}
+        >
+          {value}
+        </Text>
+      ) : (
+        <View className="flex-1">{value}</View>
+      )}
+    </View>
+  );
+
+  if (onPress) {
+    return (
+      <Pressable onPress={onPress} className="active:bg-zinc-50 -mx-4 px-4">
+        {Content}
+      </Pressable>
+    );
+  }
+
+  return Content;
+}
+
 export default function CourseDetailScreen({ loaderData }: { loaderData?: LoaderData }) {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
@@ -92,7 +177,7 @@ export default function CourseDetailScreen({ loaderData }: { loaderData?: Loader
 
   if (loading) {
     return (
-      <View className="flex-1 bg-white justify-center items-center">
+      <View className="flex-1 bg-zinc-50 justify-center items-center">
         <ActivityIndicator size="large" color="#71717a" />
       </View>
     );
@@ -100,9 +185,13 @@ export default function CourseDetailScreen({ loaderData }: { loaderData?: Loader
 
   if (!course) {
     return (
-      <View className="flex-1 bg-white justify-center items-center p-6">
+      <View className="flex-1 bg-zinc-50 justify-center items-center p-6">
         <Stack.Screen options={{ title: 'Kurssia ei löytynyt' }} />
-        <Text className="text-red-600 text-center">Kurssia ei löytynyt</Text>
+        <AlertCircle size={48} color="#ef4444" />
+        <Text className="text-red-600 text-center mt-4 font-medium">Kurssia ei löytynyt</Text>
+        <Text className="text-zinc-500 text-center text-sm mt-2">
+          Tarkista kurssikoodi ja yritä uudelleen
+        </Text>
       </View>
     );
   }
@@ -110,7 +199,8 @@ export default function CourseDetailScreen({ loaderData }: { loaderData?: Loader
   const { name, courseId, ects, description } = course.fields;
   const descriptionText = description ? documentToPlainTextString(description) : null;
 
-  const pageDescription = descriptionText?.slice(0, 160) || `${name} - ${ects} opintopistettä. Salaisen Tiedekunnan opintojakso.`;
+  const pageDescription =
+    descriptionText?.slice(0, 160) || `${name} - ${ects} opintopistettä. Salaisen Tiedekunnan opintojakso.`;
 
   const courseSchema = createCourseSchema({
     name: name,
@@ -141,216 +231,214 @@ export default function CourseDetailScreen({ loaderData }: { loaderData?: Loader
         jsonLd={[courseSchema, breadcrumbSchema]}
       />
       <Stack.Screen options={{ title: courseId || name }} />
-      <ScrollView className="flex-1 bg-white">
+      <ScrollView className="flex-1 bg-zinc-50">
         <View className="max-w-4xl mx-auto w-full">
-        {/* Course Header */}
-        <View className="p-4 border-b border-zinc-200">
-          <View className="flex-row items-start justify-between">
-            <View className="flex-1 pr-4">
-              <Text className="text-zinc-900 text-xl font-semibold mb-1 tracking-tight">
-                {name}
-              </Text>
-              {courseId && (
-                <Text className="text-zinc-400 text-sm font-mono">
-                  {courseId}
+          {/* Course Header - Hero Section */}
+          <View className="bg-zinc-900 px-4 py-6">
+            <View className="flex-row items-start justify-between">
+              <View className="flex-1 pr-4">
+                {courseId && (
+                  <Text className="text-zinc-400 text-sm font-mono mb-2 tracking-wide">
+                    {courseId}
+                  </Text>
+                )}
+                <Text className="text-white text-xl font-semibold tracking-tight leading-tight">
+                  {name}
                 </Text>
-              )}
-            </View>
-            <View className="bg-zinc-900 px-3 py-1 rounded">
-              <Text className="text-zinc-50 font-medium tabular-nums">{ects} op</Text>
-            </View>
-          </View>
-        </View>
-
-        {/* Course Metadata */}
-        <View className="bg-zinc-50 px-4 py-4 border-b border-zinc-200">
-          <View className="gap-2">
-            <View className="flex-row">
-              <Text className="text-zinc-500 w-40 text-sm">Vastuuorganisaatio</Text>
-              <Text className="text-zinc-900 flex-1 text-sm font-medium">Salainen Tiedekunta</Text>
-            </View>
-            <View className="flex-row">
-              <Text className="text-zinc-500 w-40 text-sm">Vastaava opettaja</Text>
-              <View className="flex-1">
-                {teachers.map((teacher, index) => (
-                  <Pressable
-                    key={teacher.sys.id}
-                    onPress={() => router.push(`/teachers/${teacher.fields.slug}`)}
-                  >
-                    <Text className="text-zinc-900 text-sm font-medium underline underline-offset-2 decoration-zinc-300">
-                      {teacher.fields.name}{index < teachers.length - 1 ? ', ' : ''}
-                    </Text>
-                  </Pressable>
-                ))}
+              </View>
+              <View className="bg-white px-4 py-2 rounded-lg">
+                <Text className="text-zinc-900 text-lg font-bold tabular-nums">{ects}</Text>
+                <Text className="text-zinc-500 text-xs text-center">op</Text>
               </View>
             </View>
-            <View className="flex-row">
-              <Text className="text-zinc-500 w-40 text-sm">Opintojakson taso</Text>
-              <Text className="text-zinc-900 flex-1 text-sm font-medium">Perusopinnot</Text>
-            </View>
-            <View className="flex-row">
-              <Text className="text-zinc-500 w-40 text-sm">Opetuskieli</Text>
-              <Text className="text-zinc-900 flex-1 text-sm font-medium">suomi</Text>
-            </View>
-            <View className="flex-row">
-              <Text className="text-zinc-500 w-40 text-sm">Ajoitus</Text>
-              <Text className="text-zinc-900 flex-1 text-sm font-medium">1. vuosi, syksy</Text>
+
+            {/* Quick Stats */}
+            <View className="flex-row mt-4 gap-4">
+              <View className="flex-row items-center">
+                <Clock size={14} color="#a1a1aa" />
+                <Text className="text-zinc-400 text-xs ml-1">133 t työmäärä</Text>
+              </View>
+              <View className="flex-row items-center">
+                <Calendar size={14} color="#a1a1aa" />
+                <Text className="text-zinc-400 text-xs ml-1">Syksy 2024</Text>
+              </View>
             </View>
           </View>
-        </View>
 
-        {/* Main Content */}
-        <View className="p-4">
-          {/* Course Implementations */}
-          <View className="mb-6">
-            <Text className="text-lg font-semibold text-zinc-900 mb-3 tracking-tight">
-              Opintojakson suoritusvaihtoehdot
-            </Text>
-            <View className="bg-white border border-zinc-200 rounded-lg overflow-hidden">
-              <View className="bg-zinc-50 px-4 py-3 border-b border-zinc-200">
-                <View className="flex-row">
-                  <Text className="flex-1 text-xs font-medium text-zinc-500 uppercase tracking-wide">Toteutus</Text>
-                  <Text className="w-20 text-xs font-medium text-zinc-500 uppercase tracking-wide">Ajankohta</Text>
-                </View>
-              </View>
-              <Pressable className="px-4 py-3 border-b border-zinc-100 active:bg-zinc-50">
-                <View className="flex-row items-center">
-                  <View className="flex-1">
-                    <Text className="text-zinc-900 text-sm font-medium underline underline-offset-2 decoration-zinc-300">
-                      {courseId}-2024-1
-                    </Text>
-                    <Text className="text-zinc-400 text-xs mt-1">
-                      Luento + tentti
-                    </Text>
+          {/* Content */}
+          <View className="p-4">
+            {/* Course Metadata Card */}
+            <SectionCard title="Perustiedot" icon={FileText}>
+              <MetaRow icon={BookOpen} label="Organisaatio" value="Salainen Tiedekunta" />
+              <MetaRow
+                icon={Users}
+                label="Opettaja"
+                value={
+                  <View>
+                    {teachers.map((teacher, index) => (
+                      <Pressable
+                        key={teacher.sys.id}
+                        onPress={() => router.push(`/teachers/${teacher.fields.slug}`)}
+                        className="active:opacity-70"
+                      >
+                        <Text className="text-zinc-900 text-sm font-medium underline underline-offset-2 decoration-zinc-300">
+                          {teacher.fields.name}
+                          {index < teachers.length - 1 ? ', ' : ''}
+                        </Text>
+                      </Pressable>
+                    ))}
                   </View>
-                  <Text className="w-20 text-sm text-zinc-500">Syksy 2024</Text>
+                }
+              />
+              <MetaRow icon={GraduationCap} label="Taso" value="Perusopinnot" />
+              <MetaRow icon={Globe} label="Kieli" value="suomi" />
+              <MetaRow icon={Calendar} label="Ajoitus" value="1. vuosi, syksy" />
+            </SectionCard>
+
+            {/* Course Implementations */}
+            <SectionCard title="Tulevat toteutukset" icon={Calendar}>
+              <Pressable className="flex-row items-center py-3 border-b border-zinc-100 active:bg-zinc-50 -mx-4 px-4">
+                <View className="flex-1">
+                  <Text className="text-zinc-900 text-sm font-medium">{courseId}-2024-1</Text>
+                  <Text className="text-zinc-500 text-xs mt-0.5">Luento + tentti</Text>
+                </View>
+                <View className="flex-row items-center">
+                  <View className="bg-emerald-100 px-2 py-1 rounded mr-2">
+                    <Text className="text-emerald-700 text-xs font-medium">Ilmoittautuminen auki</Text>
+                  </View>
+                  <Text className="text-zinc-400 text-sm mr-2">Syksy 2024</Text>
+                  <ChevronRight size={16} color="#d4d4d8" />
                 </View>
               </Pressable>
-              <Pressable className="px-4 py-3 active:bg-zinc-50">
+              <Pressable className="flex-row items-center py-3 active:bg-zinc-50 -mx-4 px-4">
+                <View className="flex-1">
+                  <Text className="text-zinc-900 text-sm font-medium">{courseId}-2025-1</Text>
+                  <Text className="text-zinc-500 text-xs mt-0.5">Luento + tentti</Text>
+                </View>
                 <View className="flex-row items-center">
-                  <View className="flex-1">
-                    <Text className="text-zinc-900 text-sm font-medium underline underline-offset-2 decoration-zinc-300">
-                      {courseId}-2025-1
-                    </Text>
-                    <Text className="text-zinc-400 text-xs mt-1">
-                      Luento + tentti
-                    </Text>
-                  </View>
-                  <Text className="w-20 text-sm text-zinc-500">Kevät 2025</Text>
+                  <Text className="text-zinc-400 text-sm mr-2">Kevät 2025</Text>
+                  <ChevronRight size={16} color="#d4d4d8" />
                 </View>
               </Pressable>
-            </View>
-          </View>
+            </SectionCard>
 
-          {/* Course Information */}
-          <View className="mb-6">
-            <Text className="text-lg font-semibold text-zinc-900 mb-3 tracking-tight">
-              Opintojakson tiedot
-            </Text>
-
-            {/* Osaamistavoitteet */}
-            <View className="mb-4">
-              <Text className="text-sm font-medium text-zinc-900 mb-2">
-                Osaamistavoitteet
+            {/* Learning Objectives */}
+            <SectionCard title="Osaamistavoitteet" icon={Target}>
+              <Text className="text-zinc-600 text-sm mb-3">
+                Opintojakson suoritettuaan opiskelija:
               </Text>
-              <View className="pl-4">
-                <Text className="text-sm text-zinc-600 mb-1">
-                  Opintojakson suoritettuaan opiskelija:
-                </Text>
-                <View className="gap-1">
-                  <Text className="text-sm text-zinc-600">
-                    • ymmärtää kognitiotieteen keskeiset käsitteet ja teoriat
-                  </Text>
-                  <Text className="text-sm text-zinc-600">
-                    • tuntee kognitiotieteen tutkimusmenetelmät
-                  </Text>
-                  <Text className="text-sm text-zinc-600">
-                    • osaa soveltaa kognitiotieteellistä ajattelua käytännön ongelmiin
-                  </Text>
-                  <Text className="text-sm text-zinc-600">
-                    • kykenee analysoimaan kognitiivisia prosesseja tieteellisesti
-                  </Text>
+              {[
+                'ymmärtää kognitiotieteen keskeiset käsitteet ja teoriat',
+                'tuntee kognitiotieteen tutkimusmenetelmät',
+                'osaa soveltaa kognitiotieteellistä ajattelua käytännön ongelmiin',
+                'kykenee analysoimaan kognitiivisia prosesseja tieteellisesti',
+              ].map((objective, index) => (
+                <View key={index} className="flex-row items-start mb-2">
+                  <CheckCircle size={16} color="#22c55e" style={{ marginTop: 2 }} />
+                  <Text className="text-zinc-700 text-sm ml-2 flex-1">{objective}</Text>
                 </View>
-              </View>
-            </View>
+              ))}
+            </SectionCard>
 
-            {/* Asiasisältö */}
-            <View className="mb-4">
-              <Text className="text-sm font-medium text-zinc-900 mb-2">
-                Asiasisältö
-              </Text>
-              <Text className="text-sm text-zinc-600 pl-4">
+            {/* Course Content */}
+            <SectionCard title="Asiasisältö" icon={BookOpen}>
+              <Text className="text-zinc-600 text-sm leading-relaxed">
                 {descriptionText ||
                   `Tällä opintojaksolla perehdytään kognitiotieteen keskeisiin käsitteisiin ja tutkimusmenetelmiin. Kurssi antaa yleiskuvan kognitiotieteen monitieteisestä luonteesta ja sen keskeisistä tutkimuskohteista, kuten havaitseminen, muisti, ajattelu ja kieli.
 
 Opiskelijat tutustuvat kognitiotieteen historiaan ja sen yhteyksiin filosofiaan, psykologiaan, neurotieteeseen, kielitieteeseen ja tekoälyyn.`}
               </Text>
-            </View>
+            </SectionCard>
 
-            {/* Suoritustavat */}
-            <View className="mb-4">
-              <Text className="text-sm font-medium text-zinc-900 mb-2">
-                Suoritustavat
-              </Text>
-              <View className="pl-4">
-                <View className="flex-row justify-between py-1">
-                  <Text className="text-sm text-zinc-600">Luennot</Text>
-                  <Text className="text-sm text-zinc-500 tabular-nums">24 t</Text>
+            {/* Workload */}
+            <SectionCard title="Työmäärä" icon={Clock}>
+              {[
+                { label: 'Luennot', hours: 24 },
+                { label: 'Harjoitukset', hours: 12 },
+                { label: 'Itsenäinen työskentely', hours: 97 },
+              ].map((item, index) => (
+                <View key={index} className="flex-row items-center justify-between py-2 border-b border-zinc-100">
+                  <Text className="text-zinc-600 text-sm">{item.label}</Text>
+                  <Text className="text-zinc-900 text-sm tabular-nums">{item.hours} t</Text>
                 </View>
-                <View className="flex-row justify-between py-1">
-                  <Text className="text-sm text-zinc-600">Harjoitukset</Text>
-                  <Text className="text-sm text-zinc-500 tabular-nums">12 t</Text>
-                </View>
-                <View className="flex-row justify-between py-1">
-                  <Text className="text-sm text-zinc-600">Itsenäinen työskentely</Text>
-                  <Text className="text-sm text-zinc-500 tabular-nums">97 t</Text>
-                </View>
-                <View className="flex-row justify-between py-1 border-t border-zinc-200 mt-1 pt-2">
-                  <Text className="text-sm text-zinc-900 font-medium">Yhteensä</Text>
-                  <Text className="text-sm text-zinc-900 font-medium tabular-nums">133 t</Text>
+              ))}
+              <View className="flex-row items-center justify-between pt-3">
+                <Text className="text-zinc-900 text-sm font-semibold">Yhteensä</Text>
+                <Text className="text-zinc-900 text-sm font-semibold tabular-nums">133 t</Text>
+              </View>
+            </SectionCard>
+
+            {/* Assessment */}
+            <SectionCard title="Arviointi" icon={CheckCircle}>
+              <View className="flex-row items-center mb-3">
+                <View className="bg-zinc-100 px-3 py-1 rounded-full">
+                  <Text className="text-zinc-700 text-sm font-medium">Asteikko 0–5</Text>
                 </View>
               </View>
-            </View>
+              <View className="gap-2">
+                <View className="flex-row items-center">
+                  <View className="w-24">
+                    <Text className="text-zinc-600 text-sm">Tentti</Text>
+                  </View>
+                  <View className="flex-1 h-2 bg-zinc-100 rounded-full overflow-hidden">
+                    <View className="h-full bg-zinc-700 rounded-full" style={{ width: '70%' }} />
+                  </View>
+                  <Text className="text-zinc-900 text-sm font-medium ml-3 w-10 text-right">70%</Text>
+                </View>
+                <View className="flex-row items-center">
+                  <View className="w-24">
+                    <Text className="text-zinc-600 text-sm">Harjoitustyöt</Text>
+                  </View>
+                  <View className="flex-1 h-2 bg-zinc-100 rounded-full overflow-hidden">
+                    <View className="h-full bg-zinc-500 rounded-full" style={{ width: '30%' }} />
+                  </View>
+                  <Text className="text-zinc-900 text-sm font-medium ml-3 w-10 text-right">30%</Text>
+                </View>
+              </View>
+            </SectionCard>
 
-            {/* Arviointi */}
-            <View className="mb-4">
-              <Text className="text-sm font-medium text-zinc-900 mb-2">
-                Arviointi
-              </Text>
-              <Text className="text-sm text-zinc-600 pl-4">
-                Arvosana-asteikko 0–5. Tentti 70%, harjoitustyöt 30%.
-              </Text>
-            </View>
+            {/* Prerequisites */}
+            <SectionCard title="Esitietovaatimukset" icon={AlertCircle}>
+              <View className="flex-row items-center">
+                <View className="bg-blue-100 p-2 rounded-lg mr-3">
+                  <CheckCircle size={20} color="#2563eb" />
+                </View>
+                <View className="flex-1">
+                  <Text className="text-zinc-900 text-sm font-medium">Ei vaadittavia esitietoja</Text>
+                  <Text className="text-zinc-500 text-xs mt-0.5">
+                    Kurssi soveltuu ensimmäisen vuoden opiskelijoille
+                  </Text>
+                </View>
+              </View>
+            </SectionCard>
 
-            {/* Esitietovaatimukset */}
-            <View className="mb-4">
-              <Text className="text-sm font-medium text-zinc-900 mb-2">
-                Esitietovaatimukset
-              </Text>
-              <Text className="text-sm text-zinc-600 pl-4">
-                Ei vaadittavia esitietoja. Kurssi soveltuu ensimmäisen vuoden opiskelijoille.
-              </Text>
-            </View>
-          </View>
-
-          {/* Related Study Module */}
-          <View className="mb-8">
-            <Text className="text-lg font-semibold text-zinc-900 mb-3 tracking-tight">
-              Opintokokonaisuus
-            </Text>
+            {/* Related Study Module */}
             <Pressable
-              className="bg-white border border-zinc-200 rounded-lg p-4 active:bg-zinc-50"
+              className="bg-white rounded-xl border border-zinc-200 overflow-hidden mb-8 active:bg-zinc-50"
               onPress={() => router.push('/majors')}
+              style={{
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 1 },
+                shadowOpacity: 0.05,
+                shadowRadius: 2,
+                elevation: 1,
+              }}
             >
-              <Text className="text-zinc-900 text-sm font-medium underline underline-offset-2 decoration-zinc-300">
-                Kognitiotieteen perusopinnot (25 op)
-              </Text>
-              <Text className="text-zinc-400 text-xs mt-1">
-                Tämä opintojakso kuuluu kognitiotieteen perusopintoihin
-              </Text>
+              <View className="flex-row items-center p-4">
+                <View className="bg-zinc-900 p-3 rounded-lg mr-4">
+                  <Layers size={24} color="#fff" />
+                </View>
+                <View className="flex-1">
+                  <Text className="text-zinc-500 text-xs uppercase tracking-wide mb-0.5">
+                    Kuuluu kokonaisuuteen
+                  </Text>
+                  <Text className="text-zinc-900 font-semibold">Kognitiotieteen perusopinnot</Text>
+                  <Text className="text-zinc-500 text-sm">25 op</Text>
+                </View>
+                <ChevronRight size={24} color="#d4d4d8" />
+              </View>
             </Pressable>
           </View>
-        </View>
         </View>
       </ScrollView>
     </>
