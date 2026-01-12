@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Salainen Tiedekunta",
-    "slug": "tiedekunta.com",
+    "slug": "tiedekunta",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -12,7 +12,9 @@
       "supportsTablet": true,
       "icon": "./assets/images/tiedekunta.icon",
       "bundleIdentifier": "com.tiedekunta.app",
-      "associatedDomains": ["applinks:tiedekunta.com"],
+      "associatedDomains": [
+        "applinks:tiedekunta.com"
+      ],
       "config": {
         "usesNonExemptEncryption": false
       }
@@ -48,7 +50,10 @@
               "pathPrefix": "/teachers"
             }
           ],
-          "category": ["BROWSABLE", "DEFAULT"]
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
         }
       ]
     },
@@ -79,6 +84,9 @@
     "extra": {
       "router": {
         "origin": "https://tiedekunta.com"
+      },
+      "eas": {
+        "projectId": "6898a9af-9018-4d08-966d-cd3c3e44681e"
       }
     }
   }
