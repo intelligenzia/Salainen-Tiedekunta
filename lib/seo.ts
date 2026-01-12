@@ -233,3 +233,5 @@ export function createFAQSchema(faqs: { question: string; answer: string }[]) {
   };
 }
 
+
+

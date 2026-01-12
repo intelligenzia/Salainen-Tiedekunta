@@ -18,3 +18,5 @@ export async function getStaticData<T>(
   return fallback;
 }
 
+
+
