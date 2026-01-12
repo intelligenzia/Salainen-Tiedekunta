@@ -79,7 +79,16 @@
     "extra": {
       "router": {
         "origin": "https://tiedekunta.com"
+      },
+      "eas": {
+        "projectId": "your-project-id"
       }
+    },
+    "updates": {
+      "url": "https://u.expo.dev/your-project-id"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
     }
   }
 }
