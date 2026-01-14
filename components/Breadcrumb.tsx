@@ -1,8 +1,8 @@
-import React from 'react';
-import { View, Platform, Pressable } from 'react-native';
-import { Link } from 'expo-router';
 import { Text } from '@/components/ui/text';
+import { Link } from 'expo-router';
 import { ChevronRight, Home } from 'lucide-react-native';
+import React from 'react';
+import { Platform, Pressable, View } from 'react-native';
 
 interface BreadcrumbItem {
   label: string;
@@ -26,7 +26,7 @@ export function Breadcrumb({ items }: BreadcrumbProps) {
       accessibilityLabel="Breadcrumb"
     >
       <View className="flex-row items-center max-w-4xl mx-auto w-full">
-        {/* Home icon */}
+        
         <Link href="/" asChild>
           <Pressable
             className="p-1 rounded hover:bg-zinc-200 dark:hover:bg-zinc-700 active:bg-zinc-200"

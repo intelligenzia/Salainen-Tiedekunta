@@ -1,10 +1,13 @@
-import { Platform } from 'react-native';
 import { Tabs } from 'expo-router';
-import { Home, GraduationCap, BookOpen, Users } from 'lucide-react-native';
+import { Icon, Label, NativeTabs } from 'expo-router/unstable-native-tabs';
+import { Platform } from 'react-native';
+
+const isWeb = Platform.OS === 'web';
 
 export default function TabLayout() {
-  // On web, we use WebHeader instead of tabs
-  if (Platform.OS === 'web') {
+
+  // On web, we use WebHeader instead of tabs - hide the tab bar
+  if (isWeb) {
     return (
       <Tabs
         screenOptions={{
@@ -12,71 +15,50 @@ export default function TabLayout() {
           tabBarStyle: { display: 'none' },
         }}
       >
-        <Tabs.Screen name="index" options={{ title: 'Etusivu' }} />
-        <Tabs.Screen name="majors" options={{ title: 'Pääaineet' }} />
-        <Tabs.Screen name="courses" options={{ title: 'Kurssit' }} />
-        <Tabs.Screen name="teachers" options={{ title: 'Opettajat' }} />
+        <Tabs.Screen name="index" options={{ href: null }} />
+        <Tabs.Screen name="home" options={{ title: 'Etusivu' }} />
+        <Tabs.Screen name="majors-tab" options={{ title: 'Pääaineet' }} />
+        <Tabs.Screen name="courses-tab" options={{ title: 'Kurssit' }} />
+        <Tabs.Screen name="teachers-tab" options={{ title: 'Opettajat' }} />
+        <Tabs.Screen name="settings-tab" options={{ href: null }} />
       </Tabs>
     );
   }
 
+  // Native tabs for iOS and Android
   return (
-    <Tabs
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: '#09090b',
-        },
-        headerTintColor: '#fafafa',
-        headerTitleStyle: {
-          fontWeight: '600',
-        },
-        headerShadowVisible: false,
-        tabBarStyle: {
-          backgroundColor: '#09090b',
-          borderTopColor: '#27272a',
-          borderTopWidth: 1,
-          paddingTop: 8,
-          paddingBottom: 8,
-          height: 64,
-        },
-        tabBarActiveTintColor: '#fafafa',
-        tabBarInactiveTintColor: '#71717a',
-        tabBarLabelStyle: {
-          fontSize: 11,
-          fontWeight: '500',
-          marginTop: 4,
-        },
-      }}
-    >
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Etusivu',
-          headerTitle: 'Salainen Tiedekunta',
-          tabBarIcon: ({ color, size }) => <Home size={size} color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="majors"
-        options={{
-          title: 'Pääaineet',
-          tabBarIcon: ({ color, size }) => <GraduationCap size={size} color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="courses"
-        options={{
-          title: 'Kurssit',
-          tabBarIcon: ({ color, size }) => <BookOpen size={size} color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="teachers"
-        options={{
-          title: 'Opettajat',
-          tabBarIcon: ({ color, size }) => <Users size={size} color={color} />,
-        }}
-      />
-    </Tabs>
+    <NativeTabs>
+      <NativeTabs.Trigger name="home">
+        <Icon
+          sf={{ default: 'house', selected: 'house.fill' }}
+          drawable="ic_home"
+        />
+        <Label>Etusivu</Label>
+      </NativeTabs.Trigger>
+
+      <NativeTabs.Trigger name="majors-tab">
+        <Icon
+          sf={{ default: 'graduationcap', selected: 'graduationcap.fill' }}
+          drawable="ic_school"
+        />
+        <Label>Pääaineet</Label>
+      </NativeTabs.Trigger>
+
+      <NativeTabs.Trigger name="courses-tab">
+        <Icon
+          sf={{ default: 'book', selected: 'book.fill' }}
+          drawable="ic_menu_book"
+        />
+        <Label>Kurssit</Label>
+      </NativeTabs.Trigger>
+
+      <NativeTabs.Trigger name="teachers-tab">
+        <Icon
+          sf={{ default: 'person.2', selected: 'person.2.fill' }}
+          drawable="ic_group"
+        />
+        <Label>Opettajat</Label>
+      </NativeTabs.Trigger>
+    </NativeTabs>
   );
 }

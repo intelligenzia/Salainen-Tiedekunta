@@ -1,33 +1,33 @@
-import { SEO } from '@/components/SEO';
-import { Text } from '@/components/ui/text';
 import { Breadcrumb } from '@/components/Breadcrumb';
-import { SkeletonCard, SkeletonText } from '@/components/ui/skeleton';
+import { SEO } from '@/components/SEO';
+import { SkeletonCard } from '@/components/ui/skeleton';
+import { Text } from '@/components/ui/text';
 import { getCourse, getCourses, type CourseEntry, type TeacherEntry } from '@/lib/contentful';
-import { createBreadcrumbSchema, createCourseSchema, SITE_URL } from '@/lib/seo';
+import { haptics } from '@/lib/haptics';
 import { useCourse } from '@/lib/hooks/useQueries';
+import { createBreadcrumbSchema, createCourseSchema, SITE_URL } from '@/lib/seo';
 import { useFavorites } from '@/lib/stores/favorites';
 import { useTheme } from '@/lib/stores/theme';
-import { haptics } from '@/lib/haptics';
 import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
-import { useCallback } from 'react';
-import { Platform, Pressable, RefreshControl, ScrollView, View, Share } from 'react-native';
 import {
-  BookOpen,
-  Users,
-  GraduationCap,
-  Globe,
-  Calendar,
-  Clock,
-  Target,
-  FileText,
-  CheckCircle,
   AlertCircle,
+  BookOpen,
+  Calendar,
+  CheckCircle,
   ChevronRight,
-  Layers,
+  Clock,
+  FileText,
+  Globe,
+  GraduationCap,
   Heart,
+  Layers,
   Share2,
+  Target,
+  Users,
 } from 'lucide-react-native';
+import { useCallback } from 'react';
+import { Platform, Pressable, RefreshControl, ScrollView, Share, View } from 'react-native';
 
 const isWeb = Platform.OS === 'web';
 
@@ -96,7 +96,6 @@ function SectionCard({
         shadowRadius: 2,
         elevation: 1,
       }}
-      accessibilityRole="region"
       accessibilityLabel={title}
     >
       <View className="flex-row items-center px-4 py-3 bg-zinc-50 dark:bg-zinc-700 border-b border-zinc-200 dark:border-zinc-600">
@@ -266,7 +265,7 @@ export default function CourseDetailScreen({
       />
       <Stack.Screen options={{ title: courseId || name }} />
 
-      {/* Breadcrumb for web */}
+      
       <Breadcrumb
         items={[
           { label: 'Kurssit', href: '/courses' },
@@ -286,7 +285,7 @@ export default function CourseDetailScreen({
         }
       >
         <View className="max-w-4xl mx-auto w-full">
-          {/* Course Header - Hero Section */}
+          
           <View className="bg-zinc-900 dark:bg-zinc-800 px-4 py-6">
             <View className="flex-row items-start justify-between">
               <View className="flex-1 pr-4">
@@ -304,7 +303,7 @@ export default function CourseDetailScreen({
                   <Text className="text-zinc-900 text-lg font-bold tabular-nums">{ects}</Text>
                   <Text className="text-zinc-500 text-xs text-center">op</Text>
                 </View>
-                {/* Action buttons */}
+                
                 <View className="flex-row gap-2">
                   <Pressable
                     onPress={handleToggleFavorite}
@@ -330,7 +329,7 @@ export default function CourseDetailScreen({
               </View>
             </View>
 
-            {/* Quick Stats */}
+            
             <View className="flex-row mt-4 gap-4">
               <View className="flex-row items-center">
                 <Clock size={14} color="#a1a1aa" />
@@ -343,9 +342,9 @@ export default function CourseDetailScreen({
             </View>
           </View>
 
-          {/* Content */}
+          
           <View className="p-4">
-            {/* Course Metadata Card */}
+            
             <SectionCard title="Perustiedot" icon={FileText} isDark={isDark}>
               <MetaRow icon={BookOpen} label="Organisaatio" value="Salainen Tiedekunta" isDark={isDark} />
               <MetaRow
@@ -379,7 +378,7 @@ export default function CourseDetailScreen({
               <MetaRow icon={Calendar} label="Ajoitus" value="1. vuosi, syksy" isDark={isDark} />
             </SectionCard>
 
-            {/* Course Implementations */}
+            
             <SectionCard title="Tulevat toteutukset" icon={Calendar} isDark={isDark}>
               <Pressable
                 className="flex-row items-center py-3 border-b border-zinc-100 dark:border-zinc-700 active:bg-zinc-50 dark:active:bg-zinc-700 -mx-4 px-4"
@@ -419,7 +418,7 @@ export default function CourseDetailScreen({
               </Pressable>
             </SectionCard>
 
-            {/* Learning Objectives */}
+            
             <SectionCard title="Osaamistavoitteet" icon={Target} isDark={isDark}>
               <Text className="text-zinc-600 dark:text-zinc-300 text-sm mb-3">
                 Opintojakson suoritettuaan opiskelija:
@@ -437,7 +436,7 @@ export default function CourseDetailScreen({
               ))}
             </SectionCard>
 
-            {/* Course Content */}
+            
             <SectionCard title="Asiasisältö" icon={BookOpen} isDark={isDark}>
               <Text className="text-zinc-600 dark:text-zinc-300 text-sm leading-relaxed">
                 {descriptionText ||
@@ -447,7 +446,7 @@ Opiskelijat tutustuvat kognitiotieteen historiaan ja sen yhteyksiin filosofiaan,
               </Text>
             </SectionCard>
 
-            {/* Workload */}
+            
             <SectionCard title="Työmäärä" icon={Clock} isDark={isDark}>
               {[
                 { label: 'Luennot', hours: 24 },
@@ -468,7 +467,7 @@ Opiskelijat tutustuvat kognitiotieteen historiaan ja sen yhteyksiin filosofiaan,
               </View>
             </SectionCard>
 
-            {/* Assessment */}
+            
             <SectionCard title="Arviointi" icon={CheckCircle} isDark={isDark}>
               <View className="flex-row items-center mb-3">
                 <View className="bg-zinc-100 dark:bg-zinc-700 px-3 py-1 rounded-full">
@@ -501,7 +500,7 @@ Opiskelijat tutustuvat kognitiotieteen historiaan ja sen yhteyksiin filosofiaan,
               </View>
             </SectionCard>
 
-            {/* Prerequisites */}
+            
             <SectionCard title="Esitietovaatimukset" icon={AlertCircle} isDark={isDark}>
               <View className="flex-row items-center">
                 <View className="bg-blue-100 dark:bg-blue-900 p-2 rounded-lg mr-3">
@@ -518,7 +517,7 @@ Opiskelijat tutustuvat kognitiotieteen historiaan ja sen yhteyksiin filosofiaan,
               </View>
             </SectionCard>
 
-            {/* Related Study Module */}
+            
             <Pressable
               className="bg-white dark:bg-zinc-800 rounded-xl border border-zinc-200 dark:border-zinc-700 overflow-hidden mb-8 active:bg-zinc-50 dark:active:bg-zinc-700"
               onPress={() => {

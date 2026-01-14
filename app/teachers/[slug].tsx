@@ -2,7 +2,8 @@ import { SEO } from '@/components/SEO';
 import { Text } from '@/components/ui/text';
 import { getCoursesByTeacher, getTeacher, getTeachers, type ContentfulAsset, type CourseEntry, type TeacherEntry } from '@/lib/contentful';
 import { createBreadcrumbSchema, createPersonSchema, SITE_URL } from '@/lib/seo';
-import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
+import { useTheme } from '@/lib/stores/theme';
+import { Link, Stack, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Platform, Pressable, ScrollView, View } from 'react-native';
 
@@ -58,7 +59,7 @@ export async function loader({ params }: { params: { slug: string } }): Promise<
 
 export default function TeacherDetailScreen({ loaderData }: { loaderData?: LoaderData }) {
   const { slug } = useLocalSearchParams<{ slug: string }>();
-  const router = useRouter();
+  const { isDark } = useTheme();
   const [teacher, setTeacher] = useState<TeacherEntry | null>(loaderData?.teacher ?? null);
   const [, setAvatar] = useState<ContentfulAsset | undefined>(loaderData?.avatar);
   const [courses, setCourses] = useState<CourseEntry[]>(loaderData?.courses ?? []);
@@ -97,17 +98,17 @@ export default function TeacherDetailScreen({ loaderData }: { loaderData?: Loade
 
   if (loading) {
     return (
-      <View className="flex-1 bg-white justify-center items-center">
-        <ActivityIndicator size="large" color="#71717a" />
+      <View className="flex-1 bg-white dark:bg-zinc-900 justify-center items-center">
+        <ActivityIndicator size="large" color={isDark ? '#a1a1aa' : '#71717a'} />
       </View>
     );
   }
 
   if (!teacher) {
     return (
-      <View className="flex-1 bg-white justify-center items-center p-6">
+      <View className="flex-1 bg-white dark:bg-zinc-900 justify-center items-center p-6">
         <Stack.Screen options={{ title: 'Opettajaa ei löytynyt' }} />
-        <Text className="text-red-600 text-center">Opettajaa ei löytynyt</Text>
+        <Text className="text-red-600 dark:text-red-400 text-center">Opettajaa ei löytynyt</Text>
       </View>
     );
   }
@@ -142,55 +143,55 @@ export default function TeacherDetailScreen({ loaderData }: { loaderData?: Loade
         jsonLd={[personSchema, breadcrumbSchema]}
       />
       <Stack.Screen options={{ title: teacherName }} />
-      <ScrollView className="flex-1 bg-white">
+      <ScrollView className="flex-1 bg-white dark:bg-zinc-900">
         <View className="max-w-4xl mx-auto w-full">
-        {/* Profile Header */}
-        <View className="p-4 border-b border-zinc-200">
+        
+        <View className="p-4 border-b border-zinc-200 dark:border-zinc-700">
           <View className="flex-row items-center">
-            <View className="w-14 h-14 rounded-full bg-zinc-900 items-center justify-center mr-4">
-              <Text className="text-zinc-50 font-semibold text-xl">
+            <View className="w-14 h-14 rounded-full bg-zinc-900 dark:bg-zinc-100 items-center justify-center mr-4">
+              <Text className="text-zinc-50 dark:text-zinc-900 font-semibold text-xl">
                 {teacher.fields.name?.charAt(0) || 'O'}
               </Text>
             </View>
             <View className="flex-1">
-              <Text className="text-zinc-900 text-xl font-semibold tracking-tight">
+              <Text className="text-zinc-900 dark:text-zinc-100 text-xl font-semibold tracking-tight">
                 {teacher.fields.name}
               </Text>
-              <Text className="text-zinc-500 text-sm mt-1">
+              <Text className="text-zinc-500 dark:text-zinc-400 text-sm mt-1">
                 Professori · Kognitiotiede
               </Text>
             </View>
           </View>
         </View>
 
-        {/* Contact Info */}
-        <View className="bg-zinc-50 px-4 py-4 border-b border-zinc-200">
+        
+        <View className="bg-zinc-50 dark:bg-zinc-800 px-4 py-4 border-b border-zinc-200 dark:border-zinc-700">
           <View className="gap-2">
             <View className="flex-row">
-              <Text className="text-zinc-500 w-28 text-sm">Sähköposti</Text>
-              <Text className="text-zinc-900 flex-1 text-sm underline underline-offset-2 decoration-zinc-300">
+              <Text className="text-zinc-500 dark:text-zinc-400 w-28 text-sm">Sähköposti</Text>
+              <Text className="text-zinc-900 dark:text-zinc-100 flex-1 text-sm">
                 {teacher.fields.slug?.replace(/-/g, '.')}@tiedekunta.fi
               </Text>
             </View>
             <View className="flex-row">
-              <Text className="text-zinc-500 w-28 text-sm">Huone</Text>
-              <Text className="text-zinc-900 flex-1 text-sm">A312, Kognitiotalo</Text>
+              <Text className="text-zinc-500 dark:text-zinc-400 w-28 text-sm">Huone</Text>
+              <Text className="text-zinc-900 dark:text-zinc-100 flex-1 text-sm">A312, Kognitiotalo</Text>
             </View>
             <View className="flex-row">
-              <Text className="text-zinc-500 w-28 text-sm">Vastaanotto</Text>
-              <Text className="text-zinc-900 flex-1 text-sm">Ti 14–16 (varaus sähköpostilla)</Text>
+              <Text className="text-zinc-500 dark:text-zinc-400 w-28 text-sm">Vastaanotto</Text>
+              <Text className="text-zinc-900 dark:text-zinc-100 flex-1 text-sm">Ti 14–16 (varaus sähköpostilla)</Text>
             </View>
           </View>
         </View>
 
-        {/* Main Content */}
+        
         <View className="p-4">
-          {/* Bio */}
+          
           <View className="mb-6">
-            <Text className="text-lg font-semibold text-zinc-900 mb-3 tracking-tight">
+            <Text className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-3 tracking-tight">
               Esittely
             </Text>
-            <Text className="text-sm text-zinc-600 leading-relaxed">
+            <Text className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
               {teacher.fields.name} on kognitiotieteen professori Salaisessa Tiedekunnassa.
               Hänen tutkimusalueitaan ovat kognitiivinen neurotiede, muisti ja oppiminen.
               Hän on julkaissut yli 50 tieteellistä artikkelia kansainvälisissä julkaisuissa
@@ -198,46 +199,53 @@ export default function TeacherDetailScreen({ loaderData }: { loaderData?: Loade
             </Text>
           </View>
 
-          {/* Research Areas */}
+          
           <View className="mb-6">
-            <Text className="text-lg font-semibold text-zinc-900 mb-3 tracking-tight">
+            <Text className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-3 tracking-tight">
               Tutkimusalueet
             </Text>
             <View className="flex-row flex-wrap gap-2">
               {['Kognitiivinen neurotiede', 'Muisti', 'Oppiminen', 'Tarkkaavaisuus'].map((area) => (
-                <View key={area} className="bg-zinc-100 px-3 py-1.5 rounded-full">
-                  <Text className="text-zinc-700 text-sm">{area}</Text>
+                <View key={area} className="bg-zinc-100 dark:bg-zinc-700 px-3 py-1.5 rounded-full">
+                  <Text className="text-zinc-700 dark:text-zinc-300 text-sm">{area}</Text>
                 </View>
               ))}
             </View>
           </View>
 
-          {/* Courses */}
+          
           <View className="mb-8">
-            <Text className="text-lg font-semibold text-zinc-900 mb-3 tracking-tight">
+            <Text className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-3 tracking-tight">
               Opettamat kurssit
             </Text>
-            <View className="bg-white border border-zinc-200 rounded-lg overflow-hidden">
+            <View className="bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-lg overflow-hidden">
               {courses.map((course, index) => (
-                <Pressable
+                <Link
                   key={course.sys.id}
-                  onPress={() => router.push(`/courses/${course.fields.courseId || course.sys.id}`)}
-                  className={`px-4 py-3 active:bg-zinc-50 ${index < courses.length - 1 ? 'border-b border-zinc-100' : ''}`}
+                  href={`/courses/${course.fields.courseId || course.sys.id}`}
+                  asChild
                 >
-                  <View className="flex-row items-center justify-between">
-                    <View className="flex-1 pr-4">
-                      {course.fields.courseId && (
-                        <Text className="text-zinc-400 text-xs mb-1 font-mono">
-                          {course.fields.courseId}
-                        </Text>
-                      )}
-                      <Text className="text-zinc-900 text-sm font-medium underline underline-offset-2 decoration-zinc-300">
-                        {course.fields.name}
-                      </Text>
-                    </View>
-                    <Text className="text-zinc-500 text-sm tabular-nums">{course.fields.ects} op</Text>
-                  </View>
-                </Pressable>
+                  <Link.Trigger>
+                    <Pressable
+                      className={`px-4 py-3 active:bg-zinc-50 dark:active:bg-zinc-700 ${index < courses.length - 1 ? 'border-b border-zinc-100 dark:border-zinc-700' : ''}`}
+                    >
+                      <View className="flex-row items-center justify-between">
+                        <View className="flex-1 pr-4">
+                          {course.fields.courseId && (
+                            <Text className="text-zinc-400 dark:text-zinc-500 text-xs mb-1 font-mono">
+                              {course.fields.courseId}
+                            </Text>
+                          )}
+                          <Text className="text-zinc-900 dark:text-zinc-100 text-sm font-medium">
+                            {course.fields.name}
+                          </Text>
+                        </View>
+                        <Text className="text-zinc-500 dark:text-zinc-400 text-sm tabular-nums">{course.fields.ects} op</Text>
+                      </View>
+                    </Pressable>
+                  </Link.Trigger>
+                  <Link.Preview />
+                </Link>
               ))}
             </View>
           </View>

@@ -23,7 +23,7 @@ export function SEO({ jsonLd, noIndex, ...meta }: SEOProps) {
 
       {noIndex && <meta name="robots" content="noindex, nofollow" />}
 
-      {/* Open Graph */}
+      
       <meta property="og:title" content={openGraph.title} />
       <meta property="og:description" content={openGraph.description} />
       <meta property="og:url" content={openGraph.url} />
@@ -35,13 +35,13 @@ export function SEO({ jsonLd, noIndex, ...meta }: SEOProps) {
       <meta property="og:image:height" content="630" />
       <meta property="og:image:alt" content={openGraph.title} />
 
-      {/* Twitter Card */}
+      
       <meta name="twitter:card" content={twitter.card} />
       <meta name="twitter:title" content={twitter.title} />
       <meta name="twitter:description" content={twitter.description} />
       <meta name="twitter:image" content={twitter.image} />
 
-      {/* Article-specific meta (if type is article) */}
+      
       {meta.type === 'article' && meta.publishedTime && (
         <meta property="article:published_time" content={meta.publishedTime} />
       )}
@@ -52,7 +52,7 @@ export function SEO({ jsonLd, noIndex, ...meta }: SEOProps) {
         <meta property="article:author" content={meta.author} />
       )}
 
-      {/* JSON-LD Structured Data */}
+      
       {schemas.map((schema, index) => (
         <script
           key={index}

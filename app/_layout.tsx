@@ -37,7 +37,7 @@ export default function RootLayout() {
                   headerShown: false,
                 }}
               >
-                {/* Tab navigator group */}
+                
                 <Stack.Screen
                   name="(tabs)"
                   options={{
@@ -45,7 +45,7 @@ export default function RootLayout() {
                   }}
                 />
 
-                {/* Detail screens that push on top of tabs */}
+                
                 <Stack.Screen
                   name="courses/[id]"
                   options={{
@@ -95,13 +95,6 @@ export default function RootLayout() {
                   }}
                 />
 
-                {/* Legacy routes for web - redirect to tabs */}
-                <Stack.Screen
-                  name="index"
-                  options={{
-                    headerShown: false,
-                  }}
-                />
                 <Stack.Screen
                   name="courses/index"
                   options={{
@@ -118,6 +111,72 @@ export default function RootLayout() {
                   name="teachers/index"
                   options={{
                     headerShown: false,
+                  }}
+                />
+
+                
+                <Stack.Screen
+                  name="terms"
+                  options={{
+                    headerShown: !isWeb,
+                    title: 'Käyttöehdot',
+                    headerStyle: {
+                      backgroundColor: '#09090b',
+                    },
+                    headerTintColor: '#fafafa',
+                    headerTitleStyle: {
+                      fontWeight: '500',
+                    },
+                    headerBackTitle: 'Takaisin',
+                    headerShadowVisible: false,
+                  }}
+                />
+                <Stack.Screen
+                  name="license"
+                  options={{
+                    headerShown: !isWeb,
+                    title: 'Lisenssi',
+                    headerStyle: {
+                      backgroundColor: '#09090b',
+                    },
+                    headerTintColor: '#fafafa',
+                    headerTitleStyle: {
+                      fontWeight: '500',
+                    },
+                    headerBackTitle: 'Takaisin',
+                    headerShadowVisible: false,
+                  }}
+                />
+                <Stack.Screen
+                  name="copyright"
+                  options={{
+                    headerShown: !isWeb,
+                    title: 'Tekijänoikeudet',
+                    headerStyle: {
+                      backgroundColor: '#09090b',
+                    },
+                    headerTintColor: '#fafafa',
+                    headerTitleStyle: {
+                      fontWeight: '500',
+                    },
+                    headerBackTitle: 'Takaisin',
+                    headerShadowVisible: false,
+                  }}
+                />
+                <Stack.Screen
+                  name="open-source"
+                  options={{
+                    headerShown: !isWeb,
+                    title: 'Avoimen lähdekoodin kirjastot',
+                    headerStyle: {
+                      backgroundColor: '#09090b',
+                    },
+                    headerTintColor: '#fafafa',
+                    headerTitleStyle: {
+                      fontWeight: '500',
+                    },
+                    headerBackTitle: 'Takaisin',
+                    headerShadowVisible: false,
                   }}
                 />
               </Stack>

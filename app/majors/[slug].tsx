@@ -2,7 +2,8 @@ import { SEO } from '@/components/SEO';
 import { Text } from '@/components/ui/text';
 import { getMajor, getMajors, type CourseEntry, type MajorEntry } from '@/lib/contentful';
 import { createBreadcrumbSchema, createStudyProgramSchema, SITE_URL } from '@/lib/seo';
-import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
+import { useTheme } from '@/lib/stores/theme';
+import { Link, Stack, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Platform, Pressable, ScrollView, View } from 'react-native';
 
@@ -56,7 +57,7 @@ export async function loader({ params }: { params: { slug: string } }): Promise<
 
 export default function MajorDetailScreen({ loaderData }: { loaderData?: LoaderData }) {
   const { slug } = useLocalSearchParams<{ slug: string }>();
-  const router = useRouter();
+  const { isDark } = useTheme();
   const [major, setMajor] = useState<MajorEntry | null>(loaderData?.major ?? null);
   const [courses, setCourses] = useState<CourseEntry[]>(loaderData?.courses ?? []);
   const [loading, setLoading] = useState(!isWeb || !loaderData?.major);
@@ -89,8 +90,8 @@ export default function MajorDetailScreen({ loaderData }: { loaderData?: LoaderD
 
   if (loading) {
     return (
-      <View className="flex-1 bg-white justify-center items-center">
-        <ActivityIndicator size="large" color="#71717a" />
+      <View className="flex-1 bg-white dark:bg-zinc-900 justify-center items-center">
+        <ActivityIndicator size="large" color={isDark ? '#a1a1aa' : '#71717a'} />
       </View>
     );
   }
@@ -126,80 +127,87 @@ export default function MajorDetailScreen({ loaderData }: { loaderData?: LoaderD
         jsonLd={[programSchema, breadcrumbSchema]}
       />
       <Stack.Screen options={{ title: majorName }} />
-      <ScrollView className="flex-1 bg-white">
+      <ScrollView className="flex-1 bg-white dark:bg-zinc-900">
         <View className="max-w-4xl mx-auto w-full">
-        {/* Header Info */}
-        <View className="p-4 border-b border-zinc-200">
-          <Text className="text-xl font-semibold text-zinc-900 mb-1 tracking-tight">
+        
+        <View className="p-4 border-b border-zinc-200 dark:border-zinc-700">
+          <Text className="text-xl font-semibold text-zinc-900 dark:text-zinc-100 mb-1 tracking-tight">
             {major?.fields.name}
           </Text>
-          <Text className="text-zinc-500 text-sm">
+          <Text className="text-zinc-500 dark:text-zinc-400 text-sm">
             {courses.length} kurssia · {totalCredits} op yhteensä
           </Text>
         </View>
 
-        {/* Study Structure */}
-        <View className="bg-zinc-50 px-4 py-4 border-b border-zinc-200">
-          <Text className="text-xs font-medium text-zinc-500 uppercase tracking-wide mb-3">Opintojen rakenne</Text>
+        
+        <View className="bg-zinc-50 dark:bg-zinc-800 px-4 py-4 border-b border-zinc-200 dark:border-zinc-700">
+          <Text className="text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wide mb-3">Opintojen rakenne</Text>
           <View className="gap-2">
             <View className="flex-row justify-between">
-              <Text className="text-zinc-600 text-sm">Perusopinnot</Text>
-              <Text className="text-zinc-900 text-sm font-medium tabular-nums">25 op</Text>
+              <Text className="text-zinc-600 dark:text-zinc-400 text-sm">Perusopinnot</Text>
+              <Text className="text-zinc-900 dark:text-zinc-100 text-sm font-medium tabular-nums">25 op</Text>
             </View>
             <View className="flex-row justify-between">
-              <Text className="text-zinc-600 text-sm">Aineopinnot</Text>
-              <Text className="text-zinc-900 text-sm font-medium tabular-nums">35 op</Text>
+              <Text className="text-zinc-600 dark:text-zinc-400 text-sm">Aineopinnot</Text>
+              <Text className="text-zinc-900 dark:text-zinc-100 text-sm font-medium tabular-nums">35 op</Text>
             </View>
-            <View className="flex-row justify-between pt-2 border-t border-zinc-200 mt-2">
-              <Text className="text-zinc-900 text-sm font-semibold">Yhteensä</Text>
-              <Text className="text-zinc-900 text-sm font-semibold tabular-nums">60 op</Text>
+            <View className="flex-row justify-between pt-2 border-t border-zinc-200 dark:border-zinc-700 mt-2">
+              <Text className="text-zinc-900 dark:text-zinc-100 text-sm font-semibold">Yhteensä</Text>
+              <Text className="text-zinc-900 dark:text-zinc-100 text-sm font-semibold tabular-nums">60 op</Text>
             </View>
           </View>
         </View>
 
-        {/* Description */}
-        <View className="p-4 border-b border-zinc-200">
-          <Text className="text-sm text-zinc-600 leading-relaxed">
+        
+        <View className="p-4 border-b border-zinc-200 dark:border-zinc-700">
+          <Text className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
             Tämä opintosuunta tarjoaa kattavan katsauksen kognitiotieteen keskeisiin
             aiheisiin ja menetelmiin. Opinnot koostuvat perus- ja aineopinnoista.
           </Text>
         </View>
 
-        {/* Courses List */}
+        
         <View className="p-4">
-          <Text className="text-lg font-semibold text-zinc-900 mb-3 tracking-tight">
+          <Text className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-3 tracking-tight">
             Kurssit
           </Text>
-          <View className="bg-white border border-zinc-200 rounded-lg overflow-hidden">
-            {/* Table Header */}
-            <View className="flex-row px-4 py-3 bg-zinc-50 border-b border-zinc-200">
-              <Text className="flex-1 text-xs font-medium text-zinc-500 uppercase tracking-wide">Opintojakso</Text>
-              <Text className="w-12 text-xs font-medium text-zinc-500 uppercase tracking-wide text-right">op</Text>
+          <View className="bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-lg overflow-hidden">
+            
+            <View className="flex-row px-4 py-3 bg-zinc-50 dark:bg-zinc-800 border-b border-zinc-200 dark:border-zinc-700">
+              <Text className="flex-1 text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wide">Opintojakso</Text>
+              <Text className="w-12 text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wide text-right">op</Text>
             </View>
 
-            {/* Table Body */}
+            
             {courses.map((course, index) => (
-              <Pressable
+              <Link
                 key={course.sys.id}
-                onPress={() => router.push(`/courses/${course.fields.courseId || course.sys.id}`)}
-                className={`active:bg-zinc-50 ${index < courses.length - 1 ? 'border-b border-zinc-100' : ''}`}
+                href={`/courses/${course.fields.courseId || course.sys.id}`}
+                asChild
               >
-                <View className="flex-row px-4 py-3 items-center">
-                  <View className="flex-1 pr-4">
-                    {course.fields.courseId && (
-                      <Text className="text-zinc-400 text-xs mb-1 font-mono">
-                        {course.fields.courseId}
+                <Link.Trigger>
+                  <Pressable
+                    className={`active:bg-zinc-50 dark:active:bg-zinc-700 ${index < courses.length - 1 ? 'border-b border-zinc-100 dark:border-zinc-700' : ''}`}
+                  >
+                    <View className="flex-row px-4 py-3 items-center">
+                      <View className="flex-1 pr-4">
+                        {course.fields.courseId && (
+                          <Text className="text-zinc-400 dark:text-zinc-500 text-xs mb-1 font-mono">
+                            {course.fields.courseId}
+                          </Text>
+                        )}
+                        <Text className="text-zinc-900 dark:text-zinc-100 text-sm font-medium">
+                          {course.fields.name}
+                        </Text>
+                      </View>
+                      <Text className="w-12 text-zinc-500 dark:text-zinc-400 text-sm text-right tabular-nums">
+                        {course.fields.ects}
                       </Text>
-                    )}
-                    <Text className="text-zinc-900 text-sm font-medium underline underline-offset-2 decoration-zinc-300">
-                      {course.fields.name}
-                    </Text>
-                  </View>
-                  <Text className="w-12 text-zinc-500 text-sm text-right tabular-nums">
-                    {course.fields.ects}
-                  </Text>
-                </View>
-              </Pressable>
+                    </View>
+                  </Pressable>
+                </Link.Trigger>
+                <Link.Preview />
+              </Link>
             ))}
           </View>
         </View>

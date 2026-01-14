@@ -51,7 +51,7 @@ export function WebHeader() {
         onPress={closeMenu}
       >
         <View className="absolute top-0 right-0 bottom-0 w-72 bg-zinc-950 border-l border-zinc-800">
-          {/* Menu header */}
+          
           <View className="flex-row items-center justify-between px-4 h-14 border-b border-zinc-800">
             <Text className="text-zinc-50 font-semibold">Menu</Text>
             <Pressable
@@ -63,7 +63,7 @@ export function WebHeader() {
             </Pressable>
           </View>
 
-          {/* Nav items */}
+          
           <View className="p-2">
             {navItems.map((item) => {
               const Icon = item.icon;
@@ -93,7 +93,7 @@ export function WebHeader() {
             })}
           </View>
 
-          {/* Theme toggle in menu */}
+          
           <View className="px-2 mt-4 pt-4 border-t border-zinc-800">
             <Pressable
               onPress={() => {
@@ -118,7 +118,7 @@ export function WebHeader() {
     <>
       <View className="bg-zinc-950 border-b border-zinc-800 sticky top-0 z-50">
         <View className="max-w-4xl mx-auto px-4 h-14 flex-row items-center justify-between w-full">
-          {/* Logo */}
+          
           <Link href="/" asChild>
             <Pressable
               className="flex-row items-center"
@@ -131,7 +131,7 @@ export function WebHeader() {
             </Pressable>
           </Link>
 
-          {/* Desktop navigation */}
+          
           {!isMobile && (
             <View className="flex-row items-center gap-1">
               {navItems.map((item) => (
@@ -159,7 +159,7 @@ export function WebHeader() {
                 </Link>
               ))}
 
-              {/* Theme toggle */}
+              
               <Pressable
                 onPress={toggleTheme}
                 accessibilityRole="button"
@@ -171,17 +171,17 @@ export function WebHeader() {
             </View>
           )}
 
-          {/* Mobile: current page indicator + hamburger */}
+          
           {isMobile && (
             <View className="flex-row items-center gap-2">
-              {/* Current page indicator */}
+              
               <View className="px-2 py-1 bg-zinc-800 rounded">
                 <Text className="text-zinc-300 text-xs">
                   {navItems.find((item) => isActive(item.href))?.label || 'Menu'}
                 </Text>
               </View>
 
-              {/* Theme toggle */}
+              
               <Pressable
                 onPress={toggleTheme}
                 accessibilityRole="button"
@@ -191,7 +191,7 @@ export function WebHeader() {
                 <ThemeIcon size={20} color="#a1a1aa" />
               </Pressable>
 
-              {/* Hamburger menu button */}
+              
               <Pressable
                 onPress={() => setMenuOpen(true)}
                 accessibilityRole="button"
@@ -205,7 +205,7 @@ export function WebHeader() {
         </View>
       </View>
 
-      {/* Mobile menu */}
+      
       {isMobile && <MobileMenu />}
     </>
   );

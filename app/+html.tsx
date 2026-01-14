@@ -90,7 +90,7 @@ export default function Root({ children }: PropsWithChildren) {
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-        {/* Primary Meta Tags */}
+        
         <meta name="title" content={`${SITE_NAME} - ${SITE_DESCRIPTION}`} />
         <meta name="description" content="Salainen tiedekunta on Helsingin yliopistoon vuonna 1998 perustettu kognitiotieteen monipuolista opetusta ja tutkimusta kehittävä organisaatio." />
         <meta name="keywords" content="kognitiotiede, Helsingin yliopisto, opintopiiri, kurssit, opetus, tutkimus, neurotiede, tekoäly, kielitiede, filosofia" />
@@ -98,11 +98,11 @@ export default function Root({ children }: PropsWithChildren) {
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
         <meta name="googlebot" content="index, follow" />
 
-        {/* Geo Tags */}
+        
         <meta name="geo.region" content="FI-18" />
         <meta name="geo.placename" content="Helsinki" />
 
-        {/* Open Graph / Facebook */}
+        
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content={SITE_NAME} />
         <meta property="og:locale" content="fi_FI" />
@@ -112,20 +112,20 @@ export default function Root({ children }: PropsWithChildren) {
         <meta property="og:image:height" content="630" />
         <meta property="og:image:alt" content={SITE_NAME} />
 
-        {/* Twitter Card */}
+        
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:image" content={`${SITE_URL}/og-image.png`} />
         <meta name="twitter:creator" content="@salainentdk" />
         <meta name="twitter:site" content="@salainentdk" />
 
-        {/* Theme & Browser */}
+        
         <meta name="theme-color" content="#09090b" media="(prefers-color-scheme: dark)" />
         <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
         <meta name="msapplication-TileColor" content="#09090b" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
         <meta name="format-detection" content="telephone=no" />
 
-        {/* PWA & App Links */}
+        
         <link rel="manifest" href="/manifest.json" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -133,18 +133,18 @@ export default function Root({ children }: PropsWithChildren) {
         <meta name="application-name" content="Sal. tdk." />
         <meta name="mobile-web-app-capable" content="yes" />
 
-        {/* Favicons */}
+        
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#09090b" />
 
-        {/* Preconnect for Performance */}
+        
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://images.ctfassets.net" />
         <link rel="dns-prefetch" href="https://cdn.contentful.com" />
 
-        {/* JSON-LD Structured Data - Graph */}
+        
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -157,7 +157,7 @@ export default function Root({ children }: PropsWithChildren) {
 
         <ScrollViewStyleReset />
 
-        {/* Vercel Analytics */}
+        
         <script dangerouslySetInnerHTML={{ __html: `
           window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
         `}} />
