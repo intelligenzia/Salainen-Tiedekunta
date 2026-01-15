@@ -2,6 +2,7 @@ import { SEO } from '@/components/SEO';
 import { Text } from '@/components/ui/text';
 import { createBreadcrumbSchema, SITE_URL } from '@/lib/seo';
 import { useTheme } from '@/lib/stores/theme';
+import { useLanguage } from '@/lib/stores/language';
 import { useRouter } from 'expo-router';
 import { Check, ChevronRight, Copyright, FileText, Globe, Moon, Package, Scale, Sun } from 'lucide-react-native';
 import { Linking, Pressable, ScrollView, View } from 'react-native';
@@ -63,16 +64,17 @@ function SettingsOption({ title, selected, onPress, isDark }: SettingsOptionProp
 export default function SettingsScreen() {
   const router = useRouter();
   const { isDark, theme, setTheme } = useTheme();
+  const { language, setLanguage, t } = useLanguage();
 
   const breadcrumbSchema = createBreadcrumbSchema([
-    { name: 'Etusivu', url: SITE_URL },
-    { name: 'Asetukset', url: `${SITE_URL}/settings` },
+    { name: t('home'), url: SITE_URL },
+    { name: t('settings'), url: `${SITE_URL}/settings` },
   ]);
 
   return (
     <>
       <SEO
-        title="Asetukset"
+        title={t('settings')}
         description="Salainen Tiedekunta - Asetukset ja lailliset tiedot"
         path="/settings"
         jsonLd={[breadcrumbSchema]}
@@ -83,23 +85,23 @@ export default function SettingsScreen() {
           {/* Theme Selection */}
           <View className="mt-6">
             <Text className="text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wide px-4 mb-2">
-              Ulkoasu
+              {t('appearance')}
             </Text>
             <View className="bg-white dark:bg-zinc-800 border-y border-zinc-200 dark:border-zinc-700">
               <SettingsOption
-                title="Vaalea"
+                title={t('light')}
                 selected={theme === 'light'}
                 onPress={() => setTheme('light')}
                 isDark={isDark}
               />
               <SettingsOption
-                title="Tumma"
+                title={t('dark')}
                 selected={theme === 'dark'}
                 onPress={() => setTheme('dark')}
                 isDark={isDark}
               />
               <SettingsOption
-                title="Järjestelmä"
+                title={t('system')}
                 selected={theme === 'system'}
                 onPress={() => setTheme('system')}
                 isDark={isDark}
@@ -110,19 +112,19 @@ export default function SettingsScreen() {
           {/* Language Selection */}
           <View className="mt-6">
             <Text className="text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wide px-4 mb-2">
-              Kieli
+              {t('language')}
             </Text>
             <View className="bg-white dark:bg-zinc-800 border-y border-zinc-200 dark:border-zinc-700">
               <SettingsOption
                 title="Suomi"
-                selected={true}
-                onPress={() => {}}
+                selected={language === 'fi'}
+                onPress={() => setLanguage('fi')}
                 isDark={isDark}
               />
               <SettingsOption
                 title="English"
-                selected={false}
-                onPress={() => {}}
+                selected={language === 'en'}
+                onPress={() => setLanguage('en')}
                 isDark={isDark}
               />
             </View>
@@ -131,34 +133,30 @@ export default function SettingsScreen() {
           {/* Legal Information */}
           <View className="mt-6">
             <Text className="text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wide px-4 mb-2">
-              Lakitiedot
+              {t('legalInfo')}
             </Text>
             <View className="bg-white dark:bg-zinc-800 border-y border-zinc-200 dark:border-zinc-700">
               <SettingsItem
                 icon={FileText}
-                title="Käyttöehdot"
-                description="Sovelluksen käyttöehdot"
+                title={t('termsOfUse')}
                 onPress={() => router.push('/terms')}
                 isDark={isDark}
               />
               <SettingsItem
                 icon={Scale}
-                title="Lisenssi"
-                description="MIT-lisenssi"
+                title={t('license')}
                 onPress={() => router.push('/license')}
                 isDark={isDark}
               />
               <SettingsItem
                 icon={Copyright}
-                title="Tekijänoikeudet"
-                description="© 2024 Salainen Tiedekunta"
+                title={t('copyright')}
                 onPress={() => router.push('/copyright')}
                 isDark={isDark}
               />
               <SettingsItem
                 icon={Package}
-                title="Avoimen lähdekoodin kirjastot"
-                description="Käytetyt kolmannen osapuolen paketit"
+                title={t('openSourceLibraries')}
                 onPress={() => router.push('/open-source')}
                 isDark={isDark}
               />

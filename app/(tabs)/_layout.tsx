@@ -1,10 +1,12 @@
 import { Tabs } from 'expo-router';
 import { Icon, Label, NativeTabs } from 'expo-router/unstable-native-tabs';
 import { Platform } from 'react-native';
+import { useLanguage } from '@/lib/stores/language';
 
 const isWeb = Platform.OS === 'web';
 
 export default function TabLayout() {
+  const { t } = useLanguage();
 
   // On web, we use WebHeader instead of tabs - hide the tab bar
   if (isWeb) {
@@ -16,10 +18,10 @@ export default function TabLayout() {
         }}
       >
         <Tabs.Screen name="index" options={{ href: null }} />
-        <Tabs.Screen name="home" options={{ title: 'Etusivu' }} />
-        <Tabs.Screen name="majors-tab" options={{ title: 'Pääaineet' }} />
-        <Tabs.Screen name="courses-tab" options={{ title: 'Kurssit' }} />
-        <Tabs.Screen name="teachers-tab" options={{ title: 'Opettajat' }} />
+        <Tabs.Screen name="home" options={{ title: t('home') }} />
+        <Tabs.Screen name="majors-tab" options={{ title: t('majors') }} />
+        <Tabs.Screen name="courses-tab" options={{ title: t('courses') }} />
+        <Tabs.Screen name="teachers-tab" options={{ title: t('teachers') }} />
         <Tabs.Screen name="settings-tab" options={{ href: null }} />
       </Tabs>
     );
@@ -33,7 +35,7 @@ export default function TabLayout() {
           sf={{ default: 'house', selected: 'house.fill' }}
           drawable="ic_home"
         />
-        <Label>Etusivu</Label>
+        <Label>{t('home')}</Label>
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="majors-tab">
@@ -41,7 +43,7 @@ export default function TabLayout() {
           sf={{ default: 'graduationcap', selected: 'graduationcap.fill' }}
           drawable="ic_school"
         />
-        <Label>Pääaineet</Label>
+        <Label>{t('majors')}</Label>
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="courses-tab">
@@ -49,7 +51,7 @@ export default function TabLayout() {
           sf={{ default: 'book', selected: 'book.fill' }}
           drawable="ic_menu_book"
         />
-        <Label>Kurssit</Label>
+        <Label>{t('courses')}</Label>
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="teachers-tab">
@@ -57,7 +59,7 @@ export default function TabLayout() {
           sf={{ default: 'person.2', selected: 'person.2.fill' }}
           drawable="ic_group"
         />
-        <Label>Opettajat</Label>
+        <Label>{t('teachers')}</Label>
       </NativeTabs.Trigger>
     </NativeTabs>
   );
