@@ -66,12 +66,10 @@ export default function TeachersScreen() {
     [router]
   );
 
-  // Handle hover for prefetching (web only)
-  const handleTeacherHover = useCallback(
+  // Handle hover/press for prefetching
+  const handleTeacherPrefetch = useCallback(
     (teacher: TeacherEntry) => {
-      if (isWeb) {
-        prefetchTeacher(teacher.fields.slug || teacher.sys.id);
-      }
+      prefetchTeacher(teacher.fields.slug || teacher.sys.id);
     },
     [prefetchTeacher]
   );
@@ -82,7 +80,8 @@ export default function TeachersScreen() {
       return (
         <Pressable
           onPress={() => handleTeacherPress(teacher)}
-          onHoverIn={() => handleTeacherHover(teacher)}
+          onHoverIn={() => handleTeacherPrefetch(teacher)}
+          onPressIn={() => handleTeacherPrefetch(teacher)}
           accessibilityRole="button"
           accessibilityLabel={teacher.fields.name}
           accessibilityHint="Avaa opettajan tiedot"
@@ -130,7 +129,7 @@ export default function TeachersScreen() {
         </Pressable>
       );
     },
-    [handleTeacherPress, handleTeacherHover, isDark]
+    [handleTeacherPress, handleTeacherPrefetch, isDark]
   );
 
   // SEO schemas

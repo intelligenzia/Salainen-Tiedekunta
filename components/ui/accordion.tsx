@@ -1,4 +1,3 @@
-import { Icon } from '@/components/ui/icon';
 import { TextClassContext } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
 import * as AccordionPrimitive from '@rn-primitives/accordion';
@@ -38,7 +37,7 @@ function AccordionItem({
   return (
     <AccordionPrimitive.Item
       className={cn(
-        'border-border border-b',
+        'border-zinc-200 dark:border-zinc-700 border-b',
         Platform.select({ web: 'last:border-b-0' }),
         className
       )}
@@ -88,22 +87,13 @@ function AccordionTrigger({
             className={cn(
               'flex-row items-start justify-between gap-4 rounded-md py-4 disabled:opacity-50',
               Platform.select({
-                web: 'focus-visible:border-ring focus-visible:ring-ring/50 flex flex-1 outline-none transition-all hover:underline focus-visible:ring-[3px] disabled:pointer-events-none [&[data-state=open]>svg]:rotate-180',
+                web: 'focus-visible:border-zinc-400 focus-visible:ring-zinc-400/50 flex flex-1 outline-none transition-all hover:underline focus-visible:ring-[3px] disabled:pointer-events-none [&[data-state=open]>svg]:rotate-180',
               }),
               className
             )}>
             <>{children}</>
             <Animated.View style={chevronStyle}>
-              <Icon
-                as={ChevronDown}
-                size={16}
-                className={cn(
-                  'text-muted-foreground shrink-0',
-                  Platform.select({
-                    web: 'pointer-events-none translate-y-0.5 transition-transform duration-200',
-                  })
-                )}
-              />
+              <ChevronDown size={16} color="#71717a" />
             </Animated.View>
           </Trigger>
         </AccordionPrimitive.Trigger>

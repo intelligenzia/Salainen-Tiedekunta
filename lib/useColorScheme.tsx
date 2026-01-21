@@ -1,11 +1,19 @@
-import { useColorScheme as useNativewindColorScheme } from 'nativewind';
+import { useUniwind, Uniwind } from 'uniwind';
 
 export function useColorScheme() {
-  const { colorScheme, setColorScheme, toggleColorScheme } =
-    useNativewindColorScheme();
+  const { theme } = useUniwind();
+
+  const setColorScheme = (scheme: 'light' | 'dark' | 'system') => {
+    Uniwind.setTheme(scheme);
+  };
+
+  const toggleColorScheme = () => {
+    Uniwind.setTheme(theme === 'light' ? 'dark' : 'light');
+  };
+
   return {
-    colorScheme: colorScheme ?? 'dark',
-    isDarkColorScheme: colorScheme === 'dark',
+    colorScheme: theme,
+    isDarkColorScheme: theme === 'dark',
     setColorScheme,
     toggleColorScheme,
   };

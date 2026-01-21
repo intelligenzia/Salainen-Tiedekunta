@@ -124,12 +124,10 @@ export default function CoursesScreen() {
     [toggleFavorite]
   );
 
-  // Handle hover for prefetching (web only)
-  const handleCourseHover = useCallback(
+  // Handle hover/press for prefetching
+  const handleCoursePrefetch = useCallback(
     (course: CourseEntry) => {
-      if (isWeb) {
-        prefetchCourse(course.fields.courseId || course.sys.id);
-      }
+      prefetchCourse(course.fields.courseId || course.sys.id);
     },
     [prefetchCourse]
   );
@@ -144,7 +142,8 @@ export default function CoursesScreen() {
         <Link href={`/courses/${courseId}`} asChild>
           <Link.Trigger>
             <Pressable
-              onHoverIn={() => handleCourseHover(course)}
+              onHoverIn={() => handleCoursePrefetch(course)}
+              onPressIn={() => handleCoursePrefetch(course)}
               accessibilityRole="button"
               accessibilityLabel={`${course.fields.name}, ${course.fields.ects} opintopistettä${isFav ? ', suosikki' : ''}`}
               accessibilityHint="Avaa kurssin tiedot"
@@ -194,7 +193,7 @@ export default function CoursesScreen() {
         </Link>
       );
     },
-    [isFavorite, handleCourseHover, handleToggleFavorite, isDark]
+    [isFavorite, handleCoursePrefetch, handleToggleFavorite, isDark]
   );
 
   // SEO schemas
@@ -271,6 +270,8 @@ export default function CoursesScreen() {
                   {autocompleteSuggestions.map((course) => (
                     <Pressable
                       key={course.sys.id}
+                      onHoverIn={() => handleCoursePrefetch(course)}
+                      onPressIn={() => handleCoursePrefetch(course)}
                       onPress={() => {
                         router.push(`/courses/${course.fields.courseId || course.sys.id}`);
                         setShowAutocomplete(false);

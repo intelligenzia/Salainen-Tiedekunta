@@ -2,6 +2,7 @@ import { Platform, View, Pressable, useWindowDimensions, Modal } from 'react-nat
 import { Link, usePathname } from 'expo-router';
 import { Text } from '@/components/ui/text';
 import { useTheme } from '@/lib/stores/theme';
+import { haptics } from '@/lib/haptics';
 import { Sun, Moon, Monitor, Menu, X, Home, GraduationCap, BookOpen, Users } from 'lucide-react-native';
 import { useState, useCallback } from 'react';
 
@@ -21,6 +22,11 @@ export function WebHeader() {
   const { width } = useWindowDimensions();
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const closeMenu = useCallback(() => {
+    haptics.light();
+    setMenuOpen(false);
+  }, []);
+
   const isMobile = width < MOBILE_BREAKPOINT;
 
   if (Platform.OS !== 'web') {
@@ -35,8 +41,6 @@ export function WebHeader() {
   const ThemeIcon = theme === 'light' ? Sun : theme === 'dark' ? Moon : Monitor;
   const themeLabel =
     theme === 'light' ? 'Vaalea teema' : theme === 'dark' ? 'Tumma teema' : 'Järjestelmän teema';
-
-  const closeMenu = useCallback(() => setMenuOpen(false), []);
 
   // Mobile menu modal
   const MobileMenu = () => (
@@ -97,6 +101,7 @@ export function WebHeader() {
           <View className="px-2 mt-4 pt-4 border-t border-zinc-800">
             <Pressable
               onPress={() => {
+                haptics.selection();
                 toggleTheme();
               }}
               className="flex-row items-center px-4 py-3 rounded-lg active:bg-zinc-800"
@@ -159,9 +164,12 @@ export function WebHeader() {
                 </Link>
               ))}
 
-              
+
               <Pressable
-                onPress={toggleTheme}
+                onPress={() => {
+                  haptics.selection();
+                  toggleTheme();
+                }}
                 accessibilityRole="button"
                 accessibilityLabel={`Vaihda teemaa: ${themeLabel}`}
                 className="ml-2 p-2 rounded-md hover:bg-zinc-900 active:bg-zinc-800"
@@ -181,9 +189,12 @@ export function WebHeader() {
                 </Text>
               </View>
 
-              
+
               <Pressable
-                onPress={toggleTheme}
+                onPress={() => {
+                  haptics.selection();
+                  toggleTheme();
+                }}
                 accessibilityRole="button"
                 accessibilityLabel={`Vaihda teemaa: ${themeLabel}`}
                 className="p-2 rounded-md active:bg-zinc-800"
@@ -191,9 +202,12 @@ export function WebHeader() {
                 <ThemeIcon size={20} color="#a1a1aa" />
               </Pressable>
 
-              
+
               <Pressable
-                onPress={() => setMenuOpen(true)}
+                onPress={() => {
+                  haptics.light();
+                  setMenuOpen(true);
+                }}
                 accessibilityRole="button"
                 accessibilityLabel="Avaa menu"
                 className="p-2 -mr-2 rounded-md active:bg-zinc-800"

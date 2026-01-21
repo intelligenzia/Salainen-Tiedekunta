@@ -8,6 +8,7 @@ import { useCourse } from '@/lib/hooks/useQueries';
 import { createBreadcrumbSchema, createCourseSchema, SITE_URL } from '@/lib/seo';
 import { useFavorites } from '@/lib/stores/favorites';
 import { useTheme } from '@/lib/stores/theme';
+import { analytics, AnalyticsEvents } from '@/lib/analytics';
 import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import {
@@ -26,7 +27,7 @@ import {
   Target,
   Users,
 } from 'lucide-react-native';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { Platform, Pressable, RefreshControl, ScrollView, Share, View } from 'react-native';
 
 const isWeb = Platform.OS === 'web';
@@ -177,11 +178,34 @@ export default function CourseDetailScreen({
   const courseId = course?.fields.courseId || id || '';
   const isFav = isFavorite(courseId);
 
+  // Track course view
+  useEffect(() => {
+    if (course) {
+      analytics.track(AnalyticsEvents.COURSE_VIEWED, {
+        course_id: courseId,
+        course_name: course.fields.name,
+        ects: course.fields.ects,
+      });
+
+      analytics.screen('Course Detail', {
+        course_id: courseId,
+        course_name: course.fields.name,
+      });
+    }
+  }, [course, courseId]);
+
   // Handle favorite toggle
   const handleToggleFavorite = useCallback(() => {
     haptics.selection();
     toggleFavorite(courseId);
-  }, [courseId, toggleFavorite]);
+
+    // Track analytics
+    const action = isFav ? 'unfavorite' : 'favorite';
+    analytics.track(
+      action === 'favorite' ? AnalyticsEvents.COURSE_FAVORITED : AnalyticsEvents.COURSE_UNFAVORITED,
+      { course_id: courseId }
+    );
+  }, [courseId, toggleFavorite, isFav]);
 
   // Handle share
   const handleShare = useCallback(async () => {
@@ -192,6 +216,12 @@ export default function CourseDetailScreen({
         message: `Tutustu kurssiin ${course?.fields.name} Salaisen Tiedekunnan sivuilla: ${SITE_URL}/courses/${courseId}`,
         url: `${SITE_URL}/courses/${courseId}`,
       });
+
+      // Track successful share
+      analytics.track(AnalyticsEvents.COURSE_SHARED, {
+        course_id: courseId,
+        course_name: course?.fields.name,
+      });
     } catch {
       // Ignore share errors
     }
@@ -201,7 +231,13 @@ export default function CourseDetailScreen({
   const handleRefresh = useCallback(() => {
     haptics.light();
     refetch();
-  }, [refetch]);
+
+    // Track refresh
+    analytics.track(AnalyticsEvents.REFRESH_TRIGGERED, {
+      screen: 'Course Detail',
+      course_id: courseId,
+    });
+  }, [refetch, courseId]);
 
   if (isLoading && !course) {
     return (

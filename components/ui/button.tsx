@@ -7,35 +7,35 @@ const buttonVariants = cva(
   cn(
     'group shrink-0 flex-row items-center justify-center gap-2 rounded-md shadow-none',
     Platform.select({
-      web: "focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive whitespace-nowrap outline-none transition-all focus-visible:ring-[3px] disabled:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+      web: "focus-visible:border-zinc-400 focus-visible:ring-zinc-400/50 aria-invalid:ring-red-500/20 dark:aria-invalid:ring-red-500/40 aria-invalid:border-red-500 whitespace-nowrap outline-none transition-all focus-visible:ring-[3px] disabled:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
     })
   ),
   {
     variants: {
       variant: {
         default: cn(
-          'bg-primary active:bg-primary/90 shadow-sm shadow-black/5',
-          Platform.select({ web: 'hover:bg-primary/90' })
+          'bg-zinc-900 dark:bg-zinc-100 active:bg-zinc-800 dark:active:bg-zinc-200 shadow-sm shadow-black/5',
+          Platform.select({ web: 'hover:bg-zinc-800 dark:hover:bg-zinc-200' })
         ),
         destructive: cn(
-          'bg-destructive active:bg-destructive/90 dark:bg-destructive/60 shadow-sm shadow-black/5',
+          'bg-red-500 active:bg-red-600 dark:bg-red-600 shadow-sm shadow-black/5',
           Platform.select({
-            web: 'hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40',
+            web: 'hover:bg-red-600 focus-visible:ring-red-500/20 dark:focus-visible:ring-red-500/40',
           })
         ),
         outline: cn(
-          'border-border bg-background active:bg-accent dark:bg-input/30 dark:border-input dark:active:bg-input/50 border shadow-sm shadow-black/5',
+          'border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 active:bg-zinc-100 dark:active:bg-zinc-700 border shadow-sm shadow-black/5',
           Platform.select({
-            web: 'hover:bg-accent dark:hover:bg-input/50',
+            web: 'hover:bg-zinc-100 dark:hover:bg-zinc-700',
           })
         ),
         secondary: cn(
-          'bg-secondary active:bg-secondary/80 shadow-sm shadow-black/5',
-          Platform.select({ web: 'hover:bg-secondary/80' })
+          'bg-zinc-100 dark:bg-zinc-800 active:bg-zinc-200 dark:active:bg-zinc-700 shadow-sm shadow-black/5',
+          Platform.select({ web: 'hover:bg-zinc-200 dark:hover:bg-zinc-700' })
         ),
         ghost: cn(
-          'active:bg-accent dark:active:bg-accent/50',
-          Platform.select({ web: 'hover:bg-accent dark:hover:bg-accent/50' })
+          'active:bg-zinc-100 dark:active:bg-zinc-800',
+          Platform.select({ web: 'hover:bg-zinc-100 dark:hover:bg-zinc-800' })
         ),
         link: '',
       },
@@ -55,22 +55,22 @@ const buttonVariants = cva(
 
 const buttonTextVariants = cva(
   cn(
-    'text-foreground text-sm font-medium',
+    'text-zinc-900 dark:text-zinc-100 text-sm font-medium',
     Platform.select({ web: 'pointer-events-none transition-colors' })
   ),
   {
     variants: {
       variant: {
-        default: 'text-primary-foreground',
+        default: 'text-white dark:text-zinc-900',
         destructive: 'text-white',
         outline: cn(
-          'group-active:text-accent-foreground',
-          Platform.select({ web: 'group-hover:text-accent-foreground' })
+          'group-active:text-zinc-900 dark:group-active:text-zinc-100',
+          Platform.select({ web: 'group-hover:text-zinc-900 dark:group-hover:text-zinc-100' })
         ),
-        secondary: 'text-secondary-foreground',
-        ghost: 'group-active:text-accent-foreground',
+        secondary: 'text-zinc-900 dark:text-zinc-100',
+        ghost: 'group-active:text-zinc-900 dark:group-active:text-zinc-100',
         link: cn(
-          'text-primary group-active:underline',
+          'text-zinc-900 dark:text-zinc-100 group-active:underline',
           Platform.select({ web: 'underline-offset-4 hover:underline group-hover:underline' })
         ),
       },

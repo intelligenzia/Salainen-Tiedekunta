@@ -4,10 +4,10 @@ import { View, type ViewProps } from 'react-native';
 
 function Card({ className, ...props }: ViewProps & React.RefAttributes<View>) {
   return (
-    <TextClassContext.Provider value="text-card-foreground">
+    <TextClassContext.Provider value="text-zinc-900 dark:text-zinc-100">
       <View
         className={cn(
-          'bg-card border-border flex flex-col gap-6 rounded-xl border py-6 shadow-sm shadow-black/5',
+          'bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-700 flex flex-col gap-6 rounded-xl border py-6 shadow-sm shadow-black/5',
           className
         )}
         {...props}
@@ -38,7 +38,7 @@ function CardDescription({
   className,
   ...props
 }: React.ComponentProps<typeof Text> & React.RefAttributes<Text>) {
-  return <Text className={cn('text-muted-foreground text-sm', className)} {...props} />;
+  return <Text className={cn('text-zinc-500 dark:text-zinc-400 text-sm', className)} {...props} />;
 }
 
 function CardContent({ className, ...props }: ViewProps & React.RefAttributes<View>) {

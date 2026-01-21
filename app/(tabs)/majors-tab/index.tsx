@@ -50,12 +50,10 @@ export default function MajorsScreen() {
     refetch();
   }, [refetch]);
 
-  // Handle hover for prefetching (web only)
-  const handleMajorHover = useCallback(
+  // Handle hover/press for prefetching
+  const handleMajorPrefetch = useCallback(
     (major: MajorEntry) => {
-      if (isWeb) {
-        prefetchMajor(major.fields.slug || major.sys.id);
-      }
+      prefetchMajor(major.fields.slug || major.sys.id);
     },
     [prefetchMajor]
   );
@@ -70,7 +68,8 @@ export default function MajorsScreen() {
         <Link href={`/majors/${majorSlug}`} asChild>
           <Link.Trigger>
             <Pressable
-              onHoverIn={() => handleMajorHover(major)}
+              onHoverIn={() => handleMajorPrefetch(major)}
+              onPressIn={() => handleMajorPrefetch(major)}
               accessibilityRole="button"
               accessibilityLabel={`${major.fields.name}, ${stats.courses} kurssia, ${stats.credits} opintopistettä`}
               accessibilityHint="Avaa pääaineen tiedot"
@@ -108,7 +107,7 @@ export default function MajorsScreen() {
         </Link>
       );
     },
-    [handleMajorHover, isDark]
+    [handleMajorPrefetch, isDark]
   );
 
   // SEO schemas

@@ -39,7 +39,7 @@ const dependencies = [
   { name: 'expo-system-ui', version: '~6.0.9', license: 'MIT', url: 'https://github.com/expo/expo' },
   { name: 'expo-web-browser', version: '~15.0.10', license: 'MIT', url: 'https://github.com/expo/expo' },
   { name: 'lucide-react-native', version: '^0.562.0', license: 'ISC', url: 'https://github.com/lucide-icons/lucide' },
-  { name: 'nativewind', version: '^4.2.1', license: 'MIT', url: 'https://github.com/marklawlor/nativewind' },
+  { name: 'uniwind', version: '^1.2.4', license: 'MIT', url: 'https://github.com/nicksrandall/uniwind' },
   { name: 'react', version: '19.1.0', license: 'MIT', url: 'https://github.com/facebook/react' },
   { name: 'react-dom', version: '19.1.0', license: 'MIT', url: 'https://github.com/facebook/react' },
   { name: 'react-native', version: '0.81.5', license: 'MIT', url: 'https://github.com/facebook/react-native' },
