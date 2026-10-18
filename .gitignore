@@ -54,3 +54,6 @@ goldie/out/
 
 # local release builds
 build/
+
+# argent screen recordings
+.argent/recordings/
