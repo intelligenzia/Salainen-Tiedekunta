@@ -11,15 +11,15 @@ const config = {
 
   devices: ['iphone-6.9'],
   locales: ['fi'],
-  appearance: 'light',
+  appearance: 'dark',
 
   frame: { variant: '17-pro-silver' },
 
   theme: {
-    background: 'linear-gradient(170deg, #F5F1E8 0%, #EFE8DA 60%, #E9DFCC 100%)',
-    headlineColor: '#1D1A16',
-    subheadColor: '#4A443B',
-    fontFamily: 'Merriweather',
+    background: 'linear-gradient(175deg, #141416 0%, #09090A 70%)',
+    headlineColor: '#ECECEE',
+    subheadColor: '#8C8C93',
+    fontFamily: '-apple-system, "SF Pro Display", system-ui, sans-serif',
     copyHeightRatio: 0.24,
     deviceWidthRatio: 0.84,
     template: 'uniform',
@@ -44,37 +44,37 @@ const config = {
   scenes: [
     {
       kind: 'screenshot',
+      id: 'pledge',
+      flow: 'store-01-pledge',
+      headline: { fi: 'Pääsy rajoitettu' },
+      subhead: { fi: 'Salassapitolupaus ensin. Sitten arkisto aukeaa.' },
+    },
+    {
+      kind: 'screenshot',
       id: 'home',
-      flow: 'store-01-home',
+      flow: 'store-02-home',
       headline: { fi: 'Opinto-opas, jota ei virallisesti ole' },
-      subhead: { fi: 'Salaisen Tiedekunnan kurssit taskussa.' },
+      subhead: { fi: 'Salaisen Tiedekunnan arkisto taskussa.' },
     },
     {
       kind: 'screenshot',
       id: 'courses',
-      flow: 'store-02-courses',
-      headline: { fi: '93 kurssia, yksi haku' },
+      flow: 'store-03-courses',
+      headline: { fi: 'Kaikki kurssit, yksi haku' },
       subhead: { fi: 'Etsi nimellä tai koodilla, tallenna suosikit.' },
     },
     {
       kind: 'screenshot',
       id: 'course',
-      flow: 'store-03-course',
-      headline: { fi: 'Koko kurssikuvaus' },
-      subhead: { fi: 'Opettajat ja pääaineet samalla sivulla.' },
-    },
-    {
-      kind: 'screenshot',
-      id: 'majors',
-      flow: 'store-04-majors',
-      headline: { fi: 'Valitse pääaineesi' },
-      subhead: { fi: '14 opintosuuntaa kursseineen ja opintopisteineen.' },
+      flow: 'store-04-course',
+      headline: { fi: 'Osa tiedoista on salattu' },
+      subhead: { fi: 'Opetuspaikat ja -ajat kuuluvat salassapitovelvollisuuteen.' },
     },
     {
       kind: 'screenshot',
       id: 'teacher',
       flow: 'store-05-teacher',
-      headline: { fi: 'Tunne opettajasi' },
+      headline: { fi: 'Henkilöstötiedostot' },
       subhead: { fi: 'Ainakin ne, joiden henkilöllisyys ei ole salainen.' },
     },
     {

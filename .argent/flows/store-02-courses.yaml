@@ -1,6 +1,0 @@
-steps:
-  - launch: com.tiedekunta.app
-  - await: { visible: { text: Päivän kurssit } }
-  - tap: { text: Kurssit }
-  - await: { visible: { text: Abduktio tutkimusmenetelmänä } }
-  - await: { idle: true }

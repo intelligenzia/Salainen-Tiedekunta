@@ -1,6 +1,0 @@
-steps:
-  - launch: com.tiedekunta.app
-  - await: { visible: { text: Päivän kurssit } }
-  - tap: { text: Pääaineet }
-  - await: { visible: { text: Kognitiivinen kemia } }
-  - await: { idle: true }

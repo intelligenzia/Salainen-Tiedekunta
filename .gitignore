@@ -51,3 +51,6 @@ goldie/out/
 
 # Netlify
 .netlify/
+
+# local release builds
+build/

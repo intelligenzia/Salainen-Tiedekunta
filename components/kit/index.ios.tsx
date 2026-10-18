@@ -392,7 +392,15 @@ export function Action({ title, onPress }: ActionProps) {
         listRowInsets({ top: 0, leading: 0, bottom: 0, trailing: 0 }),
       ]}
     >
-      <Text modifiers={[mono(14, 'semibold'), kerning(1.2), textCase('uppercase'), frame({ maxWidth: Infinity })]}>
+      <Text
+        modifiers={[
+          mono(14, 'semibold'),
+          kerning(1.2),
+          textCase('uppercase'),
+          foregroundStyle(colors.background),
+          frame({ maxWidth: Infinity }),
+        ]}
+      >
         {title}
       </Text>
     </Button>

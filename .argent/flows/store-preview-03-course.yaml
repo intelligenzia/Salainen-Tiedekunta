@@ -1,9 +1,15 @@
 executionPrerequisite: >-
-  Courses tab showing all courses, scrolled slightly so Antipsykiatria is visible.
+  Courses tab, scrolled a little.
 steps:
-  - tap: { text: Antipsykiatria }
-  - await: { visible: { text: Tps331 } }
-  - wait: 1500
-  - tool: gesture-swipe
-    args: { fromX: 0.5, fromY: 0.75, toX: 0.5, toY: 0.35, durationMs: 800 }
-  - wait: 1200
+  - echo: "Tab bar: Opettajat"
+  - tool: gesture-tap
+    args: { x: 0.824, y: 0.945 }
+  - tool: await-ui-element
+    args: { condition: visible, selector: { text: "Otto Lapsi" }, bundleId: com.tiedekunta.app, timeoutMs: 20000 }
+  - wait: 800
+  - echo: "Row: Otto Lapsi"
+  - tool: gesture-tap
+    args: { x: 0.5, y: 0.562 }
+  - tool: await-ui-element
+    args: { condition: visible, selector: { text: "OPETTAA" }, bundleId: com.tiedekunta.app, timeoutMs: 20000 }
+  - wait: 1800

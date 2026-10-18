@@ -1,14 +1,12 @@
 executionPrerequisite: >-
-  App on the home tab, scrolled a little.
+  App on the home tab after accepting the pledge.
 steps:
-  - tap: { text: Kurssit }
-  - await: { visible: { text: Abduktio tutkimusmenetelmänä } }
-  - wait: 1200
-  - tap: { text: Suosikit }
-  - wait: 1200
-  - tap: { text: Kaikki }
-  - await: { visible: { text: Antipsykiatria } }
-  - wait: 600
+  - echo: "Tab bar: Kurssit"
+  - tool: gesture-tap
+    args: { x: 0.607, y: 0.945 }
+  - tool: await-ui-element
+    args: { condition: visible, selector: { text: "Abduktio tutkimusmenetelmänä" }, bundleId: com.tiedekunta.app, timeoutMs: 20000 }
+  - wait: 1500
   - tool: gesture-swipe
-    args: { fromX: 0.5, fromY: 0.75, toX: 0.5, toY: 0.55, durationMs: 700 }
-  - wait: 1000
+    args: { fromX: 0.5, fromY: 0.75, toX: 0.5, toY: 0.5, durationMs: 700 }
+  - wait: 1200

@@ -1,7 +1,10 @@
+# SwiftUI screens are not visible to flow selectors, so these flows wait on the
+# accessibility tree (await-ui-element) and tap by coordinate (iPhone 17 Pro Max).
 steps:
   - launch: com.tiedekunta.app
-  - await: { visible: { text: Päivän kurssit } }
+  - tool: await-ui-element
+    args: { condition: visible, selector: { text: "KURSSIA" }, bundleId: com.tiedekunta.app, timeoutMs: 20000 }
   - wait: 1500
   - tool: gesture-swipe
     args: { fromX: 0.5, fromY: 0.75, toX: 0.5, toY: 0.4, durationMs: 700 }
-  - wait: 1500
+  - wait: 1200

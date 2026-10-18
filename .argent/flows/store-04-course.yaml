@@ -1,0 +1,23 @@
+# SwiftUI screens are not visible to flow selectors, so these flows wait on the
+# accessibility tree (await-ui-element) and tap by coordinate (iPhone 17 Pro Max).
+steps:
+  - launch: com.tiedekunta.app
+  - echo: "The pledge was accepted in store-02-home; app data persists between scenes"
+  - tool: await-ui-element
+    args: { condition: visible, selector: { text: "KURSSIA" }, bundleId: com.tiedekunta.app, timeoutMs: 20000 }
+  - echo: "Tab bar: Opettajat"
+  - tool: gesture-tap
+    args: { x: 0.824, y: 0.945 }
+  - tool: await-ui-element
+    args: { condition: visible, selector: { text: "Krastina Criuse" }, bundleId: com.tiedekunta.app, timeoutMs: 20000 }
+  - echo: "Row: Krastina Criuse"
+  - tool: gesture-tap
+    args: { x: 0.5, y: 0.49 }
+  - tool: await-ui-element
+    args: { condition: visible, selector: { text: "Selittäminen tiukassa paikassa, Ljm311, 1 op" }, bundleId: com.tiedekunta.app, timeoutMs: 20000 }
+  - echo: "Row: Selittäminen tiukassa paikassa"
+  - tool: gesture-tap
+    args: { x: 0.5, y: 0.72 }
+  - tool: await-ui-element
+    args: { condition: visible, selector: { text: "KURSSIKOODI" }, bundleId: com.tiedekunta.app, timeoutMs: 20000 }
+  - wait: 1200

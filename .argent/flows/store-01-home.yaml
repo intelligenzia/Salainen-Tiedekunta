@@ -1,5 +1,0 @@
-steps:
-  - launch: com.tiedekunta.app
-  - await: { visible: { text: Päivän kurssit } }
-  - wait: 1500
-  - await: { idle: true }
