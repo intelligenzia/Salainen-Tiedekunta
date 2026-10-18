@@ -1,8 +1,18 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { getCourses, getMajors, getTeachers, getCourse, getMajor, getTeacher } from '../contentful';
-import type { CourseEntry, MajorEntry, TeacherEntry } from '../contentful';
+import { useMemo } from 'react';
+import {
+  getCourse,
+  getCourses,
+  getMajor,
+  getMajors,
+  getTeacher,
+  getTeachers,
+  majorCourses,
+  type CourseEntry,
+  type MajorEntry,
+  type TeacherEntry,
+} from '../contentful';
 
-// Query keys
 export const queryKeys = {
   courses: ['courses'] as const,
   course: (id: string) => ['course', id] as const,
@@ -12,131 +22,68 @@ export const queryKeys = {
   teacher: (slug: string) => ['teacher', slug] as const,
 };
 
-// Placeholder data
-const placeholderCourses: CourseEntry[] = [
-  { sys: { id: '1' }, fields: { courseId: 'KOG-101', name: 'Johdatus kognitiotieteeseen', ects: 5 } },
-  { sys: { id: '2' }, fields: { courseId: 'KOG-102', name: 'Kognitiivinen psykologia', ects: 5 } },
-  { sys: { id: '3' }, fields: { courseId: 'NEU-101', name: 'Neurotieteen perusteet', ects: 5 } },
-];
+// `initialData` comes from a web route loader (pre-rendered HTML). Marking it
+// as old makes the client refetch fresh content right after hydration.
+const fromLoader = <T,>(data: T | null | undefined) =>
+  data ? { initialData: data, initialDataUpdatedAt: 0 } : {};
 
-const placeholderMajors: MajorEntry[] = [
-  { sys: { id: '1' }, fields: { name: 'Kognitiotiede', slug: 'kognitiotiede' } },
-  { sys: { id: '2' }, fields: { name: 'Neurotiede', slug: 'neurotiede' } },
-];
-
-const placeholderTeachers: TeacherEntry[] = [
-  { sys: { id: '1' }, fields: { name: 'Prof. Matti Meikäläinen', slug: 'matti-meikalainen' } },
-  { sys: { id: '2' }, fields: { name: 'Dr. Maija Virtanen', slug: 'maija-virtanen' } },
-];
-
-// Courses hooks
-export function useCourses() {
-  return useQuery({
-    queryKey: queryKeys.courses,
-    queryFn: async () => {
-      const courses = await getCourses();
-      return courses.length > 0 ? courses : placeholderCourses;
-    },
-    staleTime: 5 * 60 * 1000, // 5 minutes
-    gcTime: 30 * 60 * 1000, // 30 minutes (previously cacheTime)
-    placeholderData: placeholderCourses,
-  });
+export function useCourses(initial?: CourseEntry[] | null) {
+  return useQuery({ queryKey: queryKeys.courses, queryFn: getCourses, ...fromLoader(initial) });
 }
 
 export function useCourse(id: string) {
   return useQuery({
     queryKey: queryKeys.course(id),
-    queryFn: async () => {
-      const data = await getCourse(id);
-      return data;
-    },
-    staleTime: 5 * 60 * 1000,
-    gcTime: 30 * 60 * 1000,
+    queryFn: () => getCourse(id),
     enabled: !!id,
   });
 }
 
-// Majors hooks
-export function useMajors() {
-  return useQuery({
-    queryKey: queryKeys.majors,
-    queryFn: async () => {
-      const majors = await getMajors();
-      return majors.length > 0 ? majors : placeholderMajors;
-    },
-    staleTime: 5 * 60 * 1000,
-    gcTime: 30 * 60 * 1000,
-    placeholderData: placeholderMajors,
-  });
+export function useMajors(initial?: MajorEntry[] | null) {
+  return useQuery({ queryKey: queryKeys.majors, queryFn: getMajors, ...fromLoader(initial) });
 }
 
 export function useMajor(slug: string) {
   return useQuery({
     queryKey: queryKeys.major(slug),
-    queryFn: async () => {
-      const data = await getMajor(slug);
-      return data;
-    },
-    staleTime: 5 * 60 * 1000,
-    gcTime: 30 * 60 * 1000,
+    queryFn: () => getMajor(slug),
     enabled: !!slug,
   });
 }
 
-// Teachers hooks
-export function useTeachers() {
-  return useQuery({
-    queryKey: queryKeys.teachers,
-    queryFn: async () => {
-      const teachers = await getTeachers();
-      return teachers.length > 0 ? teachers : placeholderTeachers;
-    },
-    staleTime: 5 * 60 * 1000,
-    gcTime: 30 * 60 * 1000,
-    placeholderData: placeholderTeachers,
-  });
+// Majors whose curriculum includes the given course entry
+export function useMajorsForCourse(courseEntryId: string | undefined) {
+  const { data: majors } = useMajors();
+  return useMemo(
+    () =>
+      courseEntryId && majors
+        ? majors.filter((m) => majorCourses(m).some((c) => c.sys.id === courseEntryId))
+        : [],
+    [majors, courseEntryId]
+  );
+}
+
+export function useTeachers(initial?: TeacherEntry[] | null) {
+  return useQuery({ queryKey: queryKeys.teachers, queryFn: getTeachers, ...fromLoader(initial) });
 }
 
 export function useTeacher(slug: string) {
   return useQuery({
     queryKey: queryKeys.teacher(slug),
-    queryFn: async () => {
-      const data = await getTeacher(slug);
-      return data;
-    },
-    staleTime: 5 * 60 * 1000,
-    gcTime: 30 * 60 * 1000,
+    queryFn: () => getTeacher(slug),
     enabled: !!slug,
   });
 }
 
-// Prefetching hooks
 export function usePrefetch() {
   const queryClient = useQueryClient();
 
-  const prefetchCourse = (id: string) => {
-    queryClient.prefetchQuery({
-      queryKey: queryKeys.course(id),
-      queryFn: () => getCourse(id),
-      staleTime: 5 * 60 * 1000,
-    });
+  return {
+    prefetchCourse: (id: string) =>
+      queryClient.prefetchQuery({ queryKey: queryKeys.course(id), queryFn: () => getCourse(id) }),
+    prefetchMajor: (slug: string) =>
+      queryClient.prefetchQuery({ queryKey: queryKeys.major(slug), queryFn: () => getMajor(slug) }),
+    prefetchTeacher: (slug: string) =>
+      queryClient.prefetchQuery({ queryKey: queryKeys.teacher(slug), queryFn: () => getTeacher(slug) }),
   };
-
-  const prefetchMajor = (slug: string) => {
-    queryClient.prefetchQuery({
-      queryKey: queryKeys.major(slug),
-      queryFn: () => getMajor(slug),
-      staleTime: 5 * 60 * 1000,
-    });
-  };
-
-  const prefetchTeacher = (slug: string) => {
-    queryClient.prefetchQuery({
-      queryKey: queryKeys.teacher(slug),
-      queryFn: () => getTeacher(slug),
-      staleTime: 5 * 60 * 1000,
-    });
-  };
-
-  return { prefetchCourse, prefetchMajor, prefetchTeacher };
 }

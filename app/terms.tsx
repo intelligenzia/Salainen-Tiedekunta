@@ -7,7 +7,7 @@ import { ScrollView, View } from 'react-native';
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <View className="mb-6">
-      <Text className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-2 tracking-tight">{title}</Text>
+      <Text className="text-lg font-semibold text-ink mb-2 tracking-tight">{title}</Text>
       {children}
     </View>
   );
@@ -15,7 +15,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 
 function Paragraph({ children }: { children: React.ReactNode }) {
   return (
-    <Text className="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed mb-3">{children}</Text>
+    <Text className="text-ink-soft text-sm leading-relaxed mb-3">{children}</Text>
   );
 }
 
@@ -34,22 +34,22 @@ export default function TermsScreen() {
         jsonLd={[breadcrumbSchema]}
       />
       <Stack.Screen options={{ title: 'Käyttöehdot' }} />
-      <ScrollView className="flex-1 bg-white dark:bg-zinc-900">
-        <View className="max-w-4xl mx-auto w-full p-4">
+      <ScrollView className="flex-1 bg-paper" contentInsetAdjustmentBehavior="automatic">
+        <View className="max-w-3xl mx-auto w-full p-4">
           
-          <View className="mb-6 pb-4 border-b border-zinc-200 dark:border-zinc-700">
-            <Text className="text-xl font-semibold text-zinc-900 dark:text-zinc-100 tracking-tight">
+          <View className="mb-6 pb-4 border-b border-rule">
+            <Text role="heading" aria-level="1" className="text-2xl font-bold text-ink tracking-tight">
               Käyttöehdot
             </Text>
-            <Text className="text-zinc-500 dark:text-zinc-400 text-sm mt-1">
-              Päivitetty: 13.1.2025
+            <Text className="text-ink-muted text-sm mt-1">
+              Päivitetty: 18.10.2026
             </Text>
           </View>
 
           <Section title="1. Yleistä">
             <Paragraph>
               Nämä käyttöehdot koskevat Salainen Tiedekunta -mobiilisovellusta ja
-              verkkosivustoa (jäljempänä "Palvelu"). Käyttämällä Palvelua hyväksyt
+              verkkosivustoa (jäljempänä &quot;Palvelu&quot;). Käyttämällä Palvelua hyväksyt
               nämä käyttöehdot.
             </Paragraph>
             <Paragraph>
@@ -90,15 +90,13 @@ export default function TermsScreen() {
               levittää Palvelun sisältöä ilman erillistä lupaa.
             </Paragraph>
             <Paragraph>
-              Kurssitiedot ja opettajatiedot ovat peräisin Helsingin yliopiston
-              julkisista lähteistä ja niitä käytetään tiedotus- ja
-              opetustarkoituksiin.
+              Palvelun kurssi-, pääaine- ja opettajatiedot ovat Salaisen Tiedekunnan omaa, satiirista sisältöä. Ne eivät ole Helsingin yliopiston virallisia tietoja.
             </Paragraph>
           </Section>
 
           <Section title="6. Vastuunrajoitukset">
             <Paragraph>
-              Palvelu tarjotaan "sellaisenaan" ilman takuita. Emme takaa Palvelun
+              Palvelu tarjotaan &quot;sellaisenaan&quot; ilman takuita. Emme takaa Palvelun
               keskeytymätöntä tai virheetöntä toimintaa. Emme vastaa Palvelun
               käytöstä aiheutuvista välittömistä tai välillisistä vahingoista.
             </Paragraph>
@@ -133,8 +131,7 @@ export default function TermsScreen() {
 
           <Section title="10. Yhteystiedot">
             <Paragraph>
-              Kysymykset käyttöehdoista voi lähettää osoitteeseen:
-              info@tiedekunta.fi
+              Kysymykset käyttöehdoista voi lähettää X-tilille @tiedekunta (x.com/tiedekunta).
             </Paragraph>
           </Section>
         </View>

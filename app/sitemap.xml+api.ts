@@ -1,113 +1,42 @@
 import { getCourses, getMajors, getTeachers } from '@/lib/contentful';
+import { absoluteUrl } from '@/lib/seo';
 
-const SITE_URL = 'https://tiedekunta.com';
+type Entry = { sys: { updatedAt?: string } };
 
-interface SitemapUrl {
-  loc: string;
-  lastmod: string;
-  changefreq: string;
-  priority: string;
+const day = (iso?: string) => (iso ? iso.slice(0, 10) : undefined);
+const newest = (entries: Entry[]) => day(entries.map((e) => e.sys.updatedAt ?? '').sort().at(-1));
+
+function url(path: string, lastmod?: string) {
+  return `  <url>\n    <loc>${absoluteUrl(path)}</loc>${lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ''}\n  </url>`;
 }
 
-function generateSitemapXml(urls: SitemapUrl[]): string {
-  const urlEntries = urls
-    .map(
-      (url) => `  <url>
-    <loc>${url.loc}</loc>
-    <lastmod>${url.lastmod}</lastmod>
-    <changefreq>${url.changefreq}</changefreq>
-    <priority>${url.priority}</priority>
-  </url>`
-    )
-    .join('\n');
-
-  return `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urlEntries}
-</urlset>`;
-}
-
+/** Sitemap with real last-modified dates from Contentful. */
 export async function GET(): Promise<Response> {
-  const today = new Date().toISOString().split('T')[0];
-  const urls: SitemapUrl[] = [];
+  const urls: string[] = [];
 
-  // Static pages
-  urls.push({
-    loc: SITE_URL,
-    lastmod: today,
-    changefreq: 'daily',
-    priority: '1.0',
-  });
-
-  urls.push({
-    loc: `${SITE_URL}/courses`,
-    lastmod: today,
-    changefreq: 'weekly',
-    priority: '0.8',
-  });
-
-  urls.push({
-    loc: `${SITE_URL}/majors`,
-    lastmod: today,
-    changefreq: 'weekly',
-    priority: '0.8',
-  });
-
-  urls.push({
-    loc: `${SITE_URL}/teachers`,
-    lastmod: today,
-    changefreq: 'weekly',
-    priority: '0.8',
-  });
-
-  // Dynamic pages from Contentful
   try {
-    // Courses
-    const courses = await getCourses();
-    for (const course of courses) {
-      const courseId = course.fields.courseId || course.sys.id;
-      urls.push({
-        loc: `${SITE_URL}/courses/${encodeURIComponent(courseId)}`,
-        lastmod: today,
-        changefreq: 'monthly',
-        priority: '0.6',
-      });
-    }
+    const [courses, majors, teachers] = await Promise.all([getCourses(), getMajors(), getTeachers()]);
+    const all = [...courses, ...majors, ...teachers];
 
-    // Majors
-    const majors = await getMajors();
-    for (const major of majors) {
-      const slug = major.fields.slug || major.sys.id;
-      urls.push({
-        loc: `${SITE_URL}/majors/${encodeURIComponent(slug)}`,
-        lastmod: today,
-        changefreq: 'monthly',
-        priority: '0.6',
-      });
-    }
-
-    // Teachers
-    const teachers = await getTeachers();
-    for (const teacher of teachers) {
-      const slug = teacher.fields.slug;
-      if (slug) {
-        urls.push({
-          loc: `${SITE_URL}/teachers/${encodeURIComponent(slug)}`,
-          lastmod: today,
-          changefreq: 'monthly',
-          priority: '0.6',
-        });
-      }
-    }
+    urls.push(url('/', newest(all)));
+    urls.push(url('/courses', newest(courses)));
+    urls.push(url('/majors', newest(majors)));
+    urls.push(url('/teachers', newest(teachers)));
+    for (const c of courses) urls.push(url(`/courses/${c.fields.courseId || c.sys.id}`, day(c.sys.updatedAt)));
+    for (const m of majors) urls.push(url(`/majors/${m.fields.slug || m.sys.id}`, day(m.sys.updatedAt)));
+    for (const t of teachers) if (t.fields.slug) urls.push(url(`/teachers/${t.fields.slug}`, day(t.sys.updatedAt)));
   } catch (error) {
-    console.error('Error fetching Contentful data for sitemap:', error);
+    console.error('sitemap: Contentful unavailable', error);
+    urls.push(url('/'), url('/courses'), url('/majors'), url('/teachers'));
   }
 
-  const sitemap = generateSitemapXml(urls);
+  for (const path of ['/privacy', '/terms', '/license', '/copyright', '/open-source']) urls.push(url(path));
 
-  return new Response(sitemap, {
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`;
+
+  return new Response(xml, {
     headers: {
-      'Content-Type': 'application/xml',
+      'Content-Type': 'application/xml; charset=utf-8',
       'Cache-Control': 'public, max-age=3600, s-maxage=3600',
     },
   });

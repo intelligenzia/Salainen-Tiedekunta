@@ -7,7 +7,7 @@ import { ScrollView, View } from 'react-native';
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <View className="mb-6">
-      <Text className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-2 tracking-tight">{title}</Text>
+      <Text className="text-lg font-semibold text-ink mb-2 tracking-tight">{title}</Text>
       {children}
     </View>
   );
@@ -15,7 +15,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 
 function Paragraph({ children }: { children: React.ReactNode }) {
   return (
-    <Text className="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed mb-3">{children}</Text>
+    <Text className="text-ink-soft text-sm leading-relaxed mb-3">{children}</Text>
   );
 }
 
@@ -36,24 +36,24 @@ export default function CopyrightScreen() {
         jsonLd={[breadcrumbSchema]}
       />
       <Stack.Screen options={{ title: 'Tekijänoikeudet' }} />
-      <ScrollView className="flex-1 bg-white dark:bg-zinc-900">
-        <View className="max-w-4xl mx-auto w-full p-4">
+      <ScrollView className="flex-1 bg-paper" contentInsetAdjustmentBehavior="automatic">
+        <View className="max-w-3xl mx-auto w-full p-4">
           
-          <View className="mb-6 pb-4 border-b border-zinc-200 dark:border-zinc-700">
-            <Text className="text-xl font-semibold text-zinc-900 dark:text-zinc-100 tracking-tight">
+          <View className="mb-6 pb-4 border-b border-rule">
+            <Text role="heading" aria-level="1" className="text-2xl font-bold text-ink tracking-tight">
               Tekijänoikeudet
             </Text>
-            <Text className="text-zinc-500 dark:text-zinc-400 text-sm mt-1">
+            <Text className="text-ink-muted text-sm mt-1">
               Copyright Notice
             </Text>
           </View>
 
           
-          <View className="bg-zinc-900 dark:bg-zinc-800 rounded-lg p-6 mb-6">
-            <Text className="text-white text-lg font-semibold text-center">
+          <View className="bg-sunken rounded-2xl p-6 mb-6">
+            <Text className="font-semibold text-ink text-lg text-center">
               © {currentYear} Salainen Tiedekunta ry
             </Text>
-            <Text className="text-zinc-400 text-sm text-center mt-2">
+            <Text className="text-ink-muted text-sm text-center mt-2">
               Kaikki oikeudet pidätetään
             </Text>
           </View>
@@ -112,14 +112,14 @@ export default function CopyrightScreen() {
           </Section>
 
           
-          <View className="mt-8 mb-8 bg-zinc-50 dark:bg-zinc-800 rounded-lg p-4">
-            <Text className="text-zinc-900 dark:text-zinc-100 font-semibold mb-2">
+          <View className="mt-8 mb-8 bg-sunken rounded-lg p-4">
+            <Text className="text-ink font-semibold mb-2">
               Salainen Tiedekunta ry
             </Text>
-            <Text className="text-zinc-600 dark:text-zinc-400 text-sm">
+            <Text className="text-ink-soft text-sm">
               Helsingin yliopiston kognitiotieteen opiskelijoiden opintopiiri
             </Text>
-            <Text className="text-zinc-500 dark:text-zinc-400 text-sm mt-2">
+            <Text className="text-ink-muted text-sm mt-2">
               Perustettu 1998
             </Text>
           </View>

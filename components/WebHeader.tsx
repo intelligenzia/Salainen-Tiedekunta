@@ -1,93 +1,71 @@
-import { Platform, View, Pressable, useWindowDimensions, Modal } from 'react-native';
-import { Link, usePathname } from 'expo-router';
 import { Text } from '@/components/ui/text';
-import { useTheme } from '@/lib/stores/theme';
-import { haptics } from '@/lib/haptics';
-import { Sun, Moon, Monitor, Menu, X, Home, GraduationCap, BookOpen, Users } from 'lucide-react-native';
-import { useState, useCallback } from 'react';
+import { useColors, useTheme } from '@/lib/stores/theme';
+import { Link, usePathname, type Href } from 'expo-router';
+import { Monitor, Moon, Sun } from 'lucide-react-native';
+import { Platform, Pressable, View } from 'react-native';
 
-const navItems = [
-  { href: '/', label: 'Etusivu', icon: Home },
-  { href: '/majors', label: 'Pääaineet', icon: GraduationCap },
-  { href: '/courses', label: 'Kurssit', icon: BookOpen },
-  { href: '/teachers', label: 'Opettajat', icon: Users },
+const navItems: { href: Href; label: string; match: string }[] = [
+  { href: '/majors', label: 'Pääaineet', match: '/majors' },
+  { href: '/courses', label: 'Kurssit', match: '/courses' },
+  { href: '/teachers', label: 'Opettajat', match: '/teachers' },
 ];
 
-// Breakpoint for mobile (matches Tailwind's md breakpoint)
-const MOBILE_BREAKPOINT = 768;
+const themeLabels = {
+  light: 'Vaalea teema',
+  dark: 'Tumma teema',
+  system: 'Järjestelmän teema',
+} as const;
 
 export function WebHeader() {
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
-  const { width } = useWindowDimensions();
-  const [menuOpen, setMenuOpen] = useState(false);
+  const colors = useColors();
 
-  const closeMenu = useCallback(() => {
-    haptics.light();
-    setMenuOpen(false);
-  }, []);
-
-  const isMobile = width < MOBILE_BREAKPOINT;
-
-  if (Platform.OS !== 'web') {
-    return null;
-  }
-
-  const isActive = (href: string) => {
-    if (href === '/') return pathname === '/';
-    return pathname.startsWith(href);
-  };
+  if (Platform.OS !== 'web') return null;
 
   const ThemeIcon = theme === 'light' ? Sun : theme === 'dark' ? Moon : Monitor;
-  const themeLabel =
-    theme === 'light' ? 'Vaalea teema' : theme === 'dark' ? 'Tumma teema' : 'Järjestelmän teema';
 
-  // Mobile menu modal
-  const MobileMenu = () => (
-    <Modal
-      visible={menuOpen}
-      animationType="fade"
-      transparent
-      onRequestClose={closeMenu}
-    >
-      <Pressable
-        className="flex-1 bg-black/50"
-        onPress={closeMenu}
-      >
-        <View className="absolute top-0 right-0 bottom-0 w-72 bg-zinc-950 border-l border-zinc-800">
-          
-          <View className="flex-row items-center justify-between px-4 h-14 border-b border-zinc-800">
-            <Text className="text-zinc-50 font-semibold">Menu</Text>
-            <Pressable
-              onPress={closeMenu}
-              className="p-2 -mr-2 rounded-md active:bg-zinc-800"
-              accessibilityLabel="Sulje menu"
-            >
-              <X size={24} color="#fafafa" />
+  return (
+    <View role="banner" className="sticky top-0 z-50">
+      {/* Classification strip */}
+      <View className="bg-[#0e0e0f] border-b border-rule">
+        <View className="w-full max-w-3xl self-center flex-row items-center justify-between px-4 sm:px-6 h-7">
+          <Text className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#eeedea]">
+            Luokiteltu
+          </Text>
+          <Text className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#f0444f]">
+            Pääsy vain valtuutetuille
+          </Text>
+        </View>
+      </View>
+
+      <View className="bg-paper/90 border-b border-rule backdrop-blur-md">
+        <View className="w-full max-w-3xl self-center px-4 sm:px-6 h-14 flex-row items-center justify-between gap-2">
+          <Link href="/" asChild>
+            <Pressable accessibilityRole="link" accessibilityLabel="Salainen Tiedekunta, etusivu" className="flex-row items-center gap-2.5 cursor-pointer">
+              <View className="h-5 w-5 items-center justify-center border-2 border-ink">
+                <View className="h-1.5 w-1.5 bg-stamp" />
+              </View>
+              <Text className="font-mono text-[13px] font-semibold uppercase tracking-[0.12em] text-ink">Sal·Tdk</Text>
             </Pressable>
-          </View>
+          </Link>
 
-          
-          <View className="p-2">
+          <View role="navigation" className="flex-row items-center">
             {navItems.map((item) => {
-              const Icon = item.icon;
-              const active = isActive(item.href);
+              const active = pathname.startsWith(item.match);
               return (
-                <Link key={item.href} href={item.href as any} asChild>
+                <Link key={item.match} href={item.href} asChild>
                   <Pressable
-                    onPress={closeMenu}
                     accessibilityRole="link"
-                    accessibilityLabel={item.label}
-                    accessibilityState={{ selected: active }}
-                    className={`flex-row items-center px-4 py-3 rounded-lg mb-1 ${
-                      active ? 'bg-zinc-800' : 'active:bg-zinc-800'
-                    }`}
+                    aria-current={active ? 'page' : undefined}
+                    className="px-2.5 sm:px-3 py-2 cursor-pointer active:opacity-60"
                   >
-                    <Icon size={20} color={active ? '#fafafa' : '#a1a1aa'} />
                     <Text
-                      className={`ml-3 text-base ${
-                        active ? 'text-zinc-50 font-medium' : 'text-zinc-400'
-                      }`}
+                      className={
+                        active
+                          ? 'text-ink text-[14px] font-semibold underline decoration-stamp decoration-2 underline-offset-[6px]'
+                          : 'text-ink-soft text-[14px]'
+                      }
                     >
                       {item.label}
                     </Text>
@@ -95,134 +73,17 @@ export function WebHeader() {
                 </Link>
               );
             })}
-          </View>
-
-          
-          <View className="px-2 mt-4 pt-4 border-t border-zinc-800">
             <Pressable
-              onPress={() => {
-                haptics.selection();
-                toggleTheme();
-              }}
-              className="flex-row items-center px-4 py-3 rounded-lg active:bg-zinc-800"
+              onPress={toggleTheme}
               accessibilityRole="button"
-              accessibilityLabel={`Vaihda teemaa: ${themeLabel}`}
+              accessibilityLabel={`${themeLabels[theme]}. Vaihda teemaa.`}
+              className="ml-1 h-9 w-9 items-center justify-center cursor-pointer active:opacity-60"
             >
-              <ThemeIcon size={20} color="#a1a1aa" />
-              <Text className="ml-3 text-base text-zinc-400">
-                {themeLabel}
-              </Text>
+              <ThemeIcon size={16} color={colors.muted} />
             </Pressable>
           </View>
-        </View>
-      </Pressable>
-    </Modal>
-  );
-
-  return (
-    <>
-      <View className="bg-zinc-950 border-b border-zinc-800 sticky top-0 z-50">
-        <View className="max-w-4xl mx-auto px-4 h-14 flex-row items-center justify-between w-full">
-          
-          <Link href="/" asChild>
-            <Pressable
-              className="flex-row items-center"
-              accessibilityRole="link"
-              accessibilityLabel="Salainen Tiedekunta etusivu"
-            >
-              <Text className="text-zinc-50 font-semibold text-lg tracking-tight">
-                Sal. tdk.
-              </Text>
-            </Pressable>
-          </Link>
-
-          
-          {!isMobile && (
-            <View className="flex-row items-center gap-1">
-              {navItems.map((item) => (
-                <Link key={item.href} href={item.href as any} asChild>
-                  <Pressable
-                    accessibilityRole="link"
-                    accessibilityLabel={item.label}
-                    accessibilityState={{ selected: isActive(item.href) }}
-                    className={`px-3 py-2 rounded-md transition-colors ${
-                      isActive(item.href)
-                        ? 'bg-zinc-800'
-                        : 'hover:bg-zinc-900 active:bg-zinc-800'
-                    }`}
-                  >
-                    <Text
-                      className={`text-sm ${
-                        isActive(item.href)
-                          ? 'text-zinc-50 font-medium'
-                          : 'text-zinc-400 hover:text-zinc-200'
-                      }`}
-                    >
-                      {item.label}
-                    </Text>
-                  </Pressable>
-                </Link>
-              ))}
-
-
-              <Pressable
-                onPress={() => {
-                  haptics.selection();
-                  toggleTheme();
-                }}
-                accessibilityRole="button"
-                accessibilityLabel={`Vaihda teemaa: ${themeLabel}`}
-                className="ml-2 p-2 rounded-md hover:bg-zinc-900 active:bg-zinc-800"
-              >
-                <ThemeIcon size={18} color="#a1a1aa" />
-              </Pressable>
-            </View>
-          )}
-
-          
-          {isMobile && (
-            <View className="flex-row items-center gap-2">
-              
-              <View className="px-2 py-1 bg-zinc-800 rounded">
-                <Text className="text-zinc-300 text-xs">
-                  {navItems.find((item) => isActive(item.href))?.label || 'Menu'}
-                </Text>
-              </View>
-
-
-              <Pressable
-                onPress={() => {
-                  haptics.selection();
-                  toggleTheme();
-                }}
-                accessibilityRole="button"
-                accessibilityLabel={`Vaihda teemaa: ${themeLabel}`}
-                className="p-2 rounded-md active:bg-zinc-800"
-              >
-                <ThemeIcon size={20} color="#a1a1aa" />
-              </Pressable>
-
-
-              <Pressable
-                onPress={() => {
-                  haptics.light();
-                  setMenuOpen(true);
-                }}
-                accessibilityRole="button"
-                accessibilityLabel="Avaa menu"
-                className="p-2 -mr-2 rounded-md active:bg-zinc-800"
-              >
-                <Menu size={24} color="#fafafa" />
-              </Pressable>
-            </View>
-          )}
         </View>
       </View>
-
-      
-      {isMobile && <MobileMenu />}
-    </>
+    </View>
   );
 }
-
-

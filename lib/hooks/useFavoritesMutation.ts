@@ -1,11 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useFavorites } from '../stores/favorites';
 import { queryKeys } from './useQueries';
-import { analytics, AnalyticsEvents } from '../analytics';
 
 /**
  * React Query mutation hooks for favorites management
- * Provides optimistic updates, cache invalidation, and analytics tracking
+ * Provides optimistic updates and cache invalidation.
  */
 
 export function useToggleFavoriteMutation() {
@@ -21,29 +20,9 @@ export function useToggleFavoriteMutation() {
 
       return { courseId, action: wasFavorite ? 'unfavorite' : 'favorite' };
     },
-    onSuccess: ({ courseId, action }) => {
-      // Track analytics event
-      analytics.trackMutation('Toggle Favorite', {
-        course_id: courseId,
-        action,
-      });
-
-      // Track specific event
-      if (action === 'favorite') {
-        analytics.track(AnalyticsEvents.COURSE_FAVORITED, { course_id: courseId });
-      } else {
-        analytics.track(AnalyticsEvents.COURSE_UNFAVORITED, { course_id: courseId });
-      }
-
+    onSuccess: () => {
       // Invalidate courses query to reflect favorite status changes
       queryClient.invalidateQueries({ queryKey: queryKeys.courses });
-    },
-    onError: (error, { courseId }) => {
-      // Track error
-      analytics.trackError(error as Error, {
-        mutation: 'Toggle Favorite',
-        course_id: courseId,
-      });
     },
   });
 }
@@ -70,22 +49,13 @@ export function useAddFavoriteMutation() {
       // Return context for rollback
       return { previousCourses };
     },
-    onError: (error, courseId, context) => {
+    onError: (_error, _courseId, context) => {
       // Rollback on error
       if (context?.previousCourses) {
         queryClient.setQueryData(queryKeys.courses, context.previousCourses);
       }
-
-      // Track error
-      analytics.trackError(error as Error, {
-        mutation: 'Add Favorite',
-        course_id: courseId,
-      });
     },
-    onSuccess: (courseId) => {
-      // Track analytics
-      analytics.track(AnalyticsEvents.COURSE_FAVORITED, { course_id: courseId });
-
+    onSuccess: () => {
       // Invalidate to refetch
       queryClient.invalidateQueries({ queryKey: queryKeys.courses });
     },
@@ -114,22 +84,13 @@ export function useRemoveFavoriteMutation() {
       // Return context for rollback
       return { previousCourses };
     },
-    onError: (error, courseId, context) => {
+    onError: (_error, _courseId, context) => {
       // Rollback on error
       if (context?.previousCourses) {
         queryClient.setQueryData(queryKeys.courses, context.previousCourses);
       }
-
-      // Track error
-      analytics.trackError(error as Error, {
-        mutation: 'Remove Favorite',
-        course_id: courseId,
-      });
     },
-    onSuccess: (courseId) => {
-      // Track analytics
-      analytics.track(AnalyticsEvents.COURSE_UNFAVORITED, { course_id: courseId });
-
+    onSuccess: () => {
       // Invalidate to refetch
       queryClient.invalidateQueries({ queryKey: queryKeys.courses });
     },
@@ -146,20 +107,9 @@ export function useClearFavoritesMutation() {
       clearFavorites();
       return count;
     },
-    onSuccess: (count) => {
-      // Track analytics
-      analytics.trackMutation('Clear Favorites', {
-        favorites_count: count,
-      });
-
+    onSuccess: () => {
       // Invalidate courses query
       queryClient.invalidateQueries({ queryKey: queryKeys.courses });
-    },
-    onError: (error) => {
-      // Track error
-      analytics.trackError(error as Error, {
-        mutation: 'Clear Favorites',
-      });
     },
   });
 }

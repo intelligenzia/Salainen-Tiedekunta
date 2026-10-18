@@ -1,29 +1,14 @@
+import { useStackOptions } from '@/lib/navigation';
+import { useLanguage } from '@/lib/stores/language';
 import { Stack } from 'expo-router';
-import { Platform } from 'react-native';
-
-const isWeb = Platform.OS === 'web';
 
 export default function SettingsLayout() {
+  const { t } = useLanguage();
+  const screenOptions = useStackOptions(true);
+
   return (
-    <Stack
-      screenOptions={{
-        headerShown: !isWeb,
-        headerStyle: {
-          backgroundColor: '#09090b',
-        },
-        headerTintColor: '#fafafa',
-        headerTitleStyle: {
-          fontWeight: '600',
-        },
-        headerShadowVisible: false,
-      }}
-    >
-      <Stack.Screen
-        name="index"
-        options={{
-          title: 'Asetukset',
-        }}
-      />
+    <Stack screenOptions={screenOptions}>
+      <Stack.Screen name="index" options={{ title: t('settings') }} />
     </Stack>
   );
 }

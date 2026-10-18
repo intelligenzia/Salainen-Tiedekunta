@@ -34,6 +34,9 @@ yarn-error.*
 .env*.local
 .env
 
+# App Clip Contentful credentials (mirrors .env; template in appclip-notes.md)
+targets/clip/ContentfulConfig.swift
+
 # typescript
 *.tsbuildinfo
 
@@ -42,3 +45,9 @@ app-example
 # generated native folders
 /ios
 /android
+
+# goldie render output
+goldie/out/
+
+# Netlify
+.netlify/

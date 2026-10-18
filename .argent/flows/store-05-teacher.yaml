@@ -1,0 +1,9 @@
+steps:
+  - launch: com.tiedekunta.app
+  - await: { visible: { text: Päivän kurssit } }
+  - tap: { text: Opettajat }
+  - await: { visible: { text: Otto Lapsi } }
+  - tap: { text: Otto Lapsi }
+  - await: { visible: { text: Koomiset aivovauriot } }
+  - wait: 1200
+  - await: { idle: true }

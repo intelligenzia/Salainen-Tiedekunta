@@ -1,0 +1,14 @@
+executionPrerequisite: >-
+  App on the home tab, scrolled a little.
+steps:
+  - tap: { text: Kurssit }
+  - await: { visible: { text: Abduktio tutkimusmenetelmänä } }
+  - wait: 1200
+  - tap: { text: Suosikit }
+  - wait: 1200
+  - tap: { text: Kaikki }
+  - await: { visible: { text: Antipsykiatria } }
+  - wait: 600
+  - tool: gesture-swipe
+    args: { fromX: 0.5, fromY: 0.75, toX: 0.5, toY: 0.55, durationMs: 700 }
+  - wait: 1000

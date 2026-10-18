@@ -1,5 +1,6 @@
 import { TextClassContext } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
+import { useColors } from '@/lib/stores/theme';
 import * as AccordionPrimitive from '@rn-primitives/accordion';
 import { ChevronDown } from 'lucide-react-native';
 import { Platform, Pressable, View } from 'react-native';
@@ -37,7 +38,7 @@ function AccordionItem({
   return (
     <AccordionPrimitive.Item
       className={cn(
-        'border-zinc-200 dark:border-zinc-700 border-b',
+        'border-rule border-b',
         Platform.select({ web: 'last:border-b-0' }),
         className
       )}
@@ -63,6 +64,7 @@ function AccordionTrigger({
   children?: React.ReactNode;
 } & React.RefAttributes<AccordionPrimitive.TriggerRef>) {
   const { isExpanded } = AccordionPrimitive.useItemContext();
+  const colors = useColors();
 
   const progress = useDerivedValue(
     () => (isExpanded ? withTiming(1, { duration: 250 }) : withTiming(0, { duration: 200 })),
@@ -79,7 +81,7 @@ function AccordionTrigger({
     <TextClassContext.Provider
       value={cn(
         'text-left text-sm font-medium',
-        Platform.select({ web: 'group-hover:underline' })
+        undefined
       )}>
       <AccordionPrimitive.Header>
         <AccordionPrimitive.Trigger {...props} asChild>
@@ -87,13 +89,13 @@ function AccordionTrigger({
             className={cn(
               'flex-row items-start justify-between gap-4 rounded-md py-4 disabled:opacity-50',
               Platform.select({
-                web: 'focus-visible:border-zinc-400 focus-visible:ring-zinc-400/50 flex flex-1 outline-none transition-all hover:underline focus-visible:ring-[3px] disabled:pointer-events-none [&[data-state=open]>svg]:rotate-180',
+                web: 'cursor-pointer flex flex-1 outline-none disabled:pointer-events-none',
               }),
               className
             )}>
             <>{children}</>
             <Animated.View style={chevronStyle}>
-              <ChevronDown size={16} color="#71717a" />
+              <ChevronDown size={18} color={colors.muted} strokeWidth={1.75} />
             </Animated.View>
           </Trigger>
         </AccordionPrimitive.Trigger>

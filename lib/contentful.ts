@@ -10,16 +10,24 @@ function getBaseUrl(): string {
   return `https://cdn.contentful.com/spaces/${SPACE_ID}/environments/master`;
 }
 
+function request(endpoint: string) {
+  return fetch(`${getBaseUrl()}${endpoint}`, {
+    headers: { Authorization: `Bearer ${ACCESS_TOKEN}` },
+  });
+}
+
 async function fetchContentful<T>(endpoint: string): Promise<T> {
   if (!ACCESS_TOKEN) {
     throw new Error('EXPO_PUBLIC_CONTENTFUL_ACCESS_TOKEN is missing');
   }
 
-  const response = await fetch(`${getBaseUrl()}${endpoint}`, {
-    headers: {
-      Authorization: `Bearer ${ACCESS_TOKEN}`,
-    },
-  });
+  let response = await request(endpoint);
+  // The CDA rate-limits bursts (e.g. pre-rendering every page at build time)
+  for (let attempt = 1; response.status === 429 && attempt <= 5; attempt++) {
+    const reset = Number(response.headers.get('X-Contentful-RateLimit-Reset'));
+    await new Promise((r) => setTimeout(r, (reset > 0 ? reset * 1000 : 0) + attempt * 250));
+    response = await request(endpoint);
+  }
 
   if (!response.ok) {
     throw new Error(`Contentful API error: ${response.status}`);
@@ -60,18 +68,22 @@ export interface ContentfulLink {
 export interface TeacherEntry {
   sys: {
     id: string;
+    updatedAt?: string;
   };
   fields: {
     name?: string;
     slug: string;
     avatar?: ContentfulLink;
   };
+  // Resolved from `avatar` by getTeachers()/getTeacher()
+  avatarUrl?: string;
 }
 
 // Course entry type
 export interface CourseEntry {
   sys: {
     id: string;
+    updatedAt?: string;
   };
   fields: {
     courseId?: string;
@@ -86,6 +98,7 @@ export interface CourseEntry {
 export interface MajorEntry {
   sys: {
     id: string;
+    updatedAt?: string;
   };
   fields: {
     name: string;
@@ -122,9 +135,21 @@ function resolveLinks<T extends { sys: { id: string }; fields: unknown }>(
 // Majors
 export async function getMajors(): Promise<MajorEntry[]> {
   const response = await fetchContentful<ContentfulResponse<MajorEntry>>(
-    '/entries?content_type=major&include=2'
+    '/entries?content_type=major&include=1&order=fields.name'
   );
-  return response.items;
+  // Resolve course links so lists can show real course counts and credits
+  return response.items.map((major) => ({
+    ...major,
+    fields: {
+      ...major.fields,
+      courses: resolveLinks<CourseEntry>(major.fields.courses, response.includes?.Entry),
+    },
+  }));
+}
+
+// Courses that a major lists, after getMajors() has resolved the links
+export function majorCourses(major: MajorEntry): CourseEntry[] {
+  return (major.fields.courses ?? []).filter((c): c is CourseEntry => 'fields' in c);
 }
 
 export async function getMajor(slug: string): Promise<{ major: MajorEntry; courses: CourseEntry[] } | null> {
@@ -145,7 +170,7 @@ export async function getMajor(slug: string): Promise<{ major: MajorEntry; cours
 // Courses
 export async function getCourses(): Promise<CourseEntry[]> {
   const response = await fetchContentful<ContentfulResponse<CourseEntry>>(
-    '/entries?content_type=course&include=2'
+    '/entries?content_type=course&include=1&order=fields.name&limit=1000'
   );
   return response.items;
 }
@@ -158,9 +183,9 @@ export async function getCourse(courseId: string): Promise<{ course: CourseEntry
   if (!response.items[0]) return null;
 
   const course = response.items[0];
-  const teachers = course.fields.teacher
-    ? resolveLinks<TeacherEntry>(course.fields.teacher, response.includes?.Entry)
-    : [];
+  const teachers = resolveLinks<TeacherEntry>(course.fields.teacher, response.includes?.Entry).map(
+    (teacher) => ({ ...teacher, avatarUrl: assetUrl(teacher.fields.avatar, response.includes?.Asset) })
+  );
 
   return { course, teachers };
 }
@@ -168,12 +193,22 @@ export async function getCourse(courseId: string): Promise<{ course: CourseEntry
 // Teachers
 export async function getTeachers(): Promise<TeacherEntry[]> {
   const response = await fetchContentful<ContentfulResponse<TeacherEntry>>(
-    '/entries?content_type=teacher&include=1'
+    '/entries?content_type=teacher&include=1&order=fields.name'
   );
-  return response.items;
+  return response.items.map((teacher) => ({
+    ...teacher,
+    avatarUrl: assetUrl(teacher.fields.avatar, response.includes?.Asset),
+  }));
 }
 
-export async function getTeacher(slug: string): Promise<{ teacher: TeacherEntry; avatar?: ContentfulAsset } | null> {
+function assetUrl(link: ContentfulLink | undefined, assets: ContentfulAsset[] | undefined) {
+  const url = link && assets?.find((asset) => asset.sys.id === link.sys.id)?.fields.file?.url;
+  return url ? `https:${url}` : undefined;
+}
+
+export async function getTeacher(
+  slug: string
+): Promise<{ teacher: TeacherEntry; avatar?: ContentfulAsset; courses: CourseEntry[] } | null> {
   const response = await fetchContentful<ContentfulResponse<TeacherEntry>>(
     `/entries?content_type=teacher&fields.slug=${encodeURIComponent(slug)}&limit=1&include=1`
   );
@@ -186,13 +221,19 @@ export async function getTeacher(slug: string): Promise<{ teacher: TeacherEntry;
     (asset) => asset.sys.id === avatarLink.sys.id
   );
 
-  return { teacher, avatar };
+  const courses = await getCoursesByTeacher(teacher.sys.id);
+
+  return {
+    teacher: { ...teacher, avatarUrl: assetUrl(avatarLink, response.includes?.Asset) },
+    avatar,
+    courses,
+  };
 }
 
 // Get courses by teacher
 export async function getCoursesByTeacher(teacherId: string): Promise<CourseEntry[]> {
   const response = await fetchContentful<ContentfulResponse<CourseEntry>>(
-    `/entries?content_type=course&links_to_entry=${teacherId}&include=1`
+    `/entries?content_type=course&links_to_entry=${teacherId}&include=0&order=fields.name`
   );
   return response.items;
 }

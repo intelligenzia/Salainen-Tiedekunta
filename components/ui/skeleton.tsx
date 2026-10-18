@@ -25,16 +25,16 @@ export function Skeleton({
   style,
 }: SkeletonProps) {
   const opacity = useSharedValue(0.5);
-  const [reduceMotion, setReduceMotion] = React.useState(false);
+  const [reduceMotion, setReduceMotion] = React.useState(() => {
+    if (Platform.OS === 'web' && typeof window !== 'undefined') {
+      return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    }
+    return false;
+  });
 
   useEffect(() => {
-    // Check for reduced motion preference
-    if (Platform.OS !== 'web') {
-      AccessibilityInfo.isReduceMotionEnabled().then(setReduceMotion);
-    } else if (typeof window !== 'undefined') {
-      const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-      setReduceMotion(mq.matches);
-    }
+    if (Platform.OS === 'web') return;
+    AccessibilityInfo.isReduceMotionEnabled().then(setReduceMotion);
   }, []);
 
   useEffect(() => {
@@ -52,7 +52,7 @@ export function Skeleton({
     return () => {
       cancelAnimation(opacity);
     };
-  }, [reduceMotion]);
+  }, [opacity, reduceMotion]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     opacity: opacity.value,
@@ -71,7 +71,7 @@ export function Skeleton({
         animatedStyle,
         style,
       ]}
-      className={cn('bg-zinc-200 dark:bg-zinc-700', className)}
+      className={cn('bg-sunken', className)}
     />
   );
 }

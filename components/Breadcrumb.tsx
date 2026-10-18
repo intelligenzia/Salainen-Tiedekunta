@@ -1,67 +1,43 @@
 import { Text } from '@/components/ui/text';
-import { Link } from 'expo-router';
-import { ChevronRight, Home } from 'lucide-react-native';
-import React from 'react';
+import { Link, type Href } from 'expo-router';
+import { Fragment } from 'react';
 import { Platform, Pressable, View } from 'react-native';
 
 interface BreadcrumbItem {
   label: string;
-  href?: string;
+  href?: Href;
 }
 
-interface BreadcrumbProps {
-  items: BreadcrumbItem[];
-}
+/** Web-only trail above detail pages. Native relies on the back button. */
+export function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
+  if (Platform.OS !== 'web') return null;
 
-export function Breadcrumb({ items }: BreadcrumbProps) {
-  // Only show on web
-  if (Platform.OS !== 'web') {
-    return null;
-  }
+  const trail: BreadcrumbItem[] = [{ label: 'Etusivu', href: '/' }, ...items];
 
   return (
-    <View
-      className="flex-row items-center flex-wrap py-3 px-4 bg-zinc-50 dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800"
-      accessibilityRole="navigation"
-      accessibilityLabel="Breadcrumb"
-    >
-      <View className="flex-row items-center max-w-4xl mx-auto w-full">
-        
-        <Link href="/" asChild>
-          <Pressable
-            className="p-1 rounded hover:bg-zinc-200 dark:hover:bg-zinc-700 active:bg-zinc-200"
-            accessibilityLabel="Etusivu"
-            accessibilityRole="link"
-          >
-            <Home size={16} color="#71717a" />
-          </Pressable>
-        </Link>
-
-        {items.map((item, index) => (
-          <React.Fragment key={index}>
-            <ChevronRight size={14} color="#a1a1aa" style={{ marginHorizontal: 8 }} />
-            {item.href && index < items.length - 1 ? (
-              <Link href={item.href} asChild>
-                <Pressable
-                  className="hover:underline active:opacity-70"
-                  accessibilityRole="link"
-                >
-                  <Text className="text-zinc-600 dark:text-zinc-400 text-sm">
-                    {item.label}
-                  </Text>
-                </Pressable>
-              </Link>
-            ) : (
-              <Text
-                className="text-zinc-900 dark:text-zinc-100 text-sm font-medium"
-                accessibilityRole="text"
-                aria-current={index === items.length - 1 ? 'page' : undefined}
-              >
-                {item.label}
-              </Text>
-            )}
-          </React.Fragment>
-        ))}
+    <View role="navigation" aria-label="Murupolku" className="bg-paper">
+      <View className="w-full max-w-3xl self-center px-6 pt-6 flex-row flex-wrap items-center gap-2">
+        {trail.map((item, index) => {
+          const last = index === trail.length - 1;
+          return (
+            <Fragment key={index}>
+              {index > 0 ? <Text className="text-ink-muted text-sm">/</Text> : null}
+              {item.href && !last ? (
+                <Link href={item.href} asChild>
+                  <Pressable accessibilityRole="link" className="cursor-pointer">
+                    <Text className="text-ink-muted text-sm underline decoration-rule-strong underline-offset-4">
+                      {item.label}
+                    </Text>
+                  </Pressable>
+                </Link>
+              ) : (
+                <Text aria-current="page" className="text-ink text-sm font-medium" numberOfLines={1}>
+                  {item.label}
+                </Text>
+              )}
+            </Fragment>
+          );
+        })}
       </View>
     </View>
   );

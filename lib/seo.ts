@@ -7,86 +7,63 @@ export interface PageMeta {
   description: string;
   path: string;
   type?: 'website' | 'article' | 'profile';
+  /** Absolute URL of a 1200×630 share image; see ogImage(). */
   image?: string;
+  imageAlt?: string;
   publishedTime?: string;
   modifiedTime?: string;
   author?: string;
 }
 
+/** Absolute URL for a path, with non-ASCII segments percent-encoded. */
+export function absoluteUrl(path: string) {
+  return `${SITE_URL}${encodeURI(decodeURI(path))}`;
+}
+
+/**
+ * Share images rendered at build time by scripts/generate-og.mjs:
+ * `ogImage()` is the site card, `ogImage('courses')` a section card and
+ * `ogImage('courses', entryId)` the card for one Contentful entry.
+ */
+export function ogImage(section?: 'courses' | 'majors' | 'teachers', entryId?: string) {
+  if (!section) return `${SITE_URL}/og/default.png`;
+  return entryId ? `${SITE_URL}/og/${section}/${entryId}.png` : `${SITE_URL}/og/${section}.png`;
+}
+
+/** Trims text to a meta-description length at a word boundary. */
+export function summarize(text: string, max = 155) {
+  const clean = text.replace(/\s+/g, ' ').trim();
+  if (clean.length <= max) return clean;
+  return clean.slice(0, max).replace(/\s+\S*$/, '').replace(/[,.;:]$/, '') + '…';
+}
+
 export function createPageMeta(meta: PageMeta) {
-  const fullTitle = meta.title.includes(SITE_NAME) ? meta.title : `${meta.title} - ${SITE_NAME}`;
-  const canonicalUrl = `${SITE_URL}${meta.path}`;
+  const fullTitle = meta.title.includes(SITE_NAME) ? meta.title : `${meta.title} – ${SITE_NAME}`;
+  const canonical = absoluteUrl(meta.path);
+  const image = meta.image || ogImage();
 
   return {
     title: fullTitle,
     description: meta.description,
-    canonical: canonicalUrl,
+    canonical,
     openGraph: {
       title: fullTitle,
       description: meta.description,
-      url: canonicalUrl,
+      url: canonical,
       siteName: SITE_NAME,
       type: meta.type || 'website',
       locale: 'fi_FI',
-      image: meta.image || `${SITE_URL}/og-image.png`,
+      image,
+      imageAlt: meta.imageAlt || fullTitle,
     },
     twitter: {
       card: 'summary_large_image' as const,
       title: fullTitle,
       description: meta.description,
-      image: meta.image || `${SITE_URL}/og-image.png`,
+      image,
     },
   };
 }
-
-export const organizationSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'EducationalOrganization',
-  '@id': `${SITE_URL}/#organization`,
-  name: SITE_NAME,
-  alternateName: 'Sal. tdk.',
-  url: SITE_URL,
-  logo: {
-    '@type': 'ImageObject',
-    url: `${SITE_URL}/icon.png`,
-    width: 512,
-    height: 512,
-  },
-  description: SITE_DESCRIPTION,
-  foundingDate: '1998',
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: 'Helsinki',
-    addressCountry: 'FI',
-  },
-  parentOrganization: {
-    '@type': 'CollegeOrUniversity',
-    name: 'Helsingin yliopisto',
-    url: 'https://www.helsinki.fi',
-  },
-  sameAs: ['https://www.helsinki.fi'],
-};
-
-export const websiteSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  '@id': `${SITE_URL}/#website`,
-  url: SITE_URL,
-  name: SITE_NAME,
-  description: SITE_DESCRIPTION,
-  inLanguage: 'fi',
-  publisher: {
-    '@id': `${SITE_URL}/#organization`,
-  },
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: {
-      '@type': 'EntryPoint',
-      urlTemplate: `${SITE_URL}/courses?q={search_term_string}`,
-    },
-    'query-input': 'required name=search_term_string',
-  },
-};
 
 export function createBreadcrumbSchema(items: { name: string; url: string }[]) {
   return {
@@ -96,41 +73,41 @@ export function createBreadcrumbSchema(items: { name: string; url: string }[]) {
       '@type': 'ListItem',
       position: index + 1,
       name: item.name,
-      item: item.url,
+      item: absoluteUrl(item.url.replace(SITE_URL, '') || '/'),
     })),
   };
 }
 
 export function createCourseSchema(course: {
   name: string;
-  courseId?: string;
-  description?: string;
+  courseId: string;
+  description: string;
   ects?: number;
+  image?: string;
   teachers?: { name: string; slug: string }[];
 }) {
+  const url = absoluteUrl(`/courses/${course.courseId}`);
   return {
     '@context': 'https://schema.org',
     '@type': 'Course',
-    '@id': `${SITE_URL}/courses/${course.courseId}`,
+    '@id': url,
+    url,
     name: course.name,
     courseCode: course.courseId,
-    description: course.description || `${course.name} - ${course.ects} opintopistettä`,
-    provider: {
-      '@id': `${SITE_URL}/#organization`,
-    },
-    numberOfCredits: course.ects,
-    educationalCredentialAwarded: `${course.ects} ECTS`,
+    description: course.description,
     inLanguage: 'fi',
-    hasCourseInstance: {
-      '@type': 'CourseInstance',
-      courseMode: 'onsite',
-      courseWorkload: `PT${(course.ects || 5) * 27}H`,
-    },
+    provider: { '@id': `${SITE_URL}/#organization` },
+    ...(course.image && { image: course.image }),
+    ...(course.ects && {
+      numberOfCredits: course.ects,
+      educationalCredentialAwarded: `${course.ects} op`,
+    }),
     ...(course.teachers?.length && {
       instructor: course.teachers.map((t) => ({
         '@type': 'Person',
+        '@id': absoluteUrl(`/teachers/${t.slug}`),
         name: t.name,
-        url: `${SITE_URL}/teachers/${t.slug}`,
+        url: absoluteUrl(`/teachers/${t.slug}`),
       })),
     }),
   };
@@ -139,60 +116,45 @@ export function createCourseSchema(course: {
 export function createPersonSchema(person: {
   name: string;
   slug: string;
-  jobTitle?: string;
-  email?: string;
   description?: string;
   image?: string;
 }) {
+  const url = absoluteUrl(`/teachers/${person.slug}`);
   return {
     '@context': 'https://schema.org',
     '@type': 'Person',
-    '@id': `${SITE_URL}/teachers/${person.slug}`,
+    '@id': url,
+    url,
     name: person.name,
-    url: `${SITE_URL}/teachers/${person.slug}`,
-    jobTitle: person.jobTitle || 'Professori',
-    worksFor: {
-      '@id': `${SITE_URL}/#organization`,
-    },
-    ...(person.email && { email: `mailto:${person.email}` }),
+    worksFor: { '@id': `${SITE_URL}/#organization` },
     ...(person.description && { description: person.description }),
-    ...(person.image && {
-      image: {
-        '@type': 'ImageObject',
-        url: person.image,
-      },
-    }),
+    ...(person.image && { image: person.image }),
   };
 }
 
 export function createStudyProgramSchema(program: {
   name: string;
   slug: string;
-  description?: string;
+  description: string;
   courses?: { name: string; courseId: string }[];
   totalCredits?: number;
 }) {
+  const url = absoluteUrl(`/majors/${program.slug}`);
   return {
     '@context': 'https://schema.org',
     '@type': 'EducationalOccupationalProgram',
-    '@id': `${SITE_URL}/majors/${program.slug}`,
+    '@id': url,
+    url,
     name: program.name,
-    url: `${SITE_URL}/majors/${program.slug}`,
-    description: program.description || `${program.name} - opintokokonaisuus`,
-    provider: {
-      '@id': `${SITE_URL}/#organization`,
-    },
-    educationalProgramMode: 'full-time',
-    timeToComplete: 'P3Y',
-    numberOfCredits: {
-      '@type': 'StructuredValue',
-      value: program.totalCredits || 180,
-      unitText: 'ECTS',
-    },
+    description: program.description,
+    provider: { '@id': `${SITE_URL}/#organization` },
+    ...(program.totalCredits && {
+      numberOfCredits: { '@type': 'StructuredValue', value: program.totalCredits, unitText: 'op' },
+    }),
     ...(program.courses?.length && {
       hasCourse: program.courses.map((c) => ({
         '@type': 'Course',
-        '@id': `${SITE_URL}/courses/${c.courseId}`,
+        '@id': absoluteUrl(`/courses/${c.courseId}`),
         name: c.name,
         courseCode: c.courseId,
       })),
@@ -200,10 +162,7 @@ export function createStudyProgramSchema(program: {
   };
 }
 
-export function createItemListSchema(
-  name: string,
-  items: { name: string; url: string; position?: number }[]
-) {
+export function createItemListSchema(name: string, items: { name: string; url: string }[]) {
   return {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -211,27 +170,9 @@ export function createItemListSchema(
     numberOfItems: items.length,
     itemListElement: items.map((item, index) => ({
       '@type': 'ListItem',
-      position: item.position || index + 1,
+      position: index + 1,
       name: item.name,
-      url: item.url,
+      url: absoluteUrl(item.url.replace(SITE_URL, '') || '/'),
     })),
   };
 }
-
-export function createFAQSchema(faqs: { question: string; answer: string }[]) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: faqs.map((faq) => ({
-      '@type': 'Question',
-      name: faq.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: faq.answer,
-      },
-    })),
-  };
-}
-
-
-

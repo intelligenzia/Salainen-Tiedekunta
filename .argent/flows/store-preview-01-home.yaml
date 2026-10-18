@@ -1,0 +1,7 @@
+steps:
+  - launch: com.tiedekunta.app
+  - await: { visible: { text: Päivän kurssit } }
+  - wait: 1500
+  - tool: gesture-swipe
+    args: { fromX: 0.5, fromY: 0.75, toX: 0.5, toY: 0.4, durationMs: 700 }
+  - wait: 1500

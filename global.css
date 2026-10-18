@@ -2,7 +2,58 @@
 @import 'uniwind';
 
 /*
- * Uniwind requires direct color values, not CSS variable references.
- * Using Tailwind's built-in zinc palette for a monochromatic design.
- * Dark mode is handled via dark: variant classes in components.
+ * Design tokens: "classified archive". Near-monochrome ink on paper (light)
+ * or terminal black (dark), with one red used only for classification marks,
+ * the active state and destructive emphasis. Every variant defines the same
+ * variables.
  */
+@layer theme {
+  :root {
+    @variant light {
+      --color-paper: #eeedea;
+      --color-surface: #ffffff;
+      --color-sunken: #e4e2de;
+      --color-ink: #0e0e0f;
+      --color-ink-soft: #3a3a3d;
+      --color-ink-muted: #76757a;
+      --color-rule: #dcdad5;
+      --color-rule-strong: #c6c3bd;
+      --color-stamp: #c1121f;
+      --color-stamp-soft: #f6e1e2;
+      --color-on-stamp: #ffffff;
+    }
+
+    @variant dark {
+      --color-paper: #09090a;
+      --color-surface: #141416;
+      --color-sunken: #1d1d20;
+      --color-ink: #ececee;
+      --color-ink-soft: #bdbdc2;
+      --color-ink-muted: #85858c;
+      --color-rule: #232327;
+      --color-rule-strong: #313136;
+      --color-stamp: #f0444f;
+      --color-stamp-soft: #2a1214;
+      --color-on-stamp: #09090a;
+    }
+
+    @variant web {
+      --font-mono: 'IBM Plex Mono';
+    }
+    @variant native {
+      --font-mono: 'Menlo';
+    }
+  }
+}
+
+@utility border-hairline {
+  border-width: hairlineWidth();
+}
+
+@utility h-hairline {
+  height: hairlineWidth();
+}
+
+@utility w-hairline {
+  width: hairlineWidth();
+}

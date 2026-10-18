@@ -1,0 +1,9 @@
+executionPrerequisite: >-
+  Courses tab showing all courses, scrolled slightly so Antipsykiatria is visible.
+steps:
+  - tap: { text: Antipsykiatria }
+  - await: { visible: { text: Tps331 } }
+  - wait: 1500
+  - tool: gesture-swipe
+    args: { fromX: 0.5, fromY: 0.75, toX: 0.5, toY: 0.35, durationMs: 800 }
+  - wait: 1200

@@ -4,9 +4,7 @@ import { createBreadcrumbSchema, SITE_URL } from '@/lib/seo';
 import { useTheme } from '@/lib/stores/theme';
 import { Stack } from 'expo-router';
 import { ExternalLink } from 'lucide-react-native';
-import { Linking, Platform, Pressable, ScrollView, View } from 'react-native';
-
-const isWeb = Platform.OS === 'web';
+import { Linking, Pressable, ScrollView, View } from 'react-native';
 
 // Dependencies from package.json
 const dependencies = [
@@ -16,9 +14,6 @@ const dependencies = [
   { name: '@expo/vector-icons', version: '^15.0.3', license: 'MIT', url: 'https://github.com/expo/vector-icons' },
   { name: '@legendapp/list', version: '^2.0.19', license: 'MIT', url: 'https://github.com/LegendApp/legend-list' },
   { name: '@react-native-async-storage/async-storage', version: '^2.2.0', license: 'MIT', url: 'https://github.com/react-native-async-storage/async-storage' },
-  { name: '@react-navigation/bottom-tabs', version: '^7.4.0', license: 'MIT', url: 'https://github.com/react-navigation/react-navigation' },
-  { name: '@react-navigation/elements', version: '^2.6.3', license: 'MIT', url: 'https://github.com/react-navigation/react-navigation' },
-  { name: '@react-navigation/native', version: '^7.1.8', license: 'MIT', url: 'https://github.com/react-navigation/react-navigation' },
   { name: '@rn-primitives/accordion', version: '^1.2.0', license: 'MIT', url: 'https://github.com/roninoss/rn-primitives' },
   { name: '@rn-primitives/portal', version: '^1.3.0', license: 'MIT', url: 'https://github.com/roninoss/rn-primitives' },
   { name: '@rn-primitives/slot', version: '^1.2.0', license: 'MIT', url: 'https://github.com/roninoss/rn-primitives' },
@@ -74,20 +69,20 @@ function PackageItem({ name, version, license, url, isDark }: PackageItemProps) 
   return (
     <Pressable
       onPress={() => Linking.openURL(url)}
-      className="px-4 py-3 border-b border-zinc-100 dark:border-zinc-700 active:bg-zinc-50 dark:active:bg-zinc-700"
+      className="px-4 py-3 border-b border-rule active:bg-sunken"
       accessibilityRole="link"
       accessibilityLabel={`${name} - ${license} lisenssi`}
     >
       <View className="flex-row items-center justify-between">
         <View className="flex-1 pr-4">
-          <Text className="text-zinc-900 dark:text-zinc-100 text-sm font-medium">{name}</Text>
-          <Text className="text-zinc-500 dark:text-zinc-400 text-xs mt-0.5">{version}</Text>
+          <Text className="text-ink text-sm font-medium">{name}</Text>
+          <Text className="text-ink-muted text-xs mt-0.5">{version}</Text>
         </View>
         <View className="flex-row items-center">
-          <View className="bg-zinc-100 dark:bg-zinc-700 px-2 py-1 rounded mr-2">
-            <Text className="text-zinc-600 dark:text-zinc-300 text-xs font-mono">{license}</Text>
+          <View className="bg-sunken px-2 py-1 rounded mr-2">
+            <Text className="text-ink-soft text-xs font-mono">{license}</Text>
           </View>
-          <ExternalLink size={14} color={isDark ? '#71717a' : '#a1a1aa'} />
+          <ExternalLink size={14} color={isDark ? '#968d7f' : '#7a7266'} />
         </View>
       </View>
     </Pressable>
@@ -110,14 +105,14 @@ export default function OpenSourceScreen() {
         jsonLd={[breadcrumbSchema]}
       />
       <Stack.Screen options={{ title: 'Avoimen lähdekoodin kirjastot' }} />
-      <ScrollView className="flex-1 bg-white dark:bg-zinc-900">
-        <View className="max-w-4xl mx-auto w-full">
+      <ScrollView className="flex-1 bg-paper" contentInsetAdjustmentBehavior="automatic">
+        <View className="max-w-3xl mx-auto w-full">
           
-          <View className="p-4 border-b border-zinc-200 dark:border-zinc-700">
-            <Text className="text-xl font-semibold text-zinc-900 dark:text-zinc-100 tracking-tight">
+          <View className="p-4 border-b border-rule">
+            <Text role="heading" aria-level="1" className="text-2xl font-bold text-ink tracking-tight">
               Avoimen lähdekoodin kirjastot
             </Text>
-            <Text className="text-zinc-500 dark:text-zinc-400 text-sm mt-2 leading-relaxed">
+            <Text className="text-ink-muted text-sm mt-2 leading-relaxed">
               Tämä sovellus käyttää seuraavia avoimen lähdekoodin kirjastoja.
               Kiitämme kaikkia kehittäjiä heidän työstään.
             </Text>
@@ -125,10 +120,10 @@ export default function OpenSourceScreen() {
 
           
           <View className="mt-4">
-            <Text className="text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wide px-4 mb-2">
+            <Text className="text-xs font-medium text-ink-muted uppercase tracking-wide px-4 mb-2">
               Riippuvuudet ({dependencies.length})
             </Text>
-            <View className="bg-white dark:bg-zinc-800 border-y border-zinc-200 dark:border-zinc-700">
+            <View className="bg-surface border-y border-rule">
               {dependencies.map((pkg) => (
                 <PackageItem key={pkg.name} {...pkg} isDark={isDark} />
               ))}
@@ -137,10 +132,10 @@ export default function OpenSourceScreen() {
 
           
           <View className="mt-6 mb-8">
-            <Text className="text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wide px-4 mb-2">
+            <Text className="text-xs font-medium text-ink-muted uppercase tracking-wide px-4 mb-2">
               Kehitysriippuvuudet ({devDependencies.length})
             </Text>
-            <View className="bg-white dark:bg-zinc-800 border-y border-zinc-200 dark:border-zinc-700">
+            <View className="bg-surface border-y border-rule">
               {devDependencies.map((pkg) => (
                 <PackageItem key={pkg.name} {...pkg} isDark={isDark} />
               ))}

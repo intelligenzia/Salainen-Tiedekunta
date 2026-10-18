@@ -1,16 +1,16 @@
 {
   "name": "Salainen Tiedekunta",
-  "short_name": "Sal. tdk.",
-  "description": "Helsingin yliopiston kognitiotieteen opintopiiri",
+  "short_name": "Sal·Tdk",
+  "description": "Kognitiotieteen salainen opinto-opas",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#09090b",
+  "background_color": "#09090a",
+  "theme_color": "#09090a",
   "icons": [
     {
-      "src": "/favicon.png",
-      "sizes": "48x48",
-      "type": "image/png"
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
     },
     {
       "src": "/icon-192.png",
@@ -21,11 +21,17 @@
       "src": "/icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
+    },
+    {
+      "src": "/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
   "lang": "fi",
-  "categories": ["education"]
+  "categories": [
+    "education"
+  ],
+  "id": "/"
 }
-
-
-

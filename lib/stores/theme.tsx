@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import { Platform, useColorScheme as useSystemColorScheme, Appearance } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Uniwind } from 'uniwind';
+import { getThemeColors } from '@/lib/theme-colors';
 
 const STORAGE_KEY = '@theme_preference';
 
@@ -43,7 +45,7 @@ const storage = {
 };
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const systemTheme = useSystemColorScheme() ?? 'light';
+  const systemTheme: ResolvedTheme = useSystemColorScheme() === 'dark' ? 'dark' : 'light';
   const [theme, setThemeState] = useState<ThemeMode>('system');
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -71,12 +73,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }
   }, [theme, isLoaded]);
 
-  // Apply theme class to document on web
+  // Keep Uniwind (className tokens) and native UI in sync with the preference
   useEffect(() => {
+    Uniwind.setTheme(theme);
     if (Platform.OS === 'web' && typeof document !== 'undefined') {
       const resolvedTheme = theme === 'system' ? systemTheme : theme;
       document.documentElement.classList.remove('light', 'dark');
       document.documentElement.classList.add(resolvedTheme);
+      document.documentElement.style.colorScheme = resolvedTheme;
     }
   }, [theme, systemTheme]);
 
@@ -113,4 +117,9 @@ export function useTheme() {
     throw new Error('useTheme must be used within a ThemeProvider');
   }
   return context;
+}
+
+// Plain color strings for props that can't take a className (icons, headers)
+export function useColors() {
+  return getThemeColors(useTheme().isDark);
 }

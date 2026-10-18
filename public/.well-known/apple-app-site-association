@@ -1,0 +1,18 @@
+{
+  "appclips": {
+    "apps": ["68A7FT779W.com.tiedekunta.app.Clip"]
+  },
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": ["68A7FT779W.com.tiedekunta.app"],
+        "components": [
+          { "/": "/courses/*" },
+          { "/": "/majors/*" },
+          { "/": "/teachers/*" }
+        ]
+      }
+    ]
+  }
+}

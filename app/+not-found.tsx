@@ -14,23 +14,24 @@ export default function NotFoundScreen() {
         title="Sivua ei löydy"
         description="Etsimääsi sivua ei löytynyt."
         path="/404"
+        noIndex
       />
-      <SafeAreaView className="flex-1 bg-white dark:bg-zinc-900" edges={['top', 'bottom']}>
+      <SafeAreaView className="flex-1 bg-paper" edges={['top', 'bottom']}>
         <View className="flex-1 items-center justify-center px-6">
-          <Text className="text-8xl font-bold text-zinc-200 dark:text-zinc-700">
+          <Text className="text-8xl font-bold text-rule-strong">
             404
           </Text>
-          <Text className="text-xl font-semibold text-zinc-900 dark:text-zinc-100 mt-4 text-center">
+          <Text className="text-xl font-semibold text-ink mt-4 text-center">
             Sivua ei löydy
           </Text>
-          <Text className="text-zinc-500 dark:text-zinc-400 text-center mt-2 max-w-sm">
+          <Text className="text-ink-muted text-center mt-2 max-w-sm">
             Etsimääsi sivua ei valitettavasti löytynyt. Se on saatettu poistaa tai siirtää toiseen osoitteeseen.
           </Text>
           <Pressable
             onPress={() => router.replace('/')}
-            className="mt-8 bg-zinc-900 dark:bg-zinc-100 px-6 py-3 rounded-lg active:opacity-80"
+            className="mt-8 bg-ink px-6 py-3 rounded-lg active:opacity-80"
           >
-            <Text className="text-white dark:text-zinc-900 font-medium">
+            <Text className="text-paper font-medium">
               Palaa etusivulle
             </Text>
           </Pressable>
