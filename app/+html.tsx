@@ -102,6 +102,13 @@ export default function Root({ children }: PropsWithChildren) {
             color: #ffffff;
           }
         `}} />
+        {/* Self-hosted Umami at stats.perttu.dev */}
+        <script
+          defer
+          src='https://stats.perttu.dev/p.js'
+          data-website-id='7dcb7779-6889-4484-951c-6041d958e549'
+          data-domains='tiedekunta.com,www.tiedekunta.com'
+        />
         {headNodes}
       </head>
       <body {...bodyAttributes}>
